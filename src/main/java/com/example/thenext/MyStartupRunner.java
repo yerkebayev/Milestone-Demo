@@ -31,10 +31,10 @@ public class MyStartupRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         service.saveEmployee(new Employee("Bilbo Baggins", "burglar"));
         service.saveEmployee(new Employee("Frodo Baggins", "thief"));
-//        uploadMovieFile();
-//        uploadRatingFile();
-//        uploadUserFile();
-        System.out.println("Done");
+        uploadMovieFile();
+        uploadRatingFile();
+        uploadUserFile();
+        System.out.println("Ready");
 
     }
     public void uploadMovieFile() throws IOException {
