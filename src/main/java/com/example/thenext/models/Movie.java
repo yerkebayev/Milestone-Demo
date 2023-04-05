@@ -1,9 +1,11 @@
 package com.example.thenext.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
-@Table(name="Movies")
+@Table
+@Data
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +15,15 @@ public class Movie {
     @Column
     private String genre;
 
+    public Movie(long id, String title, String genre) {
+        this.id = id;
+        this.title = title;
+        this.genre = genre;
+    }
+
+    public Movie() {
+
+    }
 
     public long getId() {
         return id;

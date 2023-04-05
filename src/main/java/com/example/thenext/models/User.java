@@ -1,9 +1,11 @@
 package com.example.thenext.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
-@Table(name="Users")
+@Table
+@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +19,19 @@ public class User {
     private String Occupation;
     @Column
     private String ZipCode;
+
+    public User(Long id, String gender, Integer age, String occupation, String zipCode) {
+        this.id = id;
+        Gender = gender;
+        Age = age;
+        Occupation = occupation;
+        ZipCode = zipCode;
+    }
+
+    public User() {
+
+    }
+
     public String getGender() {
         return Gender;
     }

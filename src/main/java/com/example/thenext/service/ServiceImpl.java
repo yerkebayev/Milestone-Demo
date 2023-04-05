@@ -1,13 +1,18 @@
 package com.example.thenext.service;
 
+import com.example.thenext.job.CSVHelper;
 import com.example.thenext.models.Movie;
 import com.example.thenext.models.User;
 import com.example.thenext.models.Rating;
 import com.example.thenext.repository.MovieRepository;
+import com.example.thenext.repository.RatingRepository;
 import com.example.thenext.repository.UserRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +21,13 @@ public class ServiceImpl implements Service {
 
     private final MovieRepository movieRepository;
     private final UserRepository userRepository;
+    private final RatingRepository ratingRepository;
 
-    public ServiceImpl(MovieRepository movieRepository, UserRepository userRepository) {
+
+    public ServiceImpl(MovieRepository movieRepository, UserRepository userRepository, RatingRepository ratingRepository) {
         this.movieRepository = movieRepository;
         this.userRepository = userRepository;
+        this.ratingRepository = ratingRepository;
     }
 
     @Override
@@ -67,8 +75,40 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    @Query("SELECT r.movie FROM Rating r WHERE r.rating >= :rating")
-    public List<Movie> getMoviesWithRatingMoreThan(Integer rate) {
-        return null;
+    public List<Movie> getMoviesWithRatingMoreThan(@Param("rate")Integer rate) {
+        List<Long> idOfMovies =  movieRepository.findMoviesWithAverageRatingGreaterThan(rate);
+        List<Movie> res = new ArrayList<>();
+        idOfMovies.forEach(i -> res.add(getMovie(i).get()));
+        return res;
+    }
+    @Override
+    public void importMovieCsv(MultipartFile file) {
+        try {
+            List<Movie> movies = CSVHelper.csvToMovies(file.getInputStream());
+            movieRepository.saveAll(movies);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
+    public void importUserCsv(MultipartFile file) {
+        try {
+            List<User> users = CSVHelper.csvToUsers(file.getInputStream());
+            userRepository.saveAll(users);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void importRatingCsv(MultipartFile file) {
+        try {
+            List<Rating> ratings = CSVHelper.csvToRatings(file.getInputStream());
+            ratingRepository.saveAll(ratings);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

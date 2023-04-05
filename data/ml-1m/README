@@ -140,7 +140,7 @@ MOVIES FILE DESCRIPTION
 Movie information is in the file "movies.dat" and is in the following
 format:
 
-MovieID::Title::Genres
+    MovieID::Title::Genres
 
 - Titles are identical to titles provided by the IMDB (including
 year of release)
