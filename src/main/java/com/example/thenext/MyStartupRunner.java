@@ -34,6 +34,8 @@ public class MyStartupRunner implements CommandLineRunner {
         uploadMovieFile();
         uploadRatingFile();
         uploadUserFile();
+        System.out.println("Done");
+
     }
     public void uploadMovieFile() throws IOException {
         FileSystemResource csvResource = new FileSystemResource("src/main/resources/data/movies.csv");
@@ -46,7 +48,6 @@ public class MyStartupRunner implements CommandLineRunner {
         if (CSVHelper.hasCSVFormat(file)) {
             try {
                 service.importMovieCsv(file);
-                System.out.println("Done");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
