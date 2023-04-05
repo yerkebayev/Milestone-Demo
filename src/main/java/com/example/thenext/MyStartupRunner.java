@@ -32,8 +32,8 @@ public class MyStartupRunner implements CommandLineRunner {
         service.saveEmployee(new Employee("Bilbo Baggins", "burglar"));
         service.saveEmployee(new Employee("Frodo Baggins", "thief"));
         uploadMovieFile();
-        uploadRatingFile();
-        uploadUserFile();
+//        uploadRatingFile();
+//        uploadUserFile();
         System.out.println("Done");
 
     }
