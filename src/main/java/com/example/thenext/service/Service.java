@@ -1,5 +1,6 @@
 package com.example.thenext.service;
 
+import com.example.thenext.models.Employee;
 import com.example.thenext.models.Movie;
 import com.example.thenext.models.User;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,4 +21,9 @@ public interface Service {
     void importMovieCsv(MultipartFile file);
     void importUserCsv(MultipartFile file);
     void importRatingCsv(MultipartFile file);
+    List<Employee> allEmployees();
+    Optional<Employee> getEmployee(Long id);
+    void saveEmployee(Employee employee);
+    void deleteEmployee(Long id);
+
 }

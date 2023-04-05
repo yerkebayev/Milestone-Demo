@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 
-@Table
+@Table(name="ratings")
 @Entity
 @Data
 public class Rating {

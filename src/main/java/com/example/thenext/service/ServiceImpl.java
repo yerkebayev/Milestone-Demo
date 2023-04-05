@@ -1,12 +1,15 @@
 package com.example.thenext.service;
 
 import com.example.thenext.job.CSVHelper;
+import com.example.thenext.models.Employee;
 import com.example.thenext.models.Movie;
 import com.example.thenext.models.User;
 import com.example.thenext.models.Rating;
+import com.example.thenext.repository.EmployeeRepository;
 import com.example.thenext.repository.MovieRepository;
 import com.example.thenext.repository.RatingRepository;
 import com.example.thenext.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,12 +25,14 @@ public class ServiceImpl implements Service {
     private final MovieRepository movieRepository;
     private final UserRepository userRepository;
     private final RatingRepository ratingRepository;
+    private final EmployeeRepository employeeRepository;
 
 
-    public ServiceImpl(MovieRepository movieRepository, UserRepository userRepository, RatingRepository ratingRepository) {
+    public ServiceImpl(MovieRepository movieRepository, UserRepository userRepository, RatingRepository ratingRepository, EmployeeRepository employeeRepository) {
         this.movieRepository = movieRepository;
         this.userRepository = userRepository;
         this.ratingRepository = ratingRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
@@ -110,5 +115,25 @@ public class ServiceImpl implements Service {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<Employee> allEmployees() {
+        return employeeRepository.findAll();
+    }
+
+    @Override
+    public Optional<Employee> getEmployee(Long id) {
+        return employeeRepository.findById(id);
+    }
+
+    @Override
+    public void saveEmployee(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    @Override
+    public void deleteEmployee(Long id) {
+        employeeRepository.deleteById(id);
     }
 }
