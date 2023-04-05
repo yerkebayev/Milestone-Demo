@@ -31,7 +31,7 @@ public class MyStartupRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         service.saveEmployee(new Employee("Bilbo Baggins", "burglar"));
         service.saveEmployee(new Employee("Frodo Baggins", "thief"));
-        uploadMovieFile();
+//        uploadMovieFile();
 //        uploadRatingFile();
 //        uploadUserFile();
         System.out.println("Done");
