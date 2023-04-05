@@ -1,5 +1,12 @@
 HELP.md
+# Ignore target folder
+target/
 
+# Ignore IntelliJ IDEA and Maven folders
+.idea/
+.mvn/
+mvnw
+mvnw.cmd
 ### STS ###
 .apt_generated
 .classpath
