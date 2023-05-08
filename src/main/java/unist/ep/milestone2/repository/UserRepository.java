@@ -1,7 +1,9 @@
 package unist.ep.milestone2.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import unist.ep.milestone2.models.User;
+import org.springframework.stereotype.Repository;
+import unist.ep.milestone2.model.User;
 
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 }

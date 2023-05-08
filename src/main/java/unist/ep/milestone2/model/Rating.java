@@ -1,4 +1,4 @@
-package unist.ep.milestone2.models;
+package unist.ep.milestone2.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
