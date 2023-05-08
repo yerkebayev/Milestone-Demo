@@ -7,15 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Milestone2" />
         <module name="TheNext" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Milestone2" target="17" />
       <module name="TheNext" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Milestone2" options="-parameters" />
       <module name="TheNext" options="-parameters" />
     </option>
   </component>

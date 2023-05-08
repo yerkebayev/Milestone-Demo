@@ -1,11 +1,15 @@
 package unist.ep.milestone2.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "ratings")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,55 +22,4 @@ public class Rating {
     private String value;
     @Column
     private String comment;
-
-    public Rating() {
-    }
-
-    public Rating(Long id, Long userId, Long clubId, String value, String comment) {
-        this.id = id;
-        this.userId = userId;
-        this.clubId = clubId;
-        this.value = value;
-        this.comment = comment;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getClubId() {
-        return clubId;
-    }
-
-    public void setClubId(Long clubId) {
-        this.clubId = clubId;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 }
