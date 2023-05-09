@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Club Details</title>
+</head>
+<body>
+<h1 th:text="${club.name}">Club Name</h1>
+<div>
+    <h2>Description:</h2>
+    <p th:text="${club.description}">No description available.</p>
+</div>
+<div>
+    <h2>Mission:</h2>
+    <p th:text="${club.mission}">No mission statement available.</p>
+</div>
+<!--<div>-->
+<!--    <h2>Head:</h2>-->
+<!--    <p th:text="${user.name + ' ' + user.surname}">No head listed.</p>-->
+<!--</div>-->
+<div>
+    <h2>Contact:</h2>
+    <p th:text="${club.contact}">No contact information available.</p>
+</div>
+<div>
+    <h2>Ratings:</h2>
+    <ul>
+        <li th:each="rating : ${ratings}">
+            <p><strong>User:</strong> <span th:text="${rating.user.name + ' ' + rating.user.surname}">Unknown User</span></p>
+            <p><strong>Rating:</strong> <span th:text="${rating.value}">No rating</span></p>
+            <p><strong>Comment:</strong> <span th:text="${rating.comment}">No comment</span></p>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
