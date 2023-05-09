@@ -1,12 +1,13 @@
 package unist.ep.milestone2.service.impl;
 
+import org.springframework.stereotype.Service;
 import unist.ep.milestone2.model.Type;
 import unist.ep.milestone2.repository.TypeRepository;
 import unist.ep.milestone2.service.TypeService;
-
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TypeServiceImpl implements TypeService {
     private final TypeRepository typeRepository;
     TypeServiceImpl(TypeRepository typeRepository) {
@@ -28,13 +29,8 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public Type addClubType(Type clubType) {
+    public Type saveClubType(Type clubType) {
         return null;
-    }
-
-    @Override
-    public Optional<Type> updateClubType(Type clubType) {
-        return Optional.empty();
     }
 
     @Override

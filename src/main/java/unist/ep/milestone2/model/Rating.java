@@ -19,7 +19,7 @@ public class Rating {
     @Column
     private Long clubId;
     @Column
-    private String value;
+    private Integer value;
     @Column
     private String comment;
 }

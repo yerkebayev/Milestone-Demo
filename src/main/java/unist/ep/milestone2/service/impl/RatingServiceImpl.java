@@ -29,13 +29,8 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public Rating addRating(Rating rating) {
+    public Rating saveRating(Rating rating) {
         return ratingRepository.save(rating);
-    }
-
-    @Override
-    public Optional<Rating> updateRating(Rating rating) {
-        return Optional.empty();
     }
 
     @Override

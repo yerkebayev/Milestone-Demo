@@ -29,5 +29,5 @@ public class User {
     @Column
     private String password;
     @Column
-    private Role role;
+    private Integer role;
 }

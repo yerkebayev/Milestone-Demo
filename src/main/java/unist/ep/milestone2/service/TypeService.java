@@ -8,7 +8,6 @@ public interface TypeService {
     List<Type> getAllClubTypes();
     Optional<Type> getClubTypeById(Long id);
     Type getClubTypeByName(String name);
-    Type addClubType(Type clubType);
-    Optional<Type> updateClubType(Type clubType);
+    Type saveClubType(Type clubType);
     Long deleteClubTypeById(Long id);
 }

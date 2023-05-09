@@ -26,19 +26,14 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public Club getClubByName(String name) {
-
-        return clubRepository.getClubByName(name);
+    public Optional<Club> getClubByName(String name) {
+        return Optional.ofNullable(clubRepository.getClubByName(name));
     }
 
+
     @Override
-    public Club addClub(Club club) {
+    public Club saveClub(Club club) {
         return clubRepository.save(club);
-    }
-
-    @Override
-    public Optional<Club> updateClub(Club club) {
-        return Optional.empty();
     }
 
     @Override

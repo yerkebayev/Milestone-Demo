@@ -8,8 +8,7 @@ public interface RatingService {
     List<Rating> getAllRatings();
     Optional<Rating> getRatingById(Long id);
     List<Rating> getRatingsByClubId(Long clubId);
-    Rating addRating(Rating rating);
-    Optional<Rating> updateRating(Rating rating);
+    Rating saveRating(Rating rating);
     Long deleteRatingById(Long id);
     Double getAverageRatingByClubId(Long clubId);
 }
