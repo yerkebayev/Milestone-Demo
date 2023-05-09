@@ -1,0 +1,37 @@
+### Send GET request to retrieve all clubs
+GET http://localhost:8080/clubs
+
+### Send GET request to retrieve a specific club by ID
+GET http://localhost:8080/clubs/1
+
+### Send GET request to retrieve a specific club by name
+GET http://localhost:8080/name/clubs/New Club
+
+### Send POST request to add a new club
+POST http://localhost:8080/clubs
+Content-Type: application/json
+
+{
+"name": "New Club",
+"typeId": 1,
+"description": "This is a new club.",
+"mission": "Our mission is to...",
+"headId": 1,
+"contact": "contact@newclub.com"
+}
+
+### Send PUT request to update an existing club by ID
+PUT http://localhost:8080/clubs/1
+Content-Type: application/json
+
+{
+"name": "Updated Club",
+"typeId": 2,
+"description": "This is an updated club.",
+"mission": "Our mission is to...",
+"headId": 2,
+"contact": "contact@updatedclub.com"
+}
+
+### Send DELETE request to delete an existing club by ID
+DELETE http://localhost:8080/clubs/2

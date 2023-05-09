@@ -7,7 +7,6 @@ import java.util.Optional;
 public interface ClubService {
     List<Club> getAllClubs();
     Optional<Club> getClubById(Long id);
-    Optional<Club> getClubByName(String name);
     Club saveClub(Club club);
     Long deleteClubById(Long id);
 }

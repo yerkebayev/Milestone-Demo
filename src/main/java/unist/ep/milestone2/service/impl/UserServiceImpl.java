@@ -37,4 +37,11 @@ public class UserServiceImpl implements UserService {
         }
         return -1L;
     }
+
+    @Override
+    public Boolean checkUser(String email, String password) {
+        System.out.println(email);
+        System.out.println(userRepository.getUserByEmail(email).toString());
+        return userRepository.getUserByEmail(email).getPassword().equals(password);
+    }
 }

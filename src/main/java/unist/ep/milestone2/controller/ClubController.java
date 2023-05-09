@@ -26,11 +26,6 @@ public class ClubController {
         Optional<Club> optionalClub = clubService.getClubById(id);
         return optionalClub.map(club -> new ResponseEntity<>(club, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    @GetMapping(value = "/{name}", produces = "application/json")
-    public ResponseEntity<Club> getClubByName(@PathVariable String name) {
-        Optional<Club> optionalClub = clubService.getClubByName(name);
-        return optionalClub.map(club -> new ResponseEntity<>(club, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Club> addClub(@RequestBody Club club) {
         Club clubNew = clubService.saveClub(club);

@@ -9,4 +9,5 @@ public interface UserService {
     Optional<User> getUserById(Long id);
     User saveUser(User user);
     Long deleteUserById(Long id);
+    Boolean checkUser(String email, String password);
 }
