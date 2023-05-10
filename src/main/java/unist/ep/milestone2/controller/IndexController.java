@@ -1,12 +1,12 @@
 package unist.ep.milestone2.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import unist.ep.milestone2.model.Club;
+import unist.ep.milestone2.model.Rating;
+import unist.ep.milestone2.model.User;
 import unist.ep.milestone2.service.ClubService;
 import unist.ep.milestone2.service.RatingService;
 import unist.ep.milestone2.service.UserService;
@@ -33,9 +33,10 @@ public class IndexController {
     @PostMapping("/login")
     public String login(@RequestParam String email,
                         @RequestParam String password,
-                        Model model) {
-        if (userService.checkUser(email, password)) {
-            System.out.println("Home");
+                        Model model, HttpSession session) {
+        User user = userService.getUserByEmail(email, password);
+        if (user.getPassword().equals(password)) {
+            session.setAttribute("user", user);
             return "redirect:/clubs";
         } else {
             model.addAttribute("error", "Invalid email or password");
@@ -51,15 +52,46 @@ public class IndexController {
         return "clubs";
     }
     @GetMapping("/clubs/{id}")
-    public String clubPage(@PathVariable Long id, Model model) {
+    public String clubPage(@PathVariable Long id, Model model, HttpSession session) {
         Optional<Club> club = clubService.getClubById(id);
         if (club.isEmpty()) {
             return "redirect:/clubs";
         } else {
+            User user = (User) session.getAttribute("user");
             model.addAttribute("club", club.get());
             model.addAttribute("ratings", ratingService.getRatingsByClubId(id));
+            model.addAttribute("user", user);
             return "club";
         }
+    }
+    @PostMapping("/clubs/{id}")
+    public String addRating(@PathVariable Long id,
+                            @RequestParam Integer rating,
+                            @RequestParam String comment,
+                            HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        Club club = clubService.getClubById(id).orElseThrow(() -> new RuntimeException("Club not found"));
+        Rating newRating = new Rating(user, club, rating, comment);
+        ratingService.saveRating(newRating);
+        return "redirect:/clubs/" + id;
+    }
+    @PutMapping("/clubs/{id}")
+    public String editRating(@PathVariable Long id,
+                            @RequestParam Integer rating,
+                            @RequestParam String comment,
+                            @RequestParam Long ratingId,
+                            HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        Club club = clubService.getClubById(id).orElseThrow(() -> new RuntimeException("Club not found"));
+        Optional<Rating> optionalRating = ratingService.getRatingById(ratingId);
+        Rating ratingToUpdate = optionalRating.orElseThrow(() -> new RuntimeException("Rating not found"));
+        if (!ratingToUpdate.getUser().equals(user)) {
+            throw new RuntimeException("User is not authorized to edit this rating");
+        }
+        ratingToUpdate.setValue(rating);
+        ratingToUpdate.setComment(comment);
+        ratingService.saveRating(ratingToUpdate);
+        return "redirect:/clubs/" + id;
     }
 
 }

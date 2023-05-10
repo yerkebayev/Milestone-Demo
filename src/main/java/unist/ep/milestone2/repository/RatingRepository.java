@@ -12,11 +12,11 @@ import java.util.List;
 public interface RatingRepository extends JpaRepository<Rating, Long> {
     @Query("""
            SELECT r FROM Rating r
-           WHERE r.clubId = :clubId
+           WHERE r.club.id = :clubId
            """)
     List<Rating> getRatingsByClubId(@Param("clubId") Long clubId);
     @Query("""
-          SELECT AVG(r.value) FROM Rating r WHERE r.clubId = :clubId
+          SELECT AVG(r.value) FROM Rating r WHERE r.club.id = :clubId
           """)
     Double getAverageRatingByClubId(@Param("clubId") Long clubId);
 }

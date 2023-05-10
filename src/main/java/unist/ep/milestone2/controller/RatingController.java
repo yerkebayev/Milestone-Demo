@@ -41,8 +41,8 @@ public class RatingController {
         Optional<Rating> optionalRating = ratingService.getRatingById(id);
         if (optionalRating.isPresent()) {
             Rating r = optionalRating.get();
-            r.setClubId(rating.getClubId());
-            r.setUserId(rating.getUserId());
+            r.setClub(rating.getClub());
+            r.setUser(rating.getUser());
             r.setValue(rating.getValue());
             r.setComment(rating.getComment());
             ratingService.saveRating(r);

@@ -14,10 +14,10 @@
     <h2>Mission:</h2>
     <p th:text="${club.mission}">No mission statement available.</p>
 </div>
-<!--<div>-->
-<!--    <h2>Head:</h2>-->
-<!--    <p th:text="${user.name + ' ' + user.surname}">No head listed.</p>-->
-<!--</div>-->
+<div>
+    <h2>Head:</h2>
+    <p th:text="${user.name + ' ' + user.surname}">No head listed.</p>
+</div>
 <div>
     <h2>Contact:</h2>
     <p th:text="${club.contact}">No contact information available.</p>
@@ -25,12 +25,57 @@
 <div>
     <h2>Ratings:</h2>
     <ul>
-        <li th:each="rating : ${ratings}">
-            <p><strong>User:</strong> <span th:text="${rating.user.name + ' ' + rating.user.surname}">Unknown User</span></p>
-            <p><strong>Rating:</strong> <span th:text="${rating.value}">No rating</span></p>
-            <p><strong>Comment:</strong> <span th:text="${rating.comment}">No comment</span></p>
-        </li>
+        <ul>
+            <li th:each="rating : ${ratings}">
+                <p><strong>User:</strong> <span th:text="${rating.user.name + ' ' + rating.user.surname}">Unknown User</span></p>
+                <p><strong>Rating:</strong> <span th:text="${rating.value}">No rating</span></p>
+                <p><strong>Comment:</strong> <span th:text="${rating.comment}">No comment</span></p>
+                <div>
+                    <button type="button" onclick="toggleEditForm('editForm-${rating.id}');">Edit</button>
+                </div>
+                <div id="editForm-${rating.id}" style="display:none;">
+                    <form method="post" th:action="@{/clubs/{id}(id=${club.id})}">
+                        <input type="hidden" name="_method" value="PUT"/>
+                        <input type="hidden" name="ratingId" th:value="${rating.id}"/>
+                        <label for="editRating-${rating.id}">Edit Rating:</label>
+                        <input type="number" id="editRating-${rating.id}" name="rating" th:value="${rating.value}" required>
+                        <br>
+                        <label for="editComment-${rating.id}">Edit Comment:</label>
+                        <input type="text" id="editComment-${rating.id}" name="comment" th:value="${rating.comment}" required>
+                        <br>
+                        <button type="submit">Save</button>
+                        <button type="button" onclick="toggleEditForm('editForm-${rating.id}');">Cancel</button>
+                    </form>
+                    <form method="post" th:action="@{/clubs/{id}(id=${rating.id})}" style="display: inline;">
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </li>
+            <script>
+                function toggleEditForm(id) {
+                    var form = document.getElementById(id);
+                    if (form.style.display === "none") {
+                        form.style.display = "block";
+                    } else {
+                        form.style.display = "none";
+                    }
+                }
+            </script>
+        </ul>
     </ul>
+</div>
+<div>
+    <h2>Add Rating:</h2>
+    <form method="post" th:action="@{/clubs/{id}(id=${club.id})}">
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" name="rating" required>
+        <br>
+        <label for="comment">Comment:</label>
+        <input type="text" id="comment" name="comment" required>
+        <br>
+        <button type="submit">Add Rating</button>
+    </form>
 </div>
 </body>
 </html>

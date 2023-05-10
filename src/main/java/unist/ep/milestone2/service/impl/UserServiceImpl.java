@@ -39,9 +39,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean checkUser(String email, String password) {
-        System.out.println(email);
-        System.out.println(userRepository.getUserByEmail(email).toString());
-        return userRepository.getUserByEmail(email).getPassword().equals(password);
+    public User getUserByEmail(String email, String password) {
+        User user = userRepository.getUserByEmail(email);
+        if (user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
     }
 }
