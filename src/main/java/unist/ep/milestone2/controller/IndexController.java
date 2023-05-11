@@ -1,5 +1,6 @@
 package unist.ep.milestone2.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,6 @@ import java.util.Optional;
 public class IndexController {
     private final ClubService clubService;
     private final UserService userService;
-
     private final RatingService ratingService;
     public IndexController(ClubService clubService, UserService userService, RatingService ratingService) {
         this.clubService = clubService;
@@ -27,15 +27,18 @@ public class IndexController {
     }
 
     @GetMapping(value = {"/","/login"})
-    public String login() {
+    public String loginHome(HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        response.setDateHeader("Expires", 0); // Proxies.
         return "login";
     }
     @PostMapping("/login")
     public String login(@RequestParam String email,
                         @RequestParam String password,
                         Model model, HttpSession session) {
-        User user = userService.getUserByEmail(email, password);
-        if (user.getPassword().equals(password)) {
+        User user = userService.getUserByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("user", user);
             return "redirect:/clubs";
         } else {
@@ -71,7 +74,7 @@ public class IndexController {
                             HttpSession session) {
         User user = (User) session.getAttribute("user");
         Club club = clubService.getClubById(id).orElseThrow(() -> new RuntimeException("Club not found"));
-        Rating newRating = new Rating(user, club, rating, comment);
+        Rating newRating = new Rating(user.getId(), club.getId(), rating, comment);
         ratingService.saveRating(newRating);
         return "redirect:/clubs/" + id;
     }
@@ -82,15 +85,23 @@ public class IndexController {
                             @RequestParam Long ratingId,
                             HttpSession session) {
         User user = (User) session.getAttribute("user");
-        Club club = clubService.getClubById(id).orElseThrow(() -> new RuntimeException("Club not found"));
+        clubService.getClubById(id).orElseThrow(() -> new RuntimeException("Club not found"));
         Optional<Rating> optionalRating = ratingService.getRatingById(ratingId);
         Rating ratingToUpdate = optionalRating.orElseThrow(() -> new RuntimeException("Rating not found"));
-        if (!ratingToUpdate.getUser().equals(user)) {
+        if (!ratingToUpdate.getUser_id().equals(user.getId())) {
             throw new RuntimeException("User is not authorized to edit this rating");
         }
         ratingToUpdate.setValue(rating);
         ratingToUpdate.setComment(comment);
         ratingService.saveRating(ratingToUpdate);
+        return "redirect:/clubs/" + id;
+    }
+    @DeleteMapping("/clubs/{id}")
+    public String deleteRating(@PathVariable Long id,
+                             @RequestParam Long ratingId) {
+        if(ratingService.deleteRatingById(ratingId) < 0) {
+            throw new RuntimeException("Rating not found");
+        }
         return "redirect:/clubs/" + id;
     }
 

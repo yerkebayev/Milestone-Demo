@@ -37,10 +37,11 @@ public class ClubController {
         if (optionalClub.isPresent()) {
             Club c = optionalClub.get();
             c.setName(club.getName());
-            c.setTypeId(club.getTypeId());
+            c.setClubType_id(club.getClubType_id());
+            c.setEmail(club.getEmail());
             c.setDescription(club.getDescription());
             c.setMission(club.getMission());
-            c.setHeadId(club.getHeadId());
+            c.setHead_id(club.getHead_id());
             c.setContact(club.getContact());
             clubService.saveClub(club);
             return new ResponseEntity<>(c, HttpStatus.OK);

@@ -1,37 +1,49 @@
-### Send GET request to retrieve all clubs
-GET http://localhost:8080/clubs
+### Login
+POST http://localhost:8080/api/login?email=ab@my.com&password=123
 
-### Send GET request to retrieve a specific club by ID
-GET http://localhost:8080/clubs/1
-
-### Send GET request to retrieve a specific club by name
-GET http://localhost:8080/name/clubs/New Club
-
-### Send POST request to add a new club
-POST http://localhost:8080/clubs
+### Register
+POST http://localhost:8080/api/register
 Content-Type: application/json
 
 {
-"name": "New Club",
-"typeId": 1,
-"description": "This is a new club.",
-"mission": "Our mission is to...",
-"headId": 1,
-"contact": "contact@newclub.com"
+  "name": "Abe",
+  "surname": "Bee",
+  "email": "ab@my.com",
+  "password": "123",
+  "role": 1
 }
 
-### Send PUT request to update an existing club by ID
-PUT http://localhost:8080/clubs/1
+### Add preferred club types
+POST http://localhost:8080/api/1/choose_types
+Content-Type: application/json
+
+[1, 2, 3]
+
+
+### Get all clubs
+GET http://localhost:8080/api/clubs
+
+### Get first club
+GET http://localhost:8080/api/clubs/1
+
+### Add rating in club
+POST http://localhost:8080/api/clubs/1/ratings
 Content-Type: application/json
 
 {
-"name": "Updated Club",
-"typeId": 2,
-"description": "This is an updated club.",
-"mission": "Our mission is to...",
-"headId": 2,
-"contact": "contact@updatedclub.com"
+    "rating": 5,
+    "comment": "This club is great!",
+    "user_id": 1
 }
 
-### Send DELETE request to delete an existing club by ID
-DELETE http://localhost:8080/clubs/2
+### Edit rating
+PUT http://localhost:8080/api/clubs/1/ratings/8
+Content-Type: application/json
+
+{
+  "rating": 7,
+  "comment": "This club is amazing!"
+}
+
+### Delete rating
+DELETE http://localhost:8080/api/clubs/1/ratings/8

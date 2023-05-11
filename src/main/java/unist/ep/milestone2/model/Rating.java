@@ -15,11 +15,11 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private User user;
+    @Column
+    private Long user_id;
 
-    @ManyToOne
-    private Club club;
+    @Column
+    private Long club_id;
 
     @Column
     private Integer value;
@@ -27,9 +27,9 @@ public class Rating {
     @Column
     private String comment;
 
-    public Rating(User user, Club club, Integer value, String comment) {
-        this.user = user;
-        this.club = club;
+    public Rating(Long user_id, Long club_id, Integer value, String comment) {
+        this.user_id = user_id;
+        this.club_id = club_id;
         this.value = value;
         this.comment = comment;
     }

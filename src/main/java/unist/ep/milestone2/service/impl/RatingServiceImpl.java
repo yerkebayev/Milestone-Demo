@@ -1,9 +1,14 @@
 package unist.ep.milestone2.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import unist.ep.milestone2.job.CSVHelper;
+import unist.ep.milestone2.model.Club;
 import unist.ep.milestone2.model.Rating;
 import unist.ep.milestone2.repository.RatingRepository;
 import unist.ep.milestone2.service.RatingService;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +50,15 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public Double getAverageRatingByClubId(Long clubId) {
         return ratingRepository.getAverageRatingByClubId(clubId);
+    }
+
+    @Override
+    public void importRatingCsv(MultipartFile file) {
+        try {
+            List<Rating> ratings = CSVHelper.csvToRatings(file.getInputStream());
+            ratingRepository.saveAll(ratings);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

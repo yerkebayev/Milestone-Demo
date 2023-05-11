@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<h1>Login</h1>
+<form method="post" action="/admin/login">
+    <label>Email:</label>
+    <label>
+        <input type="text" name="email">
+    </label><br>
+    <label>Password:</label>
+    <label>
+        <input type="password" name="password">
+    </label><br>
+    <button type="submit">Login</button>
+</form>
+<p th:text="${error}" style="color: red;"></p>
+</body>
+</html>

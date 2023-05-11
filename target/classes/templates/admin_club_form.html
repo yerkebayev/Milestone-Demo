@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${pageTitle}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="text-center"><h2>[[${pageTitle}]]</h2></div>
+    <!--/*@thymesVar id="club" type="unist.ep.milestone2.model.Club"*/-->
+    <form th:action="@{/admin/clubs/save}" method="post" th:object="${club}"
+          style="max-width: 500px; margin: 0 auto;">
+        <label>
+            <input type="hidden" th:field="*{id}">
+        </label>
+        <div class="border border-secondary rounded p-3">
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Name</label>
+                <div class="col-sm-8">
+                    <label>
+                        <input type="text" th:field="*{name}" class="form-control" required minlength="2" maxlength="45"/>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Email</label>
+                <div class="col-sm-8">
+                    <label>
+                        <input type="email" th:field="*{email}" class="form-control" required minlength="8" maxlength="45"/>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Type</label>
+                <div class="col-sm-8">
+                    <label>
+                        <select class="form-control" th:field="*{getClubType}">
+                            <!--/*@thymesVar id="clubType" type="unist.ep.milestone2.model.ClubType"*/-->
+                            <option th:each="clubType : ${clubTypes}" th:value="${clubType.id}" th:text="${clubType.name}"></option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Description</label>
+                <div class="col-sm-8">
+                    <label>
+                        <input type="text" th:field="*{description}" class="form-control" required minlength="2" maxlength="255"/>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Mission</label>
+                <div class="col-sm-8">
+                    <label>
+                        <input type="text" th:field="*{mission}" class="form-control" required minlength="2" maxlength="255"/>
+                    </label>
+                </div>
+            </div>
+
+<!--            <div class="form-group row">-->
+<!--                <label class="col-sm-4 col-form-label">Head</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                    <select th:field="*{head.id}" class="form-control" required>-->
+<!--                        <option value="">Choose...</option>-->
+<!--                        <th:block th:                    each="user : ${users}">-->
+<!--                            <option th:value="${user.id}" th:text="${user.firstName} + ' ' + ${user.lastName}}"></option>-->
+<!--                        </th:block>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="form-group row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a th:href="@{/admin/clubs}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

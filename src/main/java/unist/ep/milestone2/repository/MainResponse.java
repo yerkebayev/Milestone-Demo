@@ -4,18 +4,25 @@ import unist.ep.milestone2.model.Club;
 import unist.ep.milestone2.model.Rating;
 import unist.ep.milestone2.model.User;
 
+import java.util.List;
+
 public class MainResponse {
     private Club club;
     private User user;
-    private Rating rating;
+    private List<Rating> ratings;
+    private Double ratingAverage;
+    private List<Club> recommendedClubs;
+
 
     public MainResponse() {
     }
 
-    public MainResponse(Club club, User user, Rating rating) {
+    public MainResponse(Club club, User user, List<Rating> ratings, Double ratingAverage, List<Club> recommendedClubs) {
         this.club = club;
         this.user = user;
-        this.rating = rating;
+        this.ratings = ratings;
+        this.ratingAverage = ratingAverage;
+        this.recommendedClubs = recommendedClubs;
     }
 
     public Club getClub() {
@@ -34,11 +41,26 @@ public class MainResponse {
         this.user = user;
     }
 
-    public Rating getRating() {
-        return rating;
+    public List<Rating> getRatings() {
+        return ratings;
     }
 
-    public void setRating(Rating rating) {
-        this.rating = rating;
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+    public Double getRatingAverage() {
+        return ratingAverage;
+    }
+
+    public void setRatingAverage(Double ratingAverage) {
+        this.ratingAverage = ratingAverage;
+    }
+
+    public List<Club> getRecommendedClubs() {
+        return recommendedClubs;
+    }
+
+    public void setRecommendedClubs(List<Club> recommendedClubs) {
+        this.recommendedClubs = recommendedClubs;
     }
 }

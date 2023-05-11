@@ -1,9 +1,15 @@
 package unist.ep.milestone2.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import unist.ep.milestone2.job.CSVHelper;
+import unist.ep.milestone2.model.ClubType;
 import unist.ep.milestone2.model.User;
+import unist.ep.milestone2.model.UserClubType;
 import unist.ep.milestone2.repository.UserRepository;
 import unist.ep.milestone2.service.UserService;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,11 +45,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByEmail(String email, String password) {
-        User user = userRepository.getUserByEmail(email);
-        if (user.getPassword().equals(password)) {
-            return user;
+    public List<Long> getPreferredClubTypes(User user) {
+        return userRepository.getPreferredClubTypes(user.getId());
+    }
+
+    @Override
+    public void importUserCsv(MultipartFile file) {
+        try {
+            List<User> users = CSVHelper.csvToUsers(file.getInputStream());
+            userRepository.saveAll(users);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return null;
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.getUserByEmail(email);
     }
 }

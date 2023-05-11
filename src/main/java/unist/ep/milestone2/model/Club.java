@@ -17,13 +17,15 @@ public class Club {
     @Column
     private String name;
     @Column
-    private Long typeId;
+    private String email;
+    @Column
+    private Integer clubType_id;
     @Column
     private String description;
     @Column
     private String mission;
     @Column
-    private Long headId;
+    private Long head_id;
     @Column
     private String contact;
 }

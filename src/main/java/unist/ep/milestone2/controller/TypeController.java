@@ -3,7 +3,7 @@ package unist.ep.milestone2.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import unist.ep.milestone2.model.Type;
+import unist.ep.milestone2.model.ClubType;
 import unist.ep.milestone2.service.TypeService;
 import java.util.List;
 import java.util.Optional;
@@ -18,29 +18,29 @@ public class TypeController {
     }
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Type>> getTypes() {
-        List<Type> types = typeService.getAllClubTypes();
-        return new ResponseEntity<>(types, HttpStatus.OK);
+    public ResponseEntity<List<ClubType>> getTypes() {
+        List<ClubType> clubTypes = typeService.getAllClubTypes();
+        return new ResponseEntity<>(clubTypes, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<Type> getTypeById(@PathVariable long id) {
-        Optional<Type> optionalType = typeService.getClubTypeById(id);
+    public ResponseEntity<ClubType> getTypeById(@PathVariable long id) {
+        Optional<ClubType> optionalType = typeService.getClubTypeById(id);
         return optionalType.map(type -> new ResponseEntity<>(type, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Type> addType(@RequestBody Type type) {
-        Type typeNew = typeService.saveClubType(type);
-        return new ResponseEntity<>(typeNew, HttpStatus.CREATED);
+    public ResponseEntity<ClubType> addType(@RequestBody ClubType clubType) {
+        ClubType clubTypeNew = typeService.saveClubType(clubType);
+        return new ResponseEntity<>(clubTypeNew, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Type> updateType(@PathVariable long id, @RequestBody Type type){
-        Optional<Type> optionalType = typeService.getClubTypeById(id);
+    public ResponseEntity<ClubType> updateType(@PathVariable long id, @RequestBody ClubType clubType){
+        Optional<ClubType> optionalType = typeService.getClubTypeById(id);
         if (optionalType.isPresent()) {
-            Type t = optionalType.get();
-            t.setName(type.getName());
+            ClubType t = optionalType.get();
+            t.setName(clubType.getName());
             typeService.saveClubType(t);
             return new ResponseEntity<>(t, HttpStatus.OK);
         } else {

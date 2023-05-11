@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>All Clubs</title>
@@ -14,7 +14,7 @@
         <th>Type ID</th>
         <th>Description</th>
         <th>Mission</th>
-        <th>Head ID</th>
+        <th>Head</th>
         <th>Contact</th>
     </tr>
     </thead>
@@ -24,10 +24,10 @@
         <td>
             <a th:href="@{/clubs/{id}(id=${club.id})}" th:text="${club.name}"></a>
         </td>
-        <td th:text="${club.typeId}"></td>
+        <td th:text="${club.getClubType}"></td>
         <td th:text="${club.description}"></td>
         <td th:text="${club.mission}"></td>
-        <td th:text="${club.headId}"></td>
+<!--        <td th:text="${club.getHead.getName()} + ${club.getHead().getSurname()}"></td>-->
         <td th:text="${club.contact}"></td>
     </tr>
     </tbody>
