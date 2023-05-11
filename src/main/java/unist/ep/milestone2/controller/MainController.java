@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unist.ep.milestone2.model.*;
 import unist.ep.milestone2.repository.MainResponse;
-import unist.ep.milestone2.service.ClubService;
-import unist.ep.milestone2.service.RatingService;
-import unist.ep.milestone2.service.UserClubTypeService;
-import unist.ep.milestone2.service.UserService;
+import unist.ep.milestone2.service.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +19,14 @@ public class MainController {
     private final UserService userService;
     private final RatingService ratingService;
     private final UserClubTypeService userClubTypeService;
+    private final TypeService typeService;
 
-    public MainController(ClubService clubService, UserService userService, RatingService ratingService, UserClubTypeService userClubTypeService) {
+    public MainController(ClubService clubService, UserService userService, RatingService ratingService, UserClubTypeService userClubTypeService, TypeService typeService) {
         this.clubService = clubService;
         this.userService = userService;
         this.ratingService = ratingService;
         this.userClubTypeService = userClubTypeService;
+        this.typeService = typeService;
     }
 
     @PostMapping("/login")
@@ -49,7 +48,7 @@ public class MainController {
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
     @PostMapping(value = "{user_id}/choose_types", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<String> addClubTypes(@PathVariable long user_id, @RequestBody List<Integer> clubTypes, HttpSession session) {
+    public ResponseEntity<String> addClubTypes(@PathVariable long user_id, @RequestBody List<Integer> clubTypes) {
         Optional<User> optional = userService.getUserById(user_id);
         if (optional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
@@ -80,7 +79,7 @@ public class MainController {
         Double averageRating = ratingService.getAverageRatingByClubId(id);//
 
         List<ClubType> clubTypeList = new ArrayList<>();
-        clubTypeList.add(club.getClubType_id());
+        clubTypeList.add(typeService.getClubTypeById(club.getClubType_id()));
         List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypeList);//
         MainResponse mainResponse = new MainResponse(club, user, ratings, averageRating, recommendedClubs);
         return new ResponseEntity<>(mainResponse, HttpStatus.OK);

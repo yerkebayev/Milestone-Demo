@@ -4,13 +4,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import unist.ep.milestone2.job.CSVHelper;
 import unist.ep.milestone2.model.ClubType;
-import unist.ep.milestone2.model.Rating;
 import unist.ep.milestone2.repository.TypeRepository;
 import unist.ep.milestone2.service.TypeService;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TypeServiceImpl implements TypeService {
@@ -24,7 +22,7 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public Optional<ClubType> getClubTypeById(Long id) {
+    public ClubType getClubTypeById(Integer id) {
         return typeRepository.findById(id);
     }
 
