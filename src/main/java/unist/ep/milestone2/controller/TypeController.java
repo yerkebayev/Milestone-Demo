@@ -24,8 +24,8 @@ public class TypeController {
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<ClubType> getTypeById(@PathVariable Integer id) {
-        Optional<ClubType> optionalType = Optional.ofNullable(typeService.getClubTypeById(id));
+    public ResponseEntity<ClubType> getTypeById(@PathVariable Long id) {
+        Optional<ClubType> optionalType = typeService.getClubTypeById(id);
         return optionalType.map(type -> new ResponseEntity<>(type, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -36,8 +36,8 @@ public class TypeController {
     }
 
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<ClubType> updateType(@PathVariable Integer id, @RequestBody ClubType clubType){
-        Optional<ClubType> optionalType = Optional.ofNullable(typeService.getClubTypeById(id));
+    public ResponseEntity<ClubType> updateType(@PathVariable Long id, @RequestBody ClubType clubType){
+        Optional<ClubType> optionalType = typeService.getClubTypeById(id);
         if (optionalType.isPresent()) {
             ClubType t = optionalType.get();
             t.setName(clubType.getName());

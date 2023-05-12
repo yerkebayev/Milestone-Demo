@@ -35,7 +35,7 @@ public class CSVHelper {
                         Long.parseLong(csvRecord.get("ClubId")),
                         csvRecord.get("Name"),
                         csvRecord.get("Email"),
-                        Integer.parseInt(csvRecord.get("ClubTypeId")),
+                        Long.parseLong(csvRecord.get("ClubTypeId")),
                         csvRecord.get("Description"),
                         csvRecord.get("Mission"),
                         Long.parseLong(csvRecord.get("HeadId")),

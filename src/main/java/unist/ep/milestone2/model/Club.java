@@ -19,7 +19,7 @@ public class Club {
     @Column
     private String email;
     @Column
-    private Integer clubType_id;
+    private Long clubType_id;
     @Column
     private String description;
     @Column

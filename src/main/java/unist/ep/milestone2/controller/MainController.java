@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unist.ep.milestone2.model.*;
+import unist.ep.milestone2.repository.HomeResponse;
 import unist.ep.milestone2.repository.MainResponse;
 import unist.ep.milestone2.service.*;
 
@@ -61,9 +62,12 @@ public class MainController {
     }
 
     @GetMapping(value = "/clubs", produces = "application/json")
-    public ResponseEntity<List<Club>> getClubs() {
+    public ResponseEntity<HomeResponse> getClubs() {
         List<Club> clubs = clubService.getAllClubs();
-        return new ResponseEntity<>(clubs, HttpStatus.OK);
+
+
+        HomeResponse homeResponse = new HomeResponse(clubs, new ArrayList<>());
+        return new ResponseEntity<>(homeResponse, HttpStatus.OK);
     }
     @GetMapping(value = "/clubs/{id}", produces = "application/json")
     public ResponseEntity<MainResponse> getClubPage(@PathVariable long id, HttpSession session) {
@@ -74,13 +78,17 @@ public class MainController {
         Club club = optionalClub.get();
         User user = (User) session.getAttribute("user");
 
-        List<Rating> ratings = ratingService.getRatingsByClubId(id);//comm
+        List<Rating> ratings = ratingService.getRatingsByClubId(id);
 
-        Double averageRating = ratingService.getAverageRatingByClubId(id);//
+        Double averageRating = ratingService.getAverageRatingByClubId(id);
 
         List<ClubType> clubTypeList = new ArrayList<>();
-        clubTypeList.add(typeService.getClubTypeById(club.getClubType_id()));
-        List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypeList);//
+        Optional<ClubType> clubTypeOptional = typeService.getClubTypeById(club.getClubType_id());
+        if (clubTypeOptional.isEmpty()) {
+            return new ResponseEntity<>(new MainResponse(), HttpStatus.NOT_FOUND);
+        }
+        clubTypeList.add(clubTypeOptional.get());
+        List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypeList);
         MainResponse mainResponse = new MainResponse(club, user, ratings, averageRating, recommendedClubs);
         return new ResponseEntity<>(mainResponse, HttpStatus.OK);
     }

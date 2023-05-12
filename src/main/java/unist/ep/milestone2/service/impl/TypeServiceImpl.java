@@ -9,6 +9,7 @@ import unist.ep.milestone2.service.TypeService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TypeServiceImpl implements TypeService {
@@ -22,7 +23,7 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public ClubType getClubTypeById(Integer id) {
+    public Optional<ClubType> getClubTypeById(Long id) {
         return typeRepository.findById(id);
     }
 

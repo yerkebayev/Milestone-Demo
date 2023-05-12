@@ -33,11 +33,11 @@ public class MyStartupRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        uploadUserFile();
-        uploadTypeFile();
-        uploadClubFile();
-        uploadRatingFile();
-        uploadUserClubTypeFile();
+//        uploadUserFile();
+//        uploadTypeFile();
+//        uploadClubFile();
+//        uploadRatingFile();
+//        uploadUserClubTypeFile();
     }
     public void uploadClubFile() throws IOException {
         FileSystemResource csvResource = new FileSystemResource("data/clubs.csv");

@@ -38,7 +38,7 @@
                 <label class="col-sm-4 col-form-label">Type</label>
                 <div class="col-sm-8">
                     <label>
-                        <select class="form-control" th:field="*{getClubType}">
+                        <select class="form-control" th:field="*{getClubType_id}">
                             <!--/*@thymesVar id="clubType" type="unist.ep.milestone2.model.ClubType"*/-->
                             <option th:each="clubType : ${clubTypes}" th:value="${clubType.id}" th:text="${clubType.name}"></option>
                         </select>
