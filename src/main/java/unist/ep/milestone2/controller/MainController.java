@@ -1,6 +1,5 @@
 package unist.ep.milestone2.controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,58 +28,42 @@ public class MainController {
         this.userClubTypeService = userClubTypeService;
         this.typeService = typeService;
     }
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String email,
-                                        @RequestParam String password,
-                                        HttpSession session) {
-        User user = userService.getUserByEmail(email);
-        if (user != null && user.getPassword().equals(password)) {
-            session.setAttribute("user", user);
-            return new ResponseEntity<>("Logged in successfully", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Incorrect email or password", HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        User newUser = userService.saveUser(user);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-    }
-    @PostMapping(value = "{user_id}/choose_types", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/{user_id}/choose_types", consumes = "application/json", produces = "application/json")
     public ResponseEntity<String> addClubTypes(@PathVariable long user_id, @RequestBody List<Integer> clubTypes) {
         Optional<User> optional = userService.getUserById(user_id);
         if (optional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
         }
-        for (int clubType_id : clubTypes) {
+        for (long clubType_id : clubTypes) {
             UserClubType uc = userClubTypeService.saveAllTypes(new UserClubType(user_id, clubType_id));
-            System.out.println(uc);
         }
         return ResponseEntity.ok("Club types added successfully");
     }
 
-    @GetMapping(value = "/clubs", produces = "application/json")
-    public ResponseEntity<HomeResponse> getClubs() {
+    @GetMapping(value = "/{user_id}/clubs", produces = "application/json")
+    public ResponseEntity<HomeResponse> getClubs(@PathVariable Long user_id) {
+        Optional<User> userOptional = userService.getUserById(user_id);
+        if (userOptional.isEmpty()) {
+            return new ResponseEntity<>(new HomeResponse(), HttpStatus.NOT_FOUND);
+        }
+        User user = userOptional.get();
         List<Club> clubs = clubService.getAllClubs();
+        List<ClubType> clubTypes = userService.getPreferredClubTypes(user);
+        List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypes);
 
 
-        HomeResponse homeResponse = new HomeResponse(clubs, new ArrayList<>());
+        HomeResponse homeResponse = new HomeResponse(clubs, recommendedClubs);
         return new ResponseEntity<>(homeResponse, HttpStatus.OK);
     }
-    @GetMapping(value = "/clubs/{id}", produces = "application/json")
-    public ResponseEntity<MainResponse> getClubPage(@PathVariable long id, HttpSession session) {
+    @GetMapping(value = "/{user_id}/clubs/{id}", produces = "application/json")
+    public ResponseEntity<MainResponse> getClubPage(@PathVariable long id, @PathVariable Long user_id) {
         Optional<Club> optionalClub = clubService.getClubById(id);
-        if (optionalClub.isEmpty()) {
+        Optional<User> userOptional = userService.getUserById(user_id);
+        if (optionalClub.isEmpty() || userOptional.isEmpty()) {
             return new ResponseEntity<>(new MainResponse(), HttpStatus.NOT_FOUND);
         }
         Club club = optionalClub.get();
-        User user = (User) session.getAttribute("user");
-
-        List<Rating> ratings = ratingService.getRatingsByClubId(id);
-
-        Double averageRating = ratingService.getAverageRatingByClubId(id);
+        User user = userOptional.get();
 
         List<ClubType> clubTypeList = new ArrayList<>();
         Optional<ClubType> clubTypeOptional = typeService.getClubTypeById(club.getClubType_id());
@@ -88,26 +71,30 @@ public class MainController {
             return new ResponseEntity<>(new MainResponse(), HttpStatus.NOT_FOUND);
         }
         clubTypeList.add(clubTypeOptional.get());
+
         List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypeList);
+        List<Rating> ratings = ratingService.getRatingsByClubId(id);
+        Double averageRating = ratingService.getAverageRatingByClubId(id);
+
         MainResponse mainResponse = new MainResponse(club, user, ratings, averageRating, recommendedClubs);
         return new ResponseEntity<>(mainResponse, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/clubs/{id}/ratings", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Rating> addRating(@PathVariable long id, @RequestBody RatingData ratingData) {
-        Optional<User> optionalUser = userService.getUserById(ratingData.user_id);
+    @PostMapping(value = "/{user_id}/clubs/{id}/ratings", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Rating> addRating(@PathVariable long id, @PathVariable long user_id, @RequestBody RatingData ratingData) {
+        Optional<User> optionalUser = userService.getUserById(user_id);
         if(optionalUser.isEmpty()){
             return new ResponseEntity<>(new Rating(), HttpStatus.NOT_FOUND);
         }
         User user = optionalUser.get();
         Club club = clubService.getClubById(id).orElseThrow(() -> new RuntimeException("Club not found"));
-        Rating newRating = new Rating(user.getId(), club.getId(), ratingData.rating, ratingData.comment);
+        Rating newRating = new Rating(user.getId(), club.getId(), ratingData.getRating(), ratingData.getComment());
         ratingService.saveRating(newRating);
         return new ResponseEntity<>(newRating, HttpStatus.CREATED);
     }
 
-    @PutMapping("/clubs/{id}/ratings/{ratingId}")
-    public ResponseEntity<Rating> editRating(@PathVariable Long id,
+    @PutMapping("/{user_id}/clubs/{id}/ratings/{ratingId}")
+    public ResponseEntity<Rating> editRating(@PathVariable Long id, @PathVariable long user_id,
                              @RequestBody RatingData ratingData,
                              @PathVariable Long ratingId) {
 
@@ -115,16 +102,19 @@ public class MainController {
         Optional<Rating> optionalRating = ratingService.getRatingById(ratingId);
         if (optionalRating.isPresent()) {
             Rating ratingToUpdate = optionalRating.get();
-            ratingToUpdate.setValue(ratingData.rating);
-            ratingToUpdate.setComment(ratingData.comment);
+            if (ratingToUpdate.getUser_id() != user_id) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            ratingToUpdate.setValue(ratingData.getRating());
+            ratingToUpdate.setComment(ratingData.getComment());
             ratingService.saveRating(ratingToUpdate);
             return new ResponseEntity<>(ratingToUpdate, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @DeleteMapping(value = "/clubs/{id}/ratings/{ratingId}", produces = "application/json")
-    public ResponseEntity<String> deleteRating(@PathVariable long id, @PathVariable Long ratingId) {
+    @DeleteMapping(value = "/{user_id}/clubs/{id}/ratings/{ratingId}", produces = "application/json")
+    public ResponseEntity<String> deleteRating(@PathVariable long id, @PathVariable long user_id, @PathVariable Long ratingId) {
         clubService.getClubById(id).orElseThrow(() -> new RuntimeException("Club not found"));
         if (ratingService.deleteRatingById(ratingId) > 0) {
             return new ResponseEntity<>("Deleted...", HttpStatus.OK);
@@ -132,64 +122,33 @@ public class MainController {
             return new ResponseEntity<>("Rating not found.", HttpStatus.NOT_FOUND);
         }
     }
-    @PostMapping("/admin/login")
-    public ResponseEntity<String> adminLogin(@RequestParam String email,
-                                        @RequestParam String password,
-                                        HttpSession session) {
-        User user = userService.getUserByEmail(email);
-        if (user != null && user.getPassword().equals(password) && user.getRole() == 1) {
-            session.setAttribute("user", user);
-            return new ResponseEntity<>("Logged in successfully", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Incorrect email or password", HttpStatus.UNAUTHORIZED);
-        }
-    }
-    @GetMapping(value = "/admin/clubs", produces = "application/json")
-    public ResponseEntity<List<Club>> getClubsForAdmin() {
-        List<Club> clubs = clubService.getAllClubs();
-        return new ResponseEntity<>(clubs, HttpStatus.OK);
-    }
-    @PostMapping(value = "/admin/clubs",consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Club> addClub(@RequestBody Club club) {
-        Club clubNew = clubService.saveClub(club);
-        return new ResponseEntity<>(clubNew, HttpStatus.CREATED);
-    }
-    @PutMapping(value = "/admin/clubs/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Club> updateClub(@PathVariable long id, @RequestBody Club club){
-        Optional<Club> optionalClub = clubService.getClubById(id);
-        if (optionalClub.isPresent()) {
-            Club c = optionalClub.get();
-            c.setName(club.getName());
-            c.setClubType_id(club.getClubType_id());
-            c.setEmail(club.getEmail());
-            c.setDescription(club.getDescription());
-            c.setMission(club.getMission());
-            c.setHead_id(club.getHead_id());
-            c.setContact(club.getContact());
-            clubService.saveClub(club);
-            return new ResponseEntity<>(c, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-    @DeleteMapping(value = "/admin/clubs/{id}", produces = "application/json")
-    public ResponseEntity<String> deleteClub(@PathVariable long id) {
-        if (clubService.deleteClubById(id) > 0) {
-            return new ResponseEntity<>("Deleted...", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Club not found.", HttpStatus.NOT_FOUND);
-        }
-    }
 
     public static class RatingData{
-        Integer rating;
-        String comment;
-        Long user_id;
+        private Integer rating;
+        private String comment;
 
+        public Integer getRating() {
+            return rating;
+        }
 
+        public void setRating(Integer rating) {
+            this.rating = rating;
+        }
+
+        public String getComment() {
+            return comment;
+        }
+
+        public void setComment(String comment) {
+            this.comment = comment;
+        }
+
+        public RatingData() {
+        }
+
+        public RatingData(Integer rating, String comment) {
+            this.rating = rating;
+            this.comment = comment;
+        }
     }
-
-
-
-
 }

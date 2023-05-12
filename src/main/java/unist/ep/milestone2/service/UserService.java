@@ -1,6 +1,7 @@
 package unist.ep.milestone2.service;
 
 import org.springframework.web.multipart.MultipartFile;
+import unist.ep.milestone2.model.ClubType;
 import unist.ep.milestone2.model.User;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ public interface UserService {
 
     User saveUser(User user);
     Long deleteUserById(Long id);
-    List<Long> getPreferredClubTypes(User user);
+    List<ClubType> getPreferredClubTypes(User user);
     void importUserCsv(MultipartFile file);
 
 }

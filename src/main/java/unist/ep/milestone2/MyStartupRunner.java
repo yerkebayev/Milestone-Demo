@@ -33,14 +33,14 @@ public class MyStartupRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        uploadUserFile();
-//        uploadTypeFile();
-//        uploadClubFile();
-//        uploadRatingFile();
-//        uploadUserClubTypeFile();
+        uploadUserFile();
+        uploadTypeFile();
+        uploadClubFile();
+        uploadRatingFile();
+        uploadUserClubTypeFile();
     }
     public void uploadClubFile() throws IOException {
-        FileSystemResource csvResource = new FileSystemResource("data/clubs.csv");
+        FileSystemResource csvResource = new FileSystemResource("src/main/resources/data/clubs.csv");
         MultipartFile file = new MockMultipartFile(
                 Objects.requireNonNull(csvResource.getFilename()),
                 csvResource.getFile().getAbsolutePath(),
@@ -56,7 +56,7 @@ public class MyStartupRunner implements CommandLineRunner {
         }
     }
     public void uploadRatingFile() throws IOException {
-        FileSystemResource csvResource = new FileSystemResource("data/ratings.csv");
+        FileSystemResource csvResource = new FileSystemResource("src/main/resources/data/ratings.csv");
         MultipartFile file = new MockMultipartFile(
                 Objects.requireNonNull(csvResource.getFilename()),
                 csvResource.getFile().getAbsolutePath(),
@@ -75,7 +75,7 @@ public class MyStartupRunner implements CommandLineRunner {
     }
 
     public void uploadUserFile() throws IOException {
-        FileSystemResource csvResource = new FileSystemResource("data/users.csv");
+        FileSystemResource csvResource = new FileSystemResource("src/main/resources/data/users.csv");
         MultipartFile file = new MockMultipartFile(
                 Objects.requireNonNull(csvResource.getFilename()),
                 csvResource.getFile().getAbsolutePath(),
@@ -92,7 +92,7 @@ public class MyStartupRunner implements CommandLineRunner {
         }
     }
     public void uploadTypeFile() throws IOException {
-        FileSystemResource csvResource = new FileSystemResource("data/types.csv");
+        FileSystemResource csvResource = new FileSystemResource("src/main/resources/data/types.csv");
         MultipartFile file = new MockMultipartFile(
                 Objects.requireNonNull(csvResource.getFilename()),
                 csvResource.getFile().getAbsolutePath(),
@@ -109,7 +109,7 @@ public class MyStartupRunner implements CommandLineRunner {
         }
     }
     public void uploadUserClubTypeFile() throws IOException {
-        FileSystemResource csvResource = new FileSystemResource("data/userClubTypes.csv");
+        FileSystemResource csvResource = new FileSystemResource("src/main/resources/data/userClubTypes.csv");
         MultipartFile file = new MockMultipartFile(
                 Objects.requireNonNull(csvResource.getFilename()),
                 csvResource.getFile().getAbsolutePath(),

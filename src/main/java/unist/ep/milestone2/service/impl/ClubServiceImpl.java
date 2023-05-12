@@ -10,6 +10,7 @@ import unist.ep.milestone2.repository.ClubRepository;
 import unist.ep.milestone2.service.ClubService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,11 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public List<Club> getClubsByClubTypes(List<ClubType> list) {
-        return null;
+        List<Club> listOfClubs = new ArrayList<>();
+        for(ClubType ct : list){
+            listOfClubs.addAll(clubRepository.getClubsByClubTypes(ct.getId()));
+        }
+        return listOfClubs;
     }
 
     @Override

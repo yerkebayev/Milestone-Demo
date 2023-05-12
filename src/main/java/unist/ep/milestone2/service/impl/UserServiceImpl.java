@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Long> getPreferredClubTypes(User user) {
+    public List<ClubType> getPreferredClubTypes(User user) {
         return userRepository.getPreferredClubTypes(user.getId());
     }
 

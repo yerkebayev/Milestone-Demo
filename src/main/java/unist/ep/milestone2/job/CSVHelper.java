@@ -38,8 +38,8 @@ public class CSVHelper {
                         Long.parseLong(csvRecord.get("ClubTypeId")),
                         csvRecord.get("Description"),
                         csvRecord.get("Mission"),
-                        Long.parseLong(csvRecord.get("HeadId")),
-                        csvRecord.get("Contact")
+                        csvRecord.get("Contact"),
+                        Long.parseLong(csvRecord.get("HeadId"))
                 );
 
                 clubs.add(club);
@@ -115,7 +115,7 @@ public class CSVHelper {
                 UserClubType userClubType = new UserClubType(
                         Long.parseLong(csvRecord.get("id")),
                         Long.parseLong(csvRecord.get("user_id")),
-                        Integer.parseInt(csvRecord.get("clubType_id"))
+                        Long.parseLong(csvRecord.get("clubType_id"))
                 );
 
                 userClubTypes.add(userClubType);

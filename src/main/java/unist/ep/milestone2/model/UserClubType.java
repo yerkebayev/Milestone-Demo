@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "user_clubTypes")
+@Table(name = "user_club_types")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,9 +19,9 @@ public class UserClubType {
     private Long user_id;
 
     @Column
-    private Integer clubType_id;
+    private Long clubType_id;
 
-    public UserClubType(Long user_id, Integer clubType_id) {
+    public UserClubType(Long user_id, Long clubType_id) {
         this.user_id = user_id;
         this.clubType_id = clubType_id;
     }

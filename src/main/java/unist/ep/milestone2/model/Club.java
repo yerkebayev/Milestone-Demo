@@ -25,7 +25,7 @@ public class Club {
     @Column
     private String mission;
     @Column
-    private Long head_id;
-    @Column
     private String contact;
+    @Column
+    private Long head_id;
 }

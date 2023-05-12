@@ -1,8 +1,8 @@
 ### Login
-POST http://localhost:8080/api/login?email=ab@my.com&password=123
+POST http://localhost:8080/login?email=ab@my.com&password=123
 
 ### Register
-POST http://localhost:8080/api/register
+POST http://localhost:8080/register
 Content-Type: application/json
 
 {
@@ -14,30 +14,29 @@ Content-Type: application/json
 }
 
 ### Add preferred club types
-POST http://localhost:8080/api/1/choose_types
+POST http://localhost:8080/api/10/choose_types
 Content-Type: application/json
 
 [1, 2, 3]
 
 
 ### Get all clubs
-GET http://localhost:8080/api/clubs
+GET http://localhost:8080/api/8/clubs
 
 ### Get first club
-GET http://localhost:8080/api/clubs/1
+GET http://localhost:8080/api/1/clubs/1
 
 ### Add rating in club
-POST http://localhost:8080/api/clubs/1/ratings
+POST http://localhost:8080/api/1/clubs/1/ratings
 Content-Type: application/json
 
 {
     "rating": 5,
-    "comment": "This club is great!",
-    "user_id": 1
+    "comment": "This club is great!"
 }
 
 ### Edit rating
-PUT http://localhost:8080/api/clubs/1/ratings/8
+PUT http://localhost:8080/api/1/clubs/1/ratings/5
 Content-Type: application/json
 
 {
@@ -46,4 +45,43 @@ Content-Type: application/json
 }
 
 ### Delete rating
-DELETE http://localhost:8080/api/clubs/1/ratings/8
+DELETE http://localhost:8080/api/1/clubs/1/ratings/5
+
+
+### Login
+POST http://localhost:8080/admin/login?email=ab@my.com&password=123
+
+### Get all clubs for admin
+GET http://localhost:8080/admin/clubs
+Accept: application/json
+
+### Add club
+POST http://localhost:8080/admin/clubs
+Content-Type: application/json
+
+{
+  "name": "Marat",
+  "email": "marat@gmail.com",
+  "clubType_id": 2,
+  "description": "Marat Yerkebayev is the best!",
+  "mission": "Bar",
+  "contact": "87009809778",
+  "head_id": 2
+}
+
+### Edit club
+PUT http://localhost:8080/admin/clubs/5
+Content-Type: application/json
+
+{
+  "name": "Marat Demo",
+  "email": "marat@gmail.com",
+  "clubType_id": 3,
+  "description": "Marat Yerkebayev is the best!",
+  "mission": "Bar",
+  "contact": "87009809778",
+  "head_id": 2
+}
+
+### Delete club
+DELETE http://localhost:8080/admin/clubs/3
