@@ -25,11 +25,11 @@ GET http://localhost:8080/api/15/clubs/prefer
 ### Get clubs by type of that club
 http://localhost:8080/api/1/clubs/1/prefer
 
-### Get all clubs
-GET http://localhost:8080/api/10/clubs
+### Get list of all clubs
+GET http://localhost:8080/api/15/clubs
 
-### Get first club
-GET http://localhost:8080/api/1/clubs/1
+### Get club page
+GET http://localhost:8080/api/18/clubs/15
 
 ### Get average rating of club
 GET http://localhost:8080/api/5/clubs/14/ratings/avg
