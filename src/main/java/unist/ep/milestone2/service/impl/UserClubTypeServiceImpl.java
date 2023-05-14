@@ -3,8 +3,6 @@ package unist.ep.milestone2.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import unist.ep.milestone2.job.CSVHelper;
-import unist.ep.milestone2.model.ClubType;
-import unist.ep.milestone2.model.User;
 import unist.ep.milestone2.model.UserClubType;
 import unist.ep.milestone2.repository.UserClubTypeRepository;
 import unist.ep.milestone2.service.UserClubTypeService;
@@ -21,8 +19,17 @@ public class UserClubTypeServiceImpl implements UserClubTypeService {
     }
 
     @Override
-    public UserClubType saveAllTypes(UserClubType uc) {
+    public UserClubType saveUserClubType(UserClubType uc) {
         return userClubTypeRepository.save(uc);
+    }
+
+    @Override
+    public Long deleteUserClubType(Long id) {
+        if (userClubTypeRepository.existsById(id)) {
+            userClubTypeRepository.deleteById(id);
+            return 1L;
+        }
+        return -1L;
     }
 
     @Override

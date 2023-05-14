@@ -2,14 +2,14 @@ package unist.ep.milestone2.repository;
 
 import unist.ep.milestone2.model.Club;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeResponse {
-    private List<Club> allClubs;
-    private List<Club> preferredClubs;
+    private List<Club> allClubs = new ArrayList<>();
+    private List<Club> preferredClubs = new ArrayList<>();
 
-    public HomeResponse() {
-    }
+    public HomeResponse() {}
 
     public HomeResponse(List<Club> allClubs, List<Club> preferredClubs) {
         this.allClubs = allClubs;

@@ -1,13 +1,11 @@
 package unist.ep.milestone2.service;
 
 import org.springframework.web.multipart.MultipartFile;
-import unist.ep.milestone2.model.User;
 import unist.ep.milestone2.model.UserClubType;
 
-import java.util.List;
-
-public interface UserClubTypeService {
-    UserClubType saveAllTypes(UserClubType uc);
+public interface UserClubTypeService{
+    UserClubType saveUserClubType(UserClubType uc);
+    Long deleteUserClubType(Long id);
     void importUserClubTypeCsv(MultipartFile file);
 
 }

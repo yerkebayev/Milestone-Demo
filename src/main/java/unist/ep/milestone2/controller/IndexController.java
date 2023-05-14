@@ -25,9 +25,20 @@ public class IndexController {
     }
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        User newUser = userService.saveUser(user);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    public ResponseEntity<?> addUser(@RequestBody User user) {
+        if (user.getEmail().endsWith("@unist.ac.kr")){
+            User u = userService.getUserByEmail(user.getEmail());
+            if (u == null) {
+                User newUser = userService.saveUser(user);
+                return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+            } else {
+                return ResponseEntity.badRequest().body("There is already a user with this email");
+            }
+        } else{
+            return ResponseEntity.badRequest().body("You can only register using your Unist account");
+        }
+
     }
+
 
 }

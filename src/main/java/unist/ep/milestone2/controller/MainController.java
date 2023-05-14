@@ -34,11 +34,48 @@ public class MainController {
         if (optional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
         }
+        User user = optional.get();
+        List<ClubType> clubTypesOfUser = userService.getPreferredClubTypes(user);
+        if (!clubTypesOfUser.isEmpty()) {
+            for(ClubType ct : clubTypesOfUser) {
+                System.out.println(userClubTypeService.deleteUserClubType(ct.getId()));
+            }
+        }
         for (long clubType_id : clubTypes) {
-            UserClubType uc = userClubTypeService.saveAllTypes(new UserClubType(user_id, clubType_id));
+            userClubTypeService.saveUserClubType(new UserClubType(user_id, clubType_id));
         }
         return ResponseEntity.ok("Club types added successfully");
     }
+    @GetMapping(value = "/{user_id}/clubs/prefer", produces = "application/json")
+    public ResponseEntity<List<Club>> getRecommendedClubsByUsersPrefer(@PathVariable Long user_id) {
+        Optional<User> userOptional = userService.getUserById(user_id);
+        if (userOptional.isEmpty()) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        }
+        User user = userOptional.get();
+        List<ClubType> clubTypes = userService.getPreferredClubTypes(user);
+        System.out.println(clubTypes);
+        List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypes);
+        return new ResponseEntity<>(recommendedClubs, HttpStatus.OK);
+    }
+    @GetMapping(value = "/{user_id}/clubs/{id}/prefer", produces = "application/json")
+    public ResponseEntity<List<Club>> getRecommendedClubsByClubType(@PathVariable long id, @PathVariable Long user_id) {
+        Optional<Club> optionalClub = clubService.getClubById(id);
+        Optional<User> userOptional = userService.getUserById(user_id);
+        if (optionalClub.isEmpty() || userOptional.isEmpty()) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        }
+        Club club = optionalClub.get();
+        List<ClubType> clubTypeList = new ArrayList<>();
+        Optional<ClubType> clubTypeOptional = typeService.getClubTypeById(club.getClubType_id());
+        if (clubTypeOptional.isEmpty()) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        }
+        clubTypeList.add(clubTypeOptional.get());
+        List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypeList);
+        return new ResponseEntity<>(recommendedClubs, HttpStatus.OK);
+    }
+
 
     @GetMapping(value = "/{user_id}/clubs", produces = "application/json")
     public ResponseEntity<HomeResponse> getClubs(@PathVariable Long user_id) {
@@ -79,6 +116,30 @@ public class MainController {
         MainResponse mainResponse = new MainResponse(club, user, ratings, averageRating, recommendedClubs);
         return new ResponseEntity<>(mainResponse, HttpStatus.OK);
     }
+
+
+
+    @GetMapping(value = "/{user_id}/clubs/{id}/ratings/avg", produces = "application/json")
+    public ResponseEntity<Double> getAverageRatingOfClub(@PathVariable long id, @PathVariable Long user_id) {
+        Optional<Club> optionalClub = clubService.getClubById(id);
+        Optional<User> userOptional = userService.getUserById(user_id);
+        if (optionalClub.isEmpty() || userOptional.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        Double averageRating = ratingService.getAverageRatingByClubId(id);
+        return new ResponseEntity<>(averageRating, HttpStatus.OK);
+    }
+    @GetMapping(value = "/{user_id}/clubs/{id}/ratings", produces = "application/json")
+    public ResponseEntity<List<Rating>> getRatingsAndCommentsOfClub(@PathVariable long id, @PathVariable Long user_id) {
+        Optional<Club> optionalClub = clubService.getClubById(id);
+        Optional<User> userOptional = userService.getUserById(user_id);
+        if (optionalClub.isEmpty() || userOptional.isEmpty()) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        }
+        List<Rating> ratings = ratingService.getRatingsByClubId(id);
+        return new ResponseEntity<>(ratings, HttpStatus.OK);
+    }
+
 
     @PostMapping(value = "/{user_id}/clubs/{id}/ratings", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Rating> addRating(@PathVariable long id, @PathVariable long user_id, @RequestBody RatingData ratingData) {

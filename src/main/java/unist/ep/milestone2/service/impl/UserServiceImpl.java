@@ -5,7 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 import unist.ep.milestone2.job.CSVHelper;
 import unist.ep.milestone2.model.ClubType;
 import unist.ep.milestone2.model.User;
-import unist.ep.milestone2.model.UserClubType;
 import unist.ep.milestone2.repository.UserRepository;
 import unist.ep.milestone2.service.UserService;
 
