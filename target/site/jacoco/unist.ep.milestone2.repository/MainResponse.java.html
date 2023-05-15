@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MainResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Milestone2</a> &gt; <a href="index.source.html" class="el_package">unist.ep.milestone2.repository</a> &gt; <span class="el_source">MainResponse.java</span></div><h1>MainResponse.java</h1><pre class="source lang-java linenums">package unist.ep.milestone2.repository;
+
+import unist.ep.milestone2.model.Club;
+import unist.ep.milestone2.model.Rating;
+import unist.ep.milestone2.model.User;
+
+import java.util.List;
+
+public class MainResponse {
+    private Club club;
+    private User user;
+    private List&lt;Rating&gt; ratings;
+    private Double ratingAverage;
+    private List&lt;Club&gt; recommendedClubs;
+
+
+<span class="fc" id="L17">    public MainResponse() {</span>
+<span class="fc" id="L18">    }</span>
+
+<span class="fc" id="L20">    public MainResponse(Club club, User user, List&lt;Rating&gt; ratings, Double ratingAverage, List&lt;Club&gt; recommendedClubs) {</span>
+<span class="fc" id="L21">        this.club = club;</span>
+<span class="fc" id="L22">        this.user = user;</span>
+<span class="fc" id="L23">        this.ratings = ratings;</span>
+<span class="fc" id="L24">        this.ratingAverage = ratingAverage;</span>
+<span class="fc" id="L25">        this.recommendedClubs = recommendedClubs;</span>
+<span class="fc" id="L26">    }</span>
+
+    public Club getClub() {
+<span class="fc" id="L29">        return club;</span>
+    }
+
+    public void setClub(Club club) {
+<span class="nc" id="L33">        this.club = club;</span>
+<span class="nc" id="L34">    }</span>
+
+    public User getUser() {
+<span class="fc" id="L37">        return user;</span>
+    }
+
+    public void setUser(User user) {
+<span class="nc" id="L41">        this.user = user;</span>
+<span class="nc" id="L42">    }</span>
+
+    public List&lt;Rating&gt; getRatings() {
+<span class="fc" id="L45">        return ratings;</span>
+    }
+
+    public void setRatings(List&lt;Rating&gt; ratings) {
+<span class="nc" id="L49">        this.ratings = ratings;</span>
+<span class="nc" id="L50">    }</span>
+    public Double getRatingAverage() {
+<span class="fc" id="L52">        return ratingAverage;</span>
+    }
+
+    public void setRatingAverage(Double ratingAverage) {
+<span class="nc" id="L56">        this.ratingAverage = ratingAverage;</span>
+<span class="nc" id="L57">    }</span>
+
+    public List&lt;Club&gt; getRecommendedClubs() {
+<span class="fc" id="L60">        return recommendedClubs;</span>
+    }
+
+    public void setRecommendedClubs(List&lt;Club&gt; recommendedClubs) {
+<span class="nc" id="L64">        this.recommendedClubs = recommendedClubs;</span>
+<span class="nc" id="L65">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

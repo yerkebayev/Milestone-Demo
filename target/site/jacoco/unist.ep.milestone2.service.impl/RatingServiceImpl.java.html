@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RatingServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Milestone2</a> &gt; <a href="index.source.html" class="el_package">unist.ep.milestone2.service.impl</a> &gt; <span class="el_source">RatingServiceImpl.java</span></div><h1>RatingServiceImpl.java</h1><pre class="source lang-java linenums">package unist.ep.milestone2.service.impl;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import unist.ep.milestone2.job.CSVHelper;
+import unist.ep.milestone2.model.Rating;
+import unist.ep.milestone2.repository.RatingRepository;
+import unist.ep.milestone2.service.RatingService;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class RatingServiceImpl implements RatingService {
+    private final RatingRepository ratingRepository;
+<span class="fc" id="L17">    RatingServiceImpl(RatingRepository ratingRepository) {</span>
+<span class="fc" id="L18">        this.ratingRepository = ratingRepository;</span>
+<span class="fc" id="L19">    }</span>
+    @Override
+    public List&lt;Rating&gt; getAllRatings() {
+<span class="fc" id="L22">        return ratingRepository.findAll();</span>
+    }
+
+    @Override
+    public Optional&lt;Rating&gt; getRatingById(Long id) {
+<span class="fc" id="L27">        return ratingRepository.findById(id);</span>
+    }
+
+    @Override
+    public List&lt;Rating&gt; getRatingsByClubId(Long clubId) {
+<span class="fc" id="L32">        return ratingRepository.getRatingsByClubId(clubId);</span>
+    }
+
+    @Override
+    public Rating saveRating(Rating rating) {
+<span class="fc" id="L37">        return ratingRepository.save(rating);</span>
+    }
+
+    @Override
+    public Long deleteRatingById(Long id) {
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (ratingRepository.existsById(id)) {</span>
+<span class="fc" id="L43">            ratingRepository.deleteById(id);</span>
+<span class="fc" id="L44">            return 1L;</span>
+        }
+<span class="fc" id="L46">        return -1L;</span>
+    }
+
+    @Override
+    public Double getAverageRatingByClubId(Long clubId) {
+<span class="fc" id="L51">        Double avg = ratingRepository.getAverageRatingByClubId(clubId);</span>
+<span class="fc" id="L52">        return Math.round(avg * 10.0) / 10.0;</span>
+    }
+
+    @Override
+    public void importRatingCsv(MultipartFile file) {
+        try {
+<span class="fc" id="L58">            List&lt;Rating&gt; ratings = CSVHelper.csvToRatings(file.getInputStream());</span>
+<span class="fc" id="L59">            ratingRepository.saveAll(ratings);</span>
+<span class="nc" id="L60">        } catch (IOException e) {</span>
+<span class="nc" id="L61">            throw new RuntimeException(e);</span>
+<span class="fc" id="L62">        }</span>
+<span class="fc" id="L63">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
