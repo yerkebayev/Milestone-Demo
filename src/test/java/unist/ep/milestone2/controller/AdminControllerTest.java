@@ -50,6 +50,7 @@ public class AdminControllerTest {
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
+        user.setRole(1);
         when(userService.getUserByEmail(email)).thenReturn(user);
 
         ResponseEntity<String> response = adminController.adminLogin(email, password, session);

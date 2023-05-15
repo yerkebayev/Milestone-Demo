@@ -38,7 +38,7 @@ public class MainController {
         List<ClubType> clubTypesOfUser = userService.getPreferredClubTypes(user);
         if (!clubTypesOfUser.isEmpty()) {
             for(ClubType ct : clubTypesOfUser) {
-                System.out.println(userClubTypeService.deleteUserClubType(ct.getId()));
+                userClubTypeService.deleteUserClubType(ct.getId());
             }
         }
         for (long clubType_id : clubTypes) {
@@ -54,7 +54,6 @@ public class MainController {
         }
         User user = userOptional.get();
         List<ClubType> clubTypes = userService.getPreferredClubTypes(user);
-        System.out.println(clubTypes);
         List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypes);
         return new ResponseEntity<>(recommendedClubs, HttpStatus.OK);
     }
@@ -148,7 +147,9 @@ public class MainController {
             return new ResponseEntity<>(new Rating(), HttpStatus.NOT_FOUND);
         }
         User user = optionalUser.get();
-        Club club = clubService.getClubById(id).orElseThrow(() -> new RuntimeException("Club not found"));
+        Optional<Club> optionalClub = clubService.getClubById(id);
+        Club club = optionalClub.get();
+
         Rating newRating = new Rating(user.getId(), club.getId(), ratingData.getRating(), ratingData.getComment());
         ratingService.saveRating(newRating);
         return new ResponseEntity<>(newRating, HttpStatus.CREATED);

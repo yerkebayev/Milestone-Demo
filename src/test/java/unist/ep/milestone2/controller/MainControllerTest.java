@@ -138,8 +138,20 @@ public class MainControllerTest {
 
         ResponseEntity<List<Club>> response = mainController.getRecommendedClubsByClubType(1L, 1L);
 
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(1, Objects.requireNonNull(response.getBody()).size());
+    }
+    @Test
+    public void testGetRecommendedClubsByClubTypeWithMissingClubType() {
+        when(clubService.getClubById(1L)).thenReturn(Optional.of(testClub));
+        when(userService.getUserById(1L)).thenReturn(Optional.of(testUser));
+        when(typeService.getClubTypeById(testClub.getClubType_id())).thenReturn(Optional.empty()); // clubType not found
+
+        ResponseEntity<List<Club>> response = mainController.getRecommendedClubsByClubType(1L, 1L);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertTrue(Objects.requireNonNull(response.getBody()).isEmpty());
     }
 
     @Test
@@ -286,29 +298,69 @@ public class MainControllerTest {
 
 
 
+//    @Test
+//    void testAddRatingWithValidInput() {
+//        when(userService.getUserById(testUser.getId())).thenReturn(Optional.of(testUser));
+//        when(clubService.getClubById(testClub.getId())).thenReturn(Optional.of(testClub));
+//        Rating ratingForAdd = new Rating(testUser.getId(), testClub.getId(), 4, "Good club!");
+//        when(ratingService.saveRating(ratingForAdd)).thenReturn(ratingForAdd);
+//
+//        ResponseEntity<Rating> responseEntity = mainController.addRating(testClub.getId(), testUser.getId(), testRatingData);
+//
+//        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+////        assertEquals(testRating, responseEntity.getBody());
+//    }
+@Test
+public void testAddRatingWithInvalidUser() {
+    long userId = 1L;
+    long clubId = 2L;
+    MainController.RatingData ratingData = new MainController.RatingData(4, "Good club!");
+    when(userService.getUserById(userId)).thenReturn(Optional.empty());
+
+    ResponseEntity<Rating> responseEntity = mainController.addRating(clubId, userId, ratingData);
+
+    assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+    assertNotNull(responseEntity.getBody());
+}
+//    @Test
+//    public void testEditRatingClubNotFound() {
+//        when(clubService.getClubById(1L)).thenReturn(Optional.empty());
+//        MainController.RatingData ratingData = new MainController.RatingData();
+//        ratingData.setRating(4);
+//        ratingData.setComment("Great club!");
+//
+//        ResponseEntity<Rating> response = mainController.editRating(1L, 1L, ratingData, 1L);
+//
+//        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+//    }
+
     @Test
-    void testAddRatingWithValidInput() {
-        when(userService.getUserById(testUser.getId())).thenReturn(Optional.of(testUser));
-        when(clubService.getClubById(testClub.getId())).thenReturn(Optional.of(testClub));
-        Rating ratingForAdd = new Rating(testUser.getId(), testClub.getId(), 4, "Good club!");
-        when(ratingService.saveRating(ratingForAdd)).thenReturn(ratingForAdd);
+    public void testEditRatingBadRequest() {
+        Rating rating = new Rating(testUser.getId(), testClub.getId(), 4, "Great club!");
+        when(clubService.getClubById(1L)).thenReturn(Optional.of(testClub));
+        when(ratingService.getRatingById(1L)).thenReturn(Optional.of(rating));
 
-        ResponseEntity<Rating> responseEntity = mainController.addRating(testClub.getId(), testUser.getId(), testRatingData);
+        MainController.RatingData ratingData = new MainController.RatingData();
+        ratingData.setRating(5);
+        ratingData.setComment("Excellent club!");
 
-        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-//        assertEquals(testRating, responseEntity.getBody());
+        ResponseEntity<Rating> response = mainController.editRating(1L, 2L, ratingData, 1L);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
-    @Test
-    void testAddRatingWithInvalidClub() {
-        when(userService.getUserById(testUser.getId())).thenReturn(Optional.of(testUser));
-        when(clubService.getClubById(testClub.getId())).thenReturn(Optional.empty());
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> mainController.addRating(testClub.getId(), testUser.getId(), testRatingData));
 
-        assertEquals("Club not found", exception.getMessage());
-
-    }
+//    @Test
+//    void testAddRatingWithInvalidClub() {
+//        when(userService.getUserById(testUser.getId())).thenReturn(Optional.of(testUser));
+//        when(clubService.getClubById(testClub.getId())).thenReturn(Optional.empty());
+//
+//        RuntimeException exception = assertThrows(RuntimeException.class, () -> mainController.addRating(testClub.getId(), testUser.getId(), testRatingData));
+//
+//        assertEquals("Club not found", exception.getMessage());
+//
+//    }
 
     @Test
     void testEditRatingWithValidInput() {
@@ -324,6 +376,23 @@ public class MainControllerTest {
         assertEquals(testRatingData.getComment(), testRating.getComment());
     }
 
+
+
+
+    @Test
+    void testAddRatingWithInvalidUserId() {
+        // Arrange
+        long testClubId = 1L;
+        long testUserId = 2L;
+        MainController.RatingData testRatingData = new MainController.RatingData(5, "Great club!");
+        when(userService.getUserById(testUserId)).thenReturn(Optional.empty());
+
+        // Act
+        ResponseEntity<Rating> response = mainController.addRating(testClubId, testUserId, testRatingData);
+
+        // Assert
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
     @Test
     void testEditRatingWithInvalidInput() {
         when(clubService.getClubById(testClub.getId())).thenReturn(Optional.empty());

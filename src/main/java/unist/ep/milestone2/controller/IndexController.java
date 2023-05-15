@@ -26,7 +26,7 @@ public class IndexController {
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> addUser(@RequestBody User user) {
-        if (user.getEmail().endsWith("@unist.ac.kr") && (user.getRole() == null) || (user.getRole() != null &&  user.getRole() != 1)){
+        if (user.getEmail().endsWith("@unist.ac.kr") && user.getRole() != 1){
             User u = userService.getUserByEmail(user.getEmail());
             if (u == null) {
                 User newUser = userService.saveUser(user);

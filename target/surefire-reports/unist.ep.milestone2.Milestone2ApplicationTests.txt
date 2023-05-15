@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: unist.ep.milestone2.Milestone2ApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.273 s - in unist.ep.milestone2.Milestone2ApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.381 s - in unist.ep.milestone2.Milestone2ApplicationTests

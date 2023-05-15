@@ -12,7 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Milestone2" target="17" />
+      <module name="Milestone2" target="18" />
       <module name="TheNext" target="17" />
     </bytecodeTargetLevel>
   </component>

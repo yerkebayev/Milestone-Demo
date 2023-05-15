@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import unist.ep.milestone2.model.User;
 import unist.ep.milestone2.service.UserService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -54,6 +56,7 @@ public class IndexControllerTest {
         User user = new User();
         user.setEmail("aktobe@unist.ac.kr");
         user.setPassword("123hey");
+        user.setRole(0);
         when(userService.getUserByEmail(user.getEmail())).thenReturn(null);
         when(userService.saveUser(user)).thenReturn(user);
 
@@ -68,6 +71,7 @@ public class IndexControllerTest {
         User user = new User();
         user.setEmail("diamond@unist.ac.kr");
         user.setPassword("ufc123");
+        user.setRole(0);
         User existingUser = new User();
         existingUser.setEmail("diamond@unist.ac.kr");
         when(userService.getUserByEmail(user.getEmail())).thenReturn(existingUser);
@@ -77,4 +81,18 @@ public class IndexControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("There is already a user with this email", response.getBody());
     }
+    @Test
+    void testAddUserWithNonUnistEmail() {
+        User user = new User();
+        user.setEmail("test@gmail.com");
+        user.setRole(0);
+
+        lenient().when(userService.getUserByEmail(user.getEmail())).thenReturn(null);
+
+        ResponseEntity<?> response = indexController.addUser(user);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("You can only register using your Unist account", response.getBody());
+    }
+
 }

@@ -26,7 +26,7 @@ public class AdminController {
                                              @RequestParam String password,
                                              HttpSession session) {
         User user = userService.getUserByEmail(email);
-        if (user != null && user.getPassword().equals(password) && (user.getRole() == null) || ((user != null ? user.getRole() : null) != null &&  user.getRole() != 1)) {
+        if (user != null && user.getPassword().equals(password) && user.getRole() == 1) {
             session.setAttribute("user", user);
             return new ResponseEntity<>("Logged in successfully", HttpStatus.OK);
         } else {
