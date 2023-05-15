@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import unist.ep.milestone2.model.User;
 import unist.ep.milestone2.service.UserService;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -24,35 +23,36 @@ public class IndexControllerTest {
 
     @Test
     public void testLoginWithValidCredentials() {
-        String email = "yerkebayev@unist.ac.kr";
-        String password = "123hey";
+        String email = "diamond@unist.ac.kr";
+        String password = "ufc123";
         User user = new User();
+        user.setId(1L);
         user.setEmail(email);
         user.setPassword(password);
         when(userService.getUserByEmail(email)).thenReturn(user);
 
-        ResponseEntity<String> response = indexController.login(email, password);
+        ResponseEntity<Long> response = indexController.login(email, password);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("Logged in successfully", response.getBody());
+        assertEquals(user.getId(), response.getBody());
     }
 
     @Test
     public void testLoginWithInvalidCredentials() {
-        String email = "yerkebayev@unist.ac.kr";
-        String password = "123hey";
+        String email = "diamond@unist.ac.kr";
+        String password = "ufc123";
         when(userService.getUserByEmail(email)).thenReturn(null);
 
-        ResponseEntity<String> response = indexController.login(email, password);
+        ResponseEntity<Long> response = indexController.login(email, password);
 
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals("Incorrect email or password", response.getBody());
+        assertEquals(-1L, response.getBody());
     }
 
     @Test
     public void testAddUserWithNewEmail() {
         User user = new User();
-        user.setEmail("yerkebayev@unist.ac.kr");
+        user.setEmail("aktobe@unist.ac.kr");
         user.setPassword("123hey");
         when(userService.getUserByEmail(user.getEmail())).thenReturn(null);
         when(userService.saveUser(user)).thenReturn(user);
@@ -66,10 +66,10 @@ public class IndexControllerTest {
     @Test
     public void testAddUserWithExistingEmail() {
         User user = new User();
-        user.setEmail("yerkebayev@unist.ac.kr");
-        user.setPassword("123hey");
+        user.setEmail("diamond@unist.ac.kr");
+        user.setPassword("ufc123");
         User existingUser = new User();
-        existingUser.setEmail("yerkebayev@unist.ac.kr");
+        existingUser.setEmail("diamond@unist.ac.kr");
         when(userService.getUserByEmail(user.getEmail())).thenReturn(existingUser);
 
         ResponseEntity<?> response = indexController.addUser(user);
@@ -77,6 +77,4 @@ public class IndexControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("There is already a user with this email", response.getBody());
     }
-
-
 }

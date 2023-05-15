@@ -1,5 +1,5 @@
 ### Login
-POST http://localhost:8080/login?email=yerkebayev@unist.ac.kr&password=123hey
+GET http://localhost:8080/login?email=yerkebayev@unist.ac.kr&password=123hey
 
 ### Register
 POST http://localhost:8080/register
@@ -9,8 +9,7 @@ Content-Type: application/json
   "name": "Marat",
   "surname": "Yerkebayev",
   "email": "yerkebayev@unist.ac.kr",
-  "password": "123hey",
-  "role": 1
+  "password": "123hey"
 }
 
 ### Add preferred club types

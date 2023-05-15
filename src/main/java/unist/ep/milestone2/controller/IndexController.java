@@ -13,20 +13,20 @@ public class IndexController {
     public IndexController(UserService userService) {
         this.userService = userService;
     }
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String email,
+    @GetMapping("/login")
+    public ResponseEntity<Long> login(@RequestParam String email,
                                         @RequestParam String password) {
         User user = userService.getUserByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
-            return new ResponseEntity<>("Logged in successfully", HttpStatus.OK);
+            return new ResponseEntity<>(user.getId(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Incorrect email or password", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(-1L, HttpStatus.UNAUTHORIZED);
         }
     }
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> addUser(@RequestBody User user) {
-        if (user.getEmail().endsWith("@unist.ac.kr") && user.getRole() != 1){
+        if (user.getEmail().endsWith("@unist.ac.kr") && (user.getRole() == null) || (user.getRole() != null &&  user.getRole() != 1)){
             User u = userService.getUserByEmail(user.getEmail());
             if (u == null) {
                 User newUser = userService.saveUser(user);
