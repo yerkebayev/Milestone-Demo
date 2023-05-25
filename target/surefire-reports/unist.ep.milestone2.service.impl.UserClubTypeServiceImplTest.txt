@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: unist.ep.milestone2.service.impl.UserClubTypeServiceImplTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 s - in unist.ep.milestone2.service.impl.UserClubTypeServiceImplTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.137 s - in unist.ep.milestone2.service.impl.UserClubTypeServiceImplTest
