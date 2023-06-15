@@ -1,5 +1,6 @@
 package unist.ep.milestone2.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -76,8 +77,9 @@ public class MainController {
     }
 
 
-    @GetMapping(value = "/{user_id}/clubs", produces = "application/json")
-    public ResponseEntity<HomeResponse> getClubs(@PathVariable Long user_id) {
+    @GetMapping(value = "/clubs", produces = "application/json")
+    public ResponseEntity<HomeResponse> getClubs(HttpSession session) {
+        Long user_id = (Long) session.getAttribute("userId");
         Optional<User> userOptional = userService.getUserById(user_id);
         if (userOptional.isEmpty()) {
             return new ResponseEntity<>(new HomeResponse(), HttpStatus.NOT_FOUND);
