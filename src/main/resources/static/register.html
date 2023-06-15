@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Registration</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="register.js"></script>
+</head>
+<body>
+<h1>User Registration</h1>
+<form id="register-form">
+  <label for="name">Name:</label>
+  <input type="text" id="name" required>
+
+  <label for="surname">Surname:</label>
+  <input type="text" id="surname" required>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" required>
+
+  <label for="password">Password:</label>
+  <input type="password" id="password" required>
+
+  <button type="submit">Sign Up</button>
+
+</form>
+
+<p class="result"></p>
+<p>Already signed up? <a href="http://localhost:8080/login">Click Here</a></p>
+</body>
+</html>
