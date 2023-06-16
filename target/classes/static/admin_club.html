@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Club Management</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="admin_club.js"></script>
+
+</head>
+<body>
+<h1>Club Management</h1>
+
+<h2>Get All Clubs</h2>
+<button id="getAllClubsBtn">Get All Clubs</button>
+<div id="getAllClubsResult"></div>
+
+<h2>Add Club</h2>
+<form id="addClubForm">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required>
+  <br>
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+  <br>
+  <input type="submit" value="Add Club">
+</form>
+<div id="addClubResult"></div>
+
+<h2>Update Club</h2>
+<form id="updateClubForm">
+  <label for="updateClubId">Club ID:</label>
+  <input type="number" id="updateClubId" name="updateClubId" required>
+  <br>
+  <label for="updateName">Name:</label>
+  <input type="text" id="updateName" name="updateName">
+  <br>
+  <label for="updateEmail">Email:</label>
+  <input type="email" id="updateEmail" name="updateEmail">
+  <br>
+  <input type="submit" value="Update Club">
+</form>
+<div id="updateClubResult"></div>
+
+<h2>Delete Club</h2>
+<form id="deleteClubForm">
+  <label for="deleteClubId">Club ID:</label>
+  <input type="number" id="deleteClubId" name="deleteClubId" required>
+  <br>
+  <input type="submit" value="Delete Club">
+</form>
+<div id="deleteClubResult"></div>
+
+</body>
+</html>

@@ -9,22 +9,33 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/login',
+            url: 'http://localhost:8080/login',
             data: {
                 email: email,
                 password: password
             },
             success: function(response) {
+                console.log("Osyndamn");
                 if (response >= 0) {
-                    // Redirect to another page
-                    window.location.href = '/api/clubs'; // Replace with the desired URL
+                    error = false;
+                    window.location.href = 'clubs.html';
                 } else {
-                    $('.result').text('Invalid email or password');
+                    error = true;
+                    console.log("ERROR" + response);
+                    alert("Oi error");
+                    // $('.result').text('Invalid email or password');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                $('.result').text('Error: ' + jqXHR.responseText);
+                alert("Oi error 2");
             }
         });
     });
 });
+
+var error = false;
+
+// Check if `error` is true and display the error message
+if (error) {
+    document.getElementById("error-message").style.display = "block";
+}

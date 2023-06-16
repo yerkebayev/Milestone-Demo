@@ -3,6 +3,8 @@ package unist.ep.milestone2.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import unist.ep.milestone2.model.*;
 import unist.ep.milestone2.repository.HomeResponse;
@@ -14,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+//@RequestMapping("/api")
 public class MainController {
     private final ClubService clubService;
     private final UserService userService;
@@ -74,48 +76,6 @@ public class MainController {
         clubTypeList.add(clubTypeOptional.get());
         List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypeList);
         return new ResponseEntity<>(recommendedClubs, HttpStatus.OK);
-    }
-
-
-    @GetMapping(value = "/clubs", produces = "application/json")
-    public ResponseEntity<HomeResponse> getClubs(HttpSession session) {
-        Long user_id = (Long) session.getAttribute("userId");
-        Optional<User> userOptional = userService.getUserById(user_id);
-        if (userOptional.isEmpty()) {
-            return new ResponseEntity<>(new HomeResponse(), HttpStatus.NOT_FOUND);
-        }
-        User user = userOptional.get();
-        List<Club> clubs = clubService.getAllClubs();
-        List<ClubType> clubTypes = userService.getPreferredClubTypes(user);
-        List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypes);
-
-
-        HomeResponse homeResponse = new HomeResponse(clubs, recommendedClubs);
-        return new ResponseEntity<>(homeResponse, HttpStatus.OK);
-    }
-    @GetMapping(value = "/{user_id}/clubs/{id}", produces = "application/json")
-    public ResponseEntity<MainResponse> getClubPage(@PathVariable long id, @PathVariable Long user_id) {
-        Optional<Club> optionalClub = clubService.getClubById(id);
-        Optional<User> userOptional = userService.getUserById(user_id);
-        if (optionalClub.isEmpty() || userOptional.isEmpty()) {
-            return new ResponseEntity<>(new MainResponse(), HttpStatus.NOT_FOUND);
-        }
-        Club club = optionalClub.get();
-        User user = userOptional.get();
-
-        List<ClubType> clubTypeList = new ArrayList<>();
-        Optional<ClubType> clubTypeOptional = typeService.getClubTypeById(club.getClubType_id());
-        if (clubTypeOptional.isEmpty()) {
-            return new ResponseEntity<>(new MainResponse(), HttpStatus.NOT_FOUND);
-        }
-        clubTypeList.add(clubTypeOptional.get());
-
-        List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypeList);
-        List<Rating> ratings = ratingService.getRatingsByClubId(id);
-        Double averageRating = ratingService.getAverageRatingByClubId(id);
-
-        MainResponse mainResponse = new MainResponse(club, user, ratings, averageRating, recommendedClubs);
-        return new ResponseEntity<>(mainResponse, HttpStatus.OK);
     }
 
 

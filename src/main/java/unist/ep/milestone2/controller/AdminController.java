@@ -12,7 +12,7 @@ import unist.ep.milestone2.service.UserService;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/admin")
 public class AdminController {
     private final ClubService clubService;
@@ -27,6 +27,7 @@ public class AdminController {
                                              HttpSession session) {
         User user = userService.getUserByEmail(email);
         if (user != null && user.getPassword().equals(password) && user.getRole() == 1) {
+            System.out.println("IN ADMIN LOGIN");
             session.setAttribute("user", user);
             return new ResponseEntity<>("Logged in successfully", HttpStatus.OK);
         } else {

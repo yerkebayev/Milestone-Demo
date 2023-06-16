@@ -11,13 +11,13 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/register',
+            url: 'http://localhost:8080/register',
             data: JSON.stringify(user),
             contentType: 'application/json',
             success: function(response) {
                 // if (response >= 0) {
                     // Redirect to another page
-                    window.location.href = '/api/clubs'; // Replace with the desired URL
+                    window.location.href = 'clubs.html'; // Replace with the desired URL
                 // } else {
                 //     $('.result').text('Registration  unsuccessful! ' + response);
                 // }

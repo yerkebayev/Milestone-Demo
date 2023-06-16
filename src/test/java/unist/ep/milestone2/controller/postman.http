@@ -2,7 +2,7 @@
 GET http://localhost:8080/login?email=yerkebayev@unist.ac.kr&password=123hey
 
 ### Get
-GET http://localhost:8080/greeting
+GET http://localhost:8080/clubs
 
 ### Register
 POST http://localhost:8080/register
