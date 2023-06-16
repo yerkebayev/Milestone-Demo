@@ -14,6 +14,7 @@ public interface UserService {
     User saveUser(User user);
     Long deleteUserById(Long id);
     List<ClubType> getPreferredClubTypes(User user);
+    List<Integer> getPreferredClubTypesInInteger(User user);
     void importUserCsv(MultipartFile file);
 
 }

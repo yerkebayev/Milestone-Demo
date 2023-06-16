@@ -24,4 +24,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
            """)
     List<ClubType> getPreferredClubTypes(@Param("user_id") Long user_id);
 
+    @Query("""
+           SELECT ct.id FROM UserClubType uc
+           JOIN ClubType ct ON ct.id = uc.clubType_id
+           WHERE uc.user_id = :user_id
+           """)
+    List<Integer> getPreferredClubTypesInteger(@Param("user_id") Long user_id);
+
 }

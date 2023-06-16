@@ -25,6 +25,7 @@ public class UserClubTypeServiceImpl implements UserClubTypeService {
 
     @Override
     public Long deleteUserClubType(Long id) {
+        System.out.println("DELETED " + id);
         if (userClubTypeRepository.existsById(id)) {
             userClubTypeRepository.deleteById(id);
             return 1L;

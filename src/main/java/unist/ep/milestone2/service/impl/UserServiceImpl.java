@@ -49,6 +49,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<Integer> getPreferredClubTypesInInteger(User user) {
+        return userRepository.getPreferredClubTypesInteger(user.getId());
+    }
+
+    @Override
     public void importUserCsv(MultipartFile file) {
         try {
             List<User> users = CSVHelper.csvToUsers(file.getInputStream());
