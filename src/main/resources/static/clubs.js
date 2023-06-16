@@ -25,7 +25,7 @@ $(document).ready(function() {
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">${club.name}</h5>
+                <a class="card-title" href="club.html?id=${club.id}">${club.name}</a>
                 <p class="card-text">${club.description}</p>
             </div>
         </div>
@@ -53,7 +53,7 @@ $(document).ready(function() {
                         listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
                             "  <img src=\"https://source.unsplash.com/collection/190727/1600x900\" class=\"card-img-top\" alt=\"...\">\n" +
                             "  <div class=\"card-body\">\n" +
-                            "    <h5 class=\"card-title\">" + recommendedClubs[index + i].name + "</h5>\n" +
+                            "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[index + i].id + ">" + recommendedClubs[index + i].name + "</a>\n" +
                             "  </div>\n" +
                             "</div>";
                     }
@@ -63,7 +63,7 @@ $(document).ready(function() {
                         listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
                             "  <img src=\"https://source.unsplash.com/collection/190727/1600x900\" class=\"card-img-top\" alt=\"...\">\n" +
                             "  <div class=\"card-body\">\n" +
-                            "    <h5 class=\"card-title\">" + recommendedClubs[i].name + "</h5>\n" +
+                            "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[i].id + ">" + recommendedClubs[i].name + "</a>\n" +
                             "  </div>\n" +
                             "</div>";
                     }
