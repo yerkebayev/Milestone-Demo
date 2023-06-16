@@ -46,7 +46,7 @@ $(document).ready(function() {
                 } else {
                     listItem += "<div class=\"carousel-item\">\n";
                 }
-                listItem += "<div class=\"card-wrapper container-sm justify-content-around\" style=\"display: flex; flex-wrap: nowrap; align-items: center\">\n";
+                listItem += "<div class=\"row card-wrapper container-sm d-flex justify-content-around\">\n";
 
                 if (index + 2 < recommendedClubs.length) {
                     for (let i = 0; i < 3; i++) {
