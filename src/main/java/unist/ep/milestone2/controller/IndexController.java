@@ -140,20 +140,16 @@ public class IndexController {
         User user = optional.get();
         return new ClubTypeResponse(typeService.getAllClubTypes(), userService.getPreferredClubTypesInInteger(user));
     }
-    @PostMapping(value = "/clubTypes", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/clubTypes/add", consumes = "application/json", produces = "application/json")
     public Long addClubTypes(@RequestBody List<Integer> clubTypes, HttpSession session) {
+        System.out.println("HERE");
         Long user_id = (Long) session.getAttribute("userId");
         Optional<User> optional = userService.getUserById(user_id);
         if (optional.isEmpty()) {
             return -1L;
         }
         User user = optional.get();
-        List<ClubType> clubTypesOfUser = userService.getPreferredClubTypes(user);
-        System.out.println("CLUBTYPE OF USER " + clubTypesOfUser);
-        for(ClubType ct : clubTypesOfUser) {
-            System.out.println("GOES TO DELETE " + ct.getId());
-            userClubTypeService.deleteUserClubType(ct.getId());
-        }
+        userClubTypeService.deleteUserClubType(user.getId());
         for (long clubType_id : clubTypes) {
             userClubTypeService.saveUserClubType(new UserClubType(user_id, clubType_id));
         }

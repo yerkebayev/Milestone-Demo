@@ -5,7 +5,7 @@ import unist.ep.milestone2.model.UserClubType;
 
 public interface UserClubTypeService{
     UserClubType saveUserClubType(UserClubType uc);
-    Long deleteUserClubType(Long id);
+    Long deleteUserClubType(Long userId);
     void importUserClubTypeCsv(MultipartFile file);
 
 }

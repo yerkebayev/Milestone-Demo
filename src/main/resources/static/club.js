@@ -121,7 +121,7 @@ $(document).ready(function() {
             $("#addCommentButton").click(function () {
                 const comment = $("#addANote").val();
                 const rate = $("#addARate").val();
-                if (comment.trim() !== '') {
+                if (rate < 1 && rate > 5 && comment.trim() !== '') {
                     const RatingData = {
                         comment: comment,
                         rating: rate,

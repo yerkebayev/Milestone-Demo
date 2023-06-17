@@ -1,6 +1,7 @@
 package unist.ep.milestone2.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import unist.ep.milestone2.job.CSVHelper;
 import unist.ep.milestone2.model.UserClubType;
@@ -24,13 +25,10 @@ public class UserClubTypeServiceImpl implements UserClubTypeService {
     }
 
     @Override
+    @Transactional
     public Long deleteUserClubType(Long id) {
-        System.out.println("DELETED " + id);
-        if (userClubTypeRepository.existsById(id)) {
-            userClubTypeRepository.deleteById(id);
-            return 1L;
-        }
-        return -1L;
+        userClubTypeRepository.deleteUserClubTypeByUserId(id);
+        return 1L;
     }
 
     @Override

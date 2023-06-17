@@ -30,6 +30,7 @@ $(document).ready(function() {
             }
 
             $("#chooseButton").click(function () {
+                console.log("BUTTONED")
                 const selectedCheckboxes = [];
                 $("input[type='checkbox']:checked").each(function () {
                     const checkboxId = $(this).attr("id");
@@ -40,7 +41,7 @@ $(document).ready(function() {
                 $.ajax({
                     contentType: 'application/json;charset=UTF-8',
                     type: 'POST',
-                    url: 'http://localhost:8080/clubTypes',
+                    url: 'http://localhost:8080/clubTypes/add',
                     data: JSON.stringify(selectedCheckboxes),
                     success: function(response) {
                         if (response >= 0) {
