@@ -4,6 +4,7 @@ $(document).ready(function() {
     const id = urlParams.get('id');
     console.log(id);
     const url = "http://localhost:8080/clubs/" + id;
+    var user = null;
 
     $.ajax({
         url: url,
@@ -64,7 +65,7 @@ $(document).ready(function() {
 
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex flex-row align-items-center">
-                                    <img src="https://storage.cloudconvert.com/tasks/33836809-7715-4d57-96ac-7ff81939aa2c/149071.webp?AWSAccessKeyId=cloudconvert-production&Expires=1687036338&Signature=6lBoLU0zuWbG%2B3ACOjpPoVUxA%2Bg%3D&response-content-disposition=inline%3B%20filename%3D%22149071.webp%22&response-content-type=image%2Fwebp" alt="avatar" width="25"height="25" />
+                                    <img src="https://storage.cloudconvert.com/tasks/33836809-7715-4d57-96ac-7ff81939aa2c/149071.webp?AWSAccessKeyId=cloudconvert-production&Expires=1687036338&Signature=6lBoLU0zuWbG%2B3ACOjpPoVUxA%2Bg%3D&response-content-disposition=inline%3B%20filename%3D%22149071.webp%22&response-content-type=image%2Fwebp" alt="avatar" width="25" height="25" />
                                         <p class="small mb-0 ms-2">${user.name} ${user.surname}</p>
                                     </div>
                                     <div class="d-flex flex-row align-items-center">
@@ -77,7 +78,7 @@ $(document).ready(function() {
                         comments.append(commentItem);
                     },
                     error: function (xhr, status, error) {
-                        console.log("no user");
+                        console.log("no user " + xhr + " " + status + " " + error);
                     }
                 });
             }
@@ -105,15 +106,43 @@ $(document).ready(function() {
               </div>
             </div>
           </div>`;
-                                comments.prepend(commentItem); // Use prepend() to add the new comment at the beginning of the comments list
+                                $.ajax({
+                                        url: '/clubs/' + id + '/ratings/avg',
+                                        method: 'GET',
+                                        success: function (avg) {
+                                            const clubInfoTextNew = `<div class="card-body">
+                        <div class="row col-12">
+                            <div class="col-md-6">
+                                <h2 class="mb-0">${club.name}</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <h3>${avg}</h3>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-12">
+                            <p class="mb-0">${club.description}</p>
+                        </div>
+                        <hr>
+                    </div>`
+                                            console.log(clubInfoText);
+                                            clubInfo.update(clubInfoTextNew)
+                                            comments.prepend(commentItem)
+                                        },
+                                        error: function (xhr, status, error) {
+                                            console.log("no user " + xhr + " " + status + " " + error);
+                                        }
+                                })
+
                             },
                             error: function (xhr, status, error) {
-                                console.log("no user");
+                                console.log("no user " + xhr + " " + status + " " + error);
                             }
                         });
                     },
                     error: function (xhr, status, error) {
-                        console.log("failed to fetch comment");
+                        console.log("failed to fetch comment " + xhr + " " + status + " " + error);
+
                     }
                 });
             }
@@ -121,7 +150,7 @@ $(document).ready(function() {
             $("#addCommentButton").click(function () {
                 const comment = $("#addANote").val();
                 const rate = $("#addARate").val();
-                if (rate < 1 && rate > 5 && comment.trim() !== '') {
+                if (rate != null && rate >= 1 && rate <= 5 && comment.trim() !== '') {
                     const RatingData = {
                         comment: comment,
                         rating: rate,

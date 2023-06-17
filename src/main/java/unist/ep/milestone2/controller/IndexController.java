@@ -171,4 +171,13 @@ public class IndexController {
         Rating rattt = ratingService.saveRating(newRating);
         return new ResponseEntity<>(newRating, HttpStatus.CREATED);
     }
+    @GetMapping(value = "/clubs/{id}/ratings/avg", produces = "application/json")
+    public ResponseEntity<Double> getAverageRatingOfClub(@PathVariable long id) {
+        Optional<Club> optionalClub = clubService.getClubById(id);
+        if (optionalClub.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        Double averageRating = ratingService.getAverageRatingByClubId(id);
+        return new ResponseEntity<>(averageRating, HttpStatus.OK);
+    }
 }
