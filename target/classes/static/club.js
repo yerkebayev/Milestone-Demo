@@ -8,7 +8,6 @@ $(document).ready(function() {
     $.ajax({
         url: url,
         method: "GET",
-        dataType: "json",
         success: function(response) {
             // Handle the response data
             const club = response.club;
@@ -51,34 +50,37 @@ $(document).ready(function() {
             console.log(clubInfoText);
             clubInfo.append(clubInfoText)
 
-            const comments = $("#comments")
+            const comments = $("#comments");
             for (let i = ratings.length - 1; i >= 0; i--) {
-                console.log(ratings[i]);
-                $.ajax({
-                    url: '/user/' + ratings[i].user_id,
-                    method: 'GET',
-                    success: function (user) {
-                        const commentItem = `<div class="card mb-4">
-                            <div class="card-body">
-                                <p>${ratings[i].comment}</p>
-
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                    <p class="small mb-0 ms-2"><span class="glyphicon glyphicon-user"></span> ${user.name} ${user.surname}</p>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
-                                        <p class="small text-muted mb-0">${ratings[i].value}</p>
-                                    </div>
+                (function (index) {
+                    console.log(ratings[index]);
+                    $.ajax({
+                        url: '/user/' + ratings[index].user_id,
+                        method: 'GET',
+                        success: function (user) {
+                            const commentItem = `<div class="card mb-4">
+                    <div class="card-body">
+                        <p>${ratings[index].comment}</p>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <p class="small mb-0 ms-2"><span class="glyphicon glyphicon-user"></span> ${user.name} ${user.surname}</p>
+                                <div class="d-flex flex-row align-items-center">
+                                    <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                                    <p class="small text-muted mb-0">${ratings[index].value}</p>
                                 </div>
                             </div>
-                        </div>`;
-                        comments.append(commentItem);
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("no user " + xhr + " " + status + " " + error);
-                    }
-                });
+                        </div>
+                    </div>
+                </div>`;
+                            comments.append(commentItem);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("no user " + xhr + " " + status + " " + error);
+                        }
+                    });
+                })(i);
             }
+
             function fetchCommentAndAppend(ratingId) {
                 $.ajax({
                     url: '/ratings/' + ratingId,
@@ -92,10 +94,7 @@ $(document).ready(function() {
             <div class="card-body">
               <p>${rating.comment}</p>
               <div class="d-flex justify-content-between">
-                <div class="d-flex flex-row align-items-center">
-                  <img src="https://storage.cloudconvert.com/tasks/33836809-7715-4d57-96ac-7ff81939aa2c/149071.webp?AWSAccessKeyId=cloudconvert-production&Expires=1687036338&Signature=6lBoLU0zuWbG%2B3ACOjpPoVUxA%2Bg%3D&response-content-disposition=inline%3B%20filename%3D%22149071.webp%22&response-content-type=image%2Fwebp" alt="avatar" width="25" height="25" />
-                  <p class="small mb-0 ms-2">${user.name} ${user.surname}</p>
-                </div>
+                <p class="small mb-0 ms-2"><span class="glyphicon glyphicon-user"></span> ${user.name} ${user.surname}</p>
                 <div class="d-flex flex-row align-items-center">
                   <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
                   <p class="small text-muted mb-0">${rating.value}</p>
@@ -123,7 +122,7 @@ $(document).ready(function() {
                         <hr>
                     </div>`
                                             console.log(clubInfoText);
-                                            clubInfo.update(clubInfoTextNew)
+                                            clubInfoText.replace("${averageRating}", avg);
                                             comments.prepend(commentItem)
                                         },
                                         error: function (xhr, status, error) {
@@ -153,12 +152,12 @@ $(document).ready(function() {
                         rating: rate,
                     };
                     $.ajax({
-                        contentType: 'application/json;charset=UTF-8',
-                        url: "/clubs/" + club.id + "/ratings",
+                        url: "/clubs/" + club.id + "/ratings?" + $.param(RatingData),
                         method: "POST",
-                        data: JSON.stringify(RatingData),
+                        data: { RatingData: RatingData },
                         success: function (response) {
                             console.log(response.id);
+                            // window.location.reload();
                             fetchCommentAndAppend(response.id);
                         },
                         error: function (xhr, status, error) {
