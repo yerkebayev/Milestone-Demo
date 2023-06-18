@@ -35,7 +35,7 @@ $(document).ready(function() {
 </div>
 
         </li> `;
-
+                console.log(listItem)
                 allClubsList.append(listItem);
             });
 
