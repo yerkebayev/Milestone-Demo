@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unist.ep.milestone2.model.*;
+import unist.ep.milestone2.repository.ClubRequest;
 import unist.ep.milestone2.repository.ClubTypeResponse;
 import unist.ep.milestone2.repository.HomeResponse;
 import unist.ep.milestone2.repository.MainResponse;
@@ -140,6 +141,10 @@ public class IndexController {
         User user = optional.get();
         return new ClubTypeResponse(typeService.getAllClubTypes(), userService.getPreferredClubTypesInInteger(user));
     }
+    @GetMapping(value = "/clubTypesForAdmin")
+    public ClubTypeResponse getAllClubTypes() {
+        return new ClubTypeResponse(typeService.getAllClubTypes(), null);
+    }
     @PostMapping(value = "/clubTypes/add", consumes = "application/json", produces = "application/json")
     public Long addClubTypes(@RequestBody List<Integer> clubTypes, HttpSession session) {
         System.out.println("HERE");
@@ -179,5 +184,22 @@ public class IndexController {
         }
         Double averageRating = ratingService.getAverageRatingByClubId(id);
         return new ResponseEntity<>(averageRating, HttpStatus.OK);
+    }
+    @GetMapping(value = "/admin/clubs")
+    public ResponseEntity<List<Club>> getClubsForAdmin() {
+        List<Club> clubs = clubService.getAllClubs();
+        return new ResponseEntity<>(clubs, HttpStatus.OK);
+    }
+    @PostMapping(value = "/admin/clubs",consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Club> addClub(@RequestBody ClubRequest clubForm) {
+        System.out.println(clubForm.getName() + " " + clubForm.getClubType() + " " + clubForm.getHeadEmail() + " " +clubForm.getEmail());
+        User head = userService.getUserByEmail(clubForm.getHeadEmail());
+        Club cl = clubService.getClubByEmail(clubForm.getEmail());
+        if (head != null && cl == null) {
+            Club newClub = clubService.saveClub(new Club(clubForm.getName(), clubForm.getEmail(), clubForm.getClubType(), clubForm.getDescription(), clubForm.getMission(), clubForm.getContact(), head.getId()));
+            System.out.println(newClub.getId());
+            return new ResponseEntity<>(newClub, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 }

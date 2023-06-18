@@ -1,79 +1,113 @@
-// Get All Clubs
-$('#getAllClubsBtn').click(function() {
+$(document).ready(function() {
     $.ajax({
         url: 'http://localhost:8080/admin/clubs',
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            var result = '';
-            data.forEach(function(club) {
-                result += 'Club ID: ' + club.id + '<br>';
-                result += 'Name: ' + club.name + '<br>';
-                result += 'Email: ' + club.email + '<br><br>';
+        method: 'GET',
+        success: function(clubs) {
+            const clubInTable = $("#clubInTable")
+            console.log(clubs)
+            for (let i = 0;i < clubs.length;i++) {
+                console.log(clubs[i].head_id);
+                console.log(clubs[i]);
+                $.ajax({
+                    url: 'http://localhost:8080/user/' + clubs[i].head_id,
+                    method: 'GET',
+                    success: function(head) {
+                        const text = `<tr>
+              <td>${clubs[i].name}</td>
+              <td>${clubs[i].email}</td>
+              <td>${clubs[i].mission}</td>
+              <td>${clubs[i].description}</td>
+              <td>${head.name} ${head.surname}</td>
+              <td>${clubs[i].contact}</td>
+              <td>
+                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+              </td>
+            </tr>`
+                        clubInTable.append(text)
+                    }
+                });
+            }
+            const selectClubType = $("#select-club-type");
+            $.ajax({
+                url: "http://localhost:8080/clubTypesForAdmin",
+                method: "GET",
+                dataType: "json",
+                success: function(response) {
+                    const clubTypes = response.clubTypes;
+                    for (let i = 0; i < clubTypes.length; i++) {
+                        if (i === 0) {
+                            const optionType = `<option value="${clubTypes[i].id}" selected>${clubTypes[i].name}</option>`
+                            selectClubType.append(optionType)
+                        } else {
+                            const optionType = `<option value="${clubTypes[i].id}">${clubTypes[i].name}</option>`
+                            selectClubType.append(optionType)
+                        }
+
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("Error:", errorThrown, textStatus, jqXHR);
+                }
             });
-            $('#getAllClubsResult').html(result);
+
+
+            $('form.form').submit(function(event) {
+                event.preventDefault();
+
+                var clubForm = {
+                    name: $('input[name="name"]').val(),
+                    email: $('input[name="email"]').val(),
+                    mission: $('textarea[name="mission"]').val(),
+                    description: $('textarea[name="description"]').val(),
+                    headEmail: $('input[name="head"]').val(),
+                    contact: $('input[name="contact"]').val(),
+                    clubType: $('#select-club-type').val()
+                };
+
+                $.ajax({
+                    contentType: 'application/json;charset=UTF-8',
+                    url: "/admin/clubs",
+                    method: "POST",
+                    data: JSON.stringify(clubForm),
+                    success: function(club) {
+                        $.ajax({
+                            url: 'http://localhost:8080/user/' + clubs[i].head_id,
+                            method: 'GET',
+                            success: function(head) {
+                                console.log(head);
+                                const text = `<tr>
+              <td>${club.name}</td>
+              <td>${club.email}</td>
+              <td>${club.mission}</td>
+              <td>${club.description}</td>
+              <td>${head.name} ${head.surname}</td>
+              <td>${club.contact}</td>
+              <td>
+                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+              </td>
+            </tr>`
+                                clubInTable.append(text)
+                            }
+                        });
+                        $('#club-form-modal').modal('hide');
+                        return false;
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                        console.log(status);
+                        console.log(xhr);
+                    }
+                });
+            });
+
+
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr + " " + status + " " + error);
         }
     });
+
 });
 
-// Add Club
-$('#addClubForm').submit(function(event) {
-    event.preventDefault();
-    var club = {
-        name: $('#name').val(),
-        email: $('#email').val()
-    };
-    $.ajax({
-        url: 'http://localhost:8080/admin/clubs',
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify(club),
-        success: function(data) {
-            $('#addClubResult').html('Club added successfully. ID: ' + data.id);
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            $('#addClubResult').html('Error: ' + xhr.responseText);
-        }
-    });
-});
-
-// Update Club
-$('#updateClubForm').submit(function(event) {
-    event.preventDefault();
-    var clubId = $('#updateClubId').val();
-    var club = {
-        name: $('#updateName').val(),
-        email: $('#updateEmail').val()
-    };
-    $.ajax({
-        url: 'http://localhost:8080/admin/clubs/' + clubId,
-        type: 'PUT',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify(club),
-        success: function(data) {
-            $('#updateClubResult').html('Club updated successfully. ID: ' + data.id);
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            $('#updateClubResult').html('Error: ' + xhr.responseText);
-        }
-    });
-});
-
-// Delete Club
-$('#deleteClubForm').submit(function(event) {
-    event.preventDefault();
-    var clubId = $('#deleteClubId').val();
-    $.ajax({
-        url: 'http://localhost:8080/admin/clubs/' + clubId,
-        type: 'DELETE',
-        dataType: 'json',
-        success: function(data) {
-            $('#deleteClubResult').html(data);
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            $('#deleteClubResult').html('Error: ' + xhr.responseText);
-        }
-    });
-});

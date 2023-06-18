@@ -43,6 +43,16 @@ public class Club {
         this.head_id = head_id;
     }
 
+    public Club(String name, String email, Long clubType_id, String description, String mission, String contact, Long head_id) {
+        this.name = name;
+        this.email = email;
+        this.clubType_id = clubType_id;
+        this.description = description;
+        this.mission = mission;
+        this.contact = contact;
+        this.head_id = head_id;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,5 +1,6 @@
 package unist.ep.milestone2.service.impl;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import unist.ep.milestone2.job.CSVHelper;
@@ -19,7 +20,8 @@ public class RatingServiceImpl implements RatingService {
     }
     @Override
     public List<Rating> getAllRatings() {
-        return ratingRepository.findAll();
+        Sort sortById = Sort.by(Sort.Direction.ASC, "id");
+        return ratingRepository.findAll(sortById);
     }
 
     @Override

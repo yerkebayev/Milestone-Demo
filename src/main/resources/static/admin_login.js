@@ -1,9 +1,11 @@
 $(document).ready(function() {
-    $('#loginForm').submit(function(e) {
-        e.preventDefault(); // Prevent the default form submission
+    $('#login-form').submit(function(event) {
+        event.preventDefault();
 
-        var email = $('#email').val();
-        var password = $('#password').val();
+        const email = $('#email').val();
+        const password = $('#password').val();
+        console.log(email);
+        console.log(password);
 
         $.ajax({
             type: 'POST',
@@ -13,17 +15,27 @@ $(document).ready(function() {
                 password: password
             },
             success: function(response) {
+                console.log("Osyndamn");
                 if (response >= 0) {
+                    error = false;
                     window.location.href = 'admin_club.html';
                 } else {
-                    $('.result').text('Invalid email or password');
+                    error = true;
+                    console.log("ERROR" + response);
+                    alert("Oi error");
+                    // $('.result').text('Invalid email or password');
                 }
-                // Handle the success response here (e.g., show a success message)
             },
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-                // Handle the error response here (e.g., show an error message)
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Oi error 2");
             }
         });
     });
 });
+
+var error = false;
+
+// Check if `error` is true and display the error message
+if (error) {
+    document.getElementById("error-message").style.display = "block";
+}

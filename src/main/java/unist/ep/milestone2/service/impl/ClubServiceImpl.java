@@ -1,6 +1,7 @@
 package unist.ep.milestone2.service.impl;
 
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import unist.ep.milestone2.job.CSVHelper;
@@ -23,12 +24,18 @@ public class ClubServiceImpl implements ClubService {
     }
     @Override
     public List<Club> getAllClubs() {
-        return clubRepository.findAll();
+        Sort sortById = Sort.by(Sort.Direction.ASC, "id");
+        return clubRepository.findAll(sortById);
     }
 
     @Override
     public Optional<Club> getClubById(Long id) {
         return clubRepository.findById(id);
+    }
+
+    @Override
+    public Club getClubByEmail(String email) {
+        return clubRepository.getClubByEmail(email);
     }
 
     @Override

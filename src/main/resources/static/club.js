@@ -4,7 +4,6 @@ $(document).ready(function() {
     const id = urlParams.get('id');
     console.log(id);
     const url = "http://localhost:8080/clubs/" + id;
-    var user = null;
 
     $.ajax({
         url: url,

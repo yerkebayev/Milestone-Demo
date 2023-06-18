@@ -1,5 +1,6 @@
 package unist.ep.milestone2.service.impl;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import unist.ep.milestone2.job.CSVHelper;
@@ -19,7 +20,8 @@ public class TypeServiceImpl implements TypeService {
     }
     @Override
     public List<ClubType> getAllClubTypes() {
-        return typeRepository.findAll();
+        Sort sortById = Sort.by(Sort.Direction.ASC, "id");
+        return typeRepository.findAll(sortById);
     }
 
     @Override
