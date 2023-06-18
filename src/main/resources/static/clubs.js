@@ -12,6 +12,8 @@ $(document).ready(function() {
             console.log(recommendedClubs);
 
             const allClubsList = $("#allClubs");
+            console.log("All clubs")
+            console.log(allClubsList)
 
             allClubs.forEach(function(club) {
                 console.log(club.id);
