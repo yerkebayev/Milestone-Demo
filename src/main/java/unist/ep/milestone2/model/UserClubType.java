@@ -1,15 +1,9 @@
 package unist.ep.milestone2.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "user_club_types")
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class UserClubType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
