@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClubTypeResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Milestone2</a> &gt; <a href="index.source.html" class="el_package">unist.ep.milestone2.repository</a> &gt; <span class="el_source">ClubTypeResponse.java</span></div><h1>ClubTypeResponse.java</h1><pre class="source lang-java linenums">package unist.ep.milestone2.repository;
+
+import unist.ep.milestone2.model.ClubType;
+
+import java.util.List;
+
+public class ClubTypeResponse {
+    private List&lt;ClubType&gt; clubTypes;
+    private List&lt;Integer&gt; preferredClubTypes;
+
+    public List&lt;ClubType&gt; getClubTypes() {
+<span class="fc" id="L12">        return clubTypes;</span>
+    }
+
+    public void setClubTypes(List&lt;ClubType&gt; clubTypes) {
+<span class="nc" id="L16">        this.clubTypes = clubTypes;</span>
+<span class="nc" id="L17">    }</span>
+
+    public List&lt;Integer&gt; getPreferredClubTypes() {
+<span class="fc" id="L20">        return preferredClubTypes;</span>
+    }
+
+    public void setPreferredClubTypes(List&lt;Integer&gt; preferredClubTypes) {
+<span class="nc" id="L24">        this.preferredClubTypes = preferredClubTypes;</span>
+<span class="nc" id="L25">    }</span>
+
+<span class="nc" id="L27">    public ClubTypeResponse() {</span>
+<span class="nc" id="L28">    }</span>
+
+<span class="fc" id="L30">    public ClubTypeResponse(List&lt;ClubType&gt; clubTypes, List&lt;Integer&gt; preferredClubTypes) {</span>
+<span class="fc" id="L31">        this.clubTypes = clubTypes;</span>
+<span class="fc" id="L32">        this.preferredClubTypes = preferredClubTypes;</span>
+<span class="fc" id="L33">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
