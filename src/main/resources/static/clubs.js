@@ -73,6 +73,9 @@ $(document).ready(function() {
                         }
                         index = recommendedClubs.length;
                     }
+                    if (listItem.length === 0) {
+                        continue;
+                    }
                     listItem += "</div>\n" +
                         "</div>";
                     console.log(listItem);

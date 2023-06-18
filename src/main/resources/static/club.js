@@ -194,6 +194,9 @@ $(document).ready(function() {
                         }
                         index += 2;
                     }
+                    if (listItem.length === 0) {
+                        continue;
+                    }
                     listItem += "</div>\n" +
                         "</div>";
                     console.log(listItem);
