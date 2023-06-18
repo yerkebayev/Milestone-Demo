@@ -139,9 +139,9 @@ $(document).ready(function() {
                     contact: $('input[name="contact"]').val(),
                     clubType: $('#select-club-type').val()
                 };
-                console.log("/admin/clubs" + $.param(clubForm));
+                clearModal();
                 $.ajax({
-                    url: "/admin/clubs" + $.param(clubForm),
+                    url: "/admin/clubs?" + $.param(clubForm),
                     method: "POST",
                     success: function(club) {
                         console.log(club);
