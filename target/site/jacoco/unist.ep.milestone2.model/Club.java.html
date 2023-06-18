@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Club.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Milestone2</a> &gt; <a href="index.source.html" class="el_package">unist.ep.milestone2.model</a> &gt; <span class="el_source">Club.java</span></div><h1>Club.java</h1><pre class="source lang-java linenums">package unist.ep.milestone2.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = &quot;clubs&quot;)
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+public class Club {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
+    private String name;
+    @Column
+    private String email;
+    @Column
+    private Long clubType_id;
+    @Column
+    private String description;
+    @Column
+    private String mission;
+    @Column
+    private String contact;
+    @Column
+    private Long head_id;
+
+<span class="fc" id="L32">    public Club() {</span>
+<span class="fc" id="L33">    }</span>
+
+<span class="fc" id="L35">    public Club(Long id, String name, String email, Long clubType_id, String description, String mission, String contact, Long head_id) {</span>
+<span class="fc" id="L36">        this.id = id;</span>
+<span class="fc" id="L37">        this.name = name;</span>
+<span class="fc" id="L38">        this.email = email;</span>
+<span class="fc" id="L39">        this.clubType_id = clubType_id;</span>
+<span class="fc" id="L40">        this.description = description;</span>
+<span class="fc" id="L41">        this.mission = mission;</span>
+<span class="fc" id="L42">        this.contact = contact;</span>
+<span class="fc" id="L43">        this.head_id = head_id;</span>
+<span class="fc" id="L44">    }</span>
+
+    public Long getId() {
+<span class="fc" id="L47">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="fc" id="L51">        this.id = id;</span>
+<span class="fc" id="L52">    }</span>
+
+    public String getName() {
+<span class="fc" id="L55">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="fc" id="L59">        this.name = name;</span>
+<span class="fc" id="L60">    }</span>
+
+    public String getEmail() {
+<span class="fc" id="L63">        return email;</span>
+    }
+
+    public void setEmail(String email) {
+<span class="fc" id="L67">        this.email = email;</span>
+<span class="fc" id="L68">    }</span>
+
+    public Long getClubType_id() {
+<span class="fc" id="L71">        return clubType_id;</span>
+    }
+
+    public void setClubType_id(Long clubType_id) {
+<span class="fc" id="L75">        this.clubType_id = clubType_id;</span>
+<span class="fc" id="L76">    }</span>
+
+    public String getDescription() {
+<span class="fc" id="L79">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="fc" id="L83">        this.description = description;</span>
+<span class="fc" id="L84">    }</span>
+
+    public String getMission() {
+<span class="fc" id="L87">        return mission;</span>
+    }
+
+    public void setMission(String mission) {
+<span class="fc" id="L91">        this.mission = mission;</span>
+<span class="fc" id="L92">    }</span>
+
+    public String getContact() {
+<span class="fc" id="L95">        return contact;</span>
+    }
+
+    public void setContact(String contact) {
+<span class="fc" id="L99">        this.contact = contact;</span>
+<span class="fc" id="L100">    }</span>
+
+    public Long getHead_id() {
+<span class="fc" id="L103">        return head_id;</span>
+    }
+
+    public void setHead_id(Long head_id) {
+<span class="fc" id="L107">        this.head_id = head_id;</span>
+<span class="fc" id="L108">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

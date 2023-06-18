@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MyStartupRunner.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Milestone2</a> &gt; <a href="index.source.html" class="el_package">unist.ep.milestone2</a> &gt; <span class="el_source">MyStartupRunner.java</span></div><h1>MyStartupRunner.java</h1><pre class="source lang-java linenums">package unist.ep.milestone2;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import unist.ep.milestone2.job.CSVHelper;
+import unist.ep.milestone2.service.*;
+
+import java.io.IOException;
+import java.util.Objects;
+
+
+@Component
+@Order(value = 1)
+public class MyStartupRunner implements CommandLineRunner {
+    private final UserService userService;
+    private final ClubService clubService;
+    private final RatingService ratingService;
+    private final TypeService typeService;
+    private final UserClubTypeService userClubTypeService;
+
+<span class="fc" id="L25">    public MyStartupRunner(UserService userService, ClubService clubService, RatingService ratingService, TypeService typeService, UserClubTypeService userClubTypeService) {</span>
+<span class="fc" id="L26">        this.userService = userService;</span>
+<span class="fc" id="L27">        this.clubService = clubService;</span>
+<span class="fc" id="L28">        this.ratingService = ratingService;</span>
+<span class="fc" id="L29">        this.typeService = typeService;</span>
+<span class="fc" id="L30">        this.userClubTypeService = userClubTypeService;</span>
+<span class="fc" id="L31">    }</span>
+
+
+    @Override
+    public void run(String... args) throws Exception {
+<span class="fc" id="L36">        uploadUserFile();</span>
+<span class="fc" id="L37">        uploadTypeFile();</span>
+<span class="fc" id="L38">        uploadClubFile();</span>
+<span class="fc" id="L39">        uploadRatingFile();</span>
+<span class="fc" id="L40">        uploadUserClubTypeFile();</span>
+<span class="fc" id="L41">    }</span>
+    public void uploadClubFile() throws IOException {
+<span class="fc" id="L43">        FileSystemResource csvResource = new FileSystemResource(&quot;src/main/resources/data/clubs.csv&quot;);</span>
+<span class="fc" id="L44">        MultipartFile file = new MockMultipartFile(</span>
+<span class="fc" id="L45">                Objects.requireNonNull(csvResource.getFilename()),</span>
+<span class="fc" id="L46">                csvResource.getFile().getAbsolutePath(),</span>
+                &quot;text/csv&quot;,
+<span class="fc" id="L48">                csvResource.getInputStream()</span>
+        );
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if (CSVHelper.hasCSVFormat(file)) {</span>
+            try {
+<span class="fc" id="L52">                clubService.importClubCsv(file);</span>
+<span class="nc" id="L53">            } catch (Exception e) {</span>
+<span class="nc" id="L54">                System.out.println(e.getMessage());</span>
+<span class="fc" id="L55">            }</span>
+        }
+<span class="fc" id="L57">    }</span>
+    public void uploadRatingFile() throws IOException {
+<span class="fc" id="L59">        FileSystemResource csvResource = new FileSystemResource(&quot;src/main/resources/data/ratings.csv&quot;);</span>
+<span class="fc" id="L60">        MultipartFile file = new MockMultipartFile(</span>
+<span class="fc" id="L61">                Objects.requireNonNull(csvResource.getFilename()),</span>
+<span class="fc" id="L62">                csvResource.getFile().getAbsolutePath(),</span>
+                &quot;text/csv&quot;,
+<span class="fc" id="L64">                csvResource.getInputStream()</span>
+        );
+
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        if (CSVHelper.hasCSVFormat(file)) {</span>
+            try {
+<span class="fc" id="L69">                ratingService.importRatingCsv(file);</span>
+<span class="nc" id="L70">            } catch (Exception e) {</span>
+<span class="nc" id="L71">                System.out.println(e.getMessage());</span>
+<span class="fc" id="L72">            }</span>
+        }
+
+<span class="fc" id="L75">    }</span>
+
+    public void uploadUserFile() throws IOException {
+<span class="fc" id="L78">        FileSystemResource csvResource = new FileSystemResource(&quot;src/main/resources/data/users.csv&quot;);</span>
+<span class="fc" id="L79">        MultipartFile file = new MockMultipartFile(</span>
+<span class="fc" id="L80">                Objects.requireNonNull(csvResource.getFilename()),</span>
+<span class="fc" id="L81">                csvResource.getFile().getAbsolutePath(),</span>
+                &quot;text/csv&quot;,
+<span class="fc" id="L83">                csvResource.getInputStream()</span>
+        );
+
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if (CSVHelper.hasCSVFormat(file)) {</span>
+            try {
+<span class="fc" id="L88">                userService.importUserCsv(file);</span>
+<span class="nc" id="L89">            } catch (Exception e) {</span>
+<span class="nc" id="L90">                System.out.println(e.getMessage());</span>
+<span class="fc" id="L91">            }</span>
+        }
+<span class="fc" id="L93">    }</span>
+    public void uploadTypeFile() throws IOException {
+<span class="fc" id="L95">        FileSystemResource csvResource = new FileSystemResource(&quot;src/main/resources/data/types.csv&quot;);</span>
+<span class="fc" id="L96">        MultipartFile file = new MockMultipartFile(</span>
+<span class="fc" id="L97">                Objects.requireNonNull(csvResource.getFilename()),</span>
+<span class="fc" id="L98">                csvResource.getFile().getAbsolutePath(),</span>
+                &quot;text/csv&quot;,
+<span class="fc" id="L100">                csvResource.getInputStream()</span>
+        );
+
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">        if (CSVHelper.hasCSVFormat(file)) {</span>
+            try {
+<span class="fc" id="L105">                typeService.importTypeCsv(file);</span>
+<span class="nc" id="L106">            } catch (Exception e) {</span>
+<span class="nc" id="L107">                System.out.println(e.getMessage());</span>
+<span class="fc" id="L108">            }</span>
+        }
+<span class="fc" id="L110">    }</span>
+    public void uploadUserClubTypeFile() throws IOException {
+<span class="fc" id="L112">        FileSystemResource csvResource = new FileSystemResource(&quot;src/main/resources/data/userClubTypes.csv&quot;);</span>
+<span class="fc" id="L113">        MultipartFile file = new MockMultipartFile(</span>
+<span class="fc" id="L114">                Objects.requireNonNull(csvResource.getFilename()),</span>
+<span class="fc" id="L115">                csvResource.getFile().getAbsolutePath(),</span>
+                &quot;text/csv&quot;,
+<span class="fc" id="L117">                csvResource.getInputStream()</span>
+        );
+
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        if (CSVHelper.hasCSVFormat(file)) {</span>
+            try {
+<span class="fc" id="L122">                userClubTypeService.importUserClubTypeCsv(file);</span>
+<span class="nc" id="L123">            } catch (Exception e) {</span>
+<span class="nc" id="L124">                System.out.println(e.getMessage());</span>
+<span class="fc" id="L125">            }</span>
+        }
+<span class="fc" id="L127">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

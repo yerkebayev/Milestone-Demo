@@ -1,0 +1,15 @@
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/model/RatingTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/controller/MainControllerTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/model/ClubTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/model/UserClubTypeTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/controller/RatingDataTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/service/impl/RatingServiceImplTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/service/impl/UserClubTypeServiceImplTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/service/impl/ClubTypeServiceImplTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/controller/IndexControllerTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/controller/AdminControllerTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/service/impl/UserServiceImplTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/model/UserTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/model/ClubTypeTest.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/Milestone2ApplicationTests.java
+/home/marat9/IdeaProjects/TheNext/src/test/java/unist/ep/milestone2/service/impl/ClubServiceImplTest.java
