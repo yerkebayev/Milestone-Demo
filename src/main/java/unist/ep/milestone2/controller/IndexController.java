@@ -190,6 +190,16 @@ public class IndexController {
         List<Club> clubs = clubService.getAllClubs();
         return new ResponseEntity<>(clubs, HttpStatus.OK);
     }
+    @GetMapping(value = "/admin/clubs/{id}", produces = "application/json")
+    public ResponseEntity<ClubRequest> getClubPageForAdmin(@PathVariable long id) {
+        Optional<Club> optionalClub = clubService.getClubById(id);
+        if (optionalClub.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        Club club = optionalClub.get();
+        User head = userService.getUserById(club.getHead_id()).get();
+        return new ResponseEntity<>(new ClubRequest(club.getId(), club.getName(), club.getClubType_id(), club.getEmail(), club.getMission(), club.getDescription(), head.getName() + " " + head.getSurname(), club.getContact()), HttpStatus.OK);
+    }
     @PostMapping(value = "/admin/clubs",consumes = "application/json", produces = "application/json")
     public ResponseEntity<Club> addClub(@RequestBody ClubRequest clubForm) {
         System.out.println(clubForm.getName() + " " + clubForm.getClubType() + " " + clubForm.getHeadEmail() + " " +clubForm.getEmail());
@@ -199,6 +209,18 @@ public class IndexController {
             Club newClub = clubService.saveClub(new Club(clubForm.getName(), clubForm.getEmail(), clubForm.getClubType(), clubForm.getDescription(), clubForm.getMission(), clubForm.getContact(), head.getId()));
             System.out.println(newClub.getId());
             return new ResponseEntity<>(newClub, HttpStatus.CREATED);
+        }
+        if (clubForm.getHeadEmail().equals("")) {
+            Club c = cl;
+            c.setName(clubForm.getName());
+            c.setClubType_id(clubForm.getClubType());
+            c.setEmail(clubForm.getEmail());
+            c.setDescription(clubForm.getDescription());
+            c.setMission(clubForm.getMission());
+            c.setHead_id(head.getId());
+            c.setContact(clubForm.getContact());
+            clubService.saveClub(c);
+            return new ResponseEntity<>(c, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }

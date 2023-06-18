@@ -76,9 +76,57 @@ $(document).ready(function() {
                     }
                 });
             });
+            $("#clubInTable").on("click", ".editButton", function() {
+                const rowId = $(this).data("row-id");
+                // Fetch the data for the corresponding row using AJAX
+                $.ajax({
+                    url: 'http://localhost:8080/admin/clubs/' + rowId,
+                    method: 'GET',
+                    success: function(clubData) {
+                        // Populate the modal with the data
+                        clearModal();
+                        populateEditModal(clubData);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+            function populateEditModal(clubData) {
+                const modal = $("#club-form-modal");
+
+                // Set the modal title
+                modal.find(".modal-title").text("Edit Club");
+
+                // Set the form input values with the corresponding data
+                modal.find("input[name='name']").val(clubData.name);
+                modal.find("input[name='email']").val(clubData.email);
+                modal.find("select#select-club-type").val(clubData.clubType);
+                modal.find("textarea[name='mission']").val(clubData.mission);
+                modal.find("textarea[name='description']").val(clubData.description);
+                modal.find("input[name='head']").val(clubData.headEmail);
+                modal.find("input[name='contact']").val(clubData.contact);
+
+                // Show the modal
+                modal.modal("show");
+            }
+            function clearModal() {
+                const modal = $("#club-form-modal");
+
+                // Reset the form inputs
+                modal.find("form")[0].reset();
+
+                // Clear any validation error states if present
+                modal.find(".is-invalid").removeClass("is-invalid");
+                modal.find(".invalid-feedback").text("");
+
+                // Optionally, you can also reset the modal title
+                modal.find(".modal-title").text("Create Club");
+            }
 
 
-            $('form.form').submit(function(event) {
+
+            $("#saveButton").click(function(event) {
                 event.preventDefault();
 
                 var clubForm = {
@@ -90,6 +138,7 @@ $(document).ready(function() {
                     contact: $('input[name="contact"]').val(),
                     clubType: $('#select-club-type').val()
                 };
+                console.log(clubForm);
 
                 $.ajax({
                     contentType: 'application/json;charset=UTF-8',
@@ -97,11 +146,12 @@ $(document).ready(function() {
                     method: "POST",
                     data: JSON.stringify(clubForm),
                     success: function(club) {
+
                         $.ajax({
                             url: 'http://localhost:8080/user/' + clubs[i].head_id,
                             method: 'GET',
                             success: function(head) {
-                                console.log(head);
+
                                 const text = `<tr>
               <td>${club.name}</td>
               <td>${club.email}</td>
