@@ -172,7 +172,7 @@ $(document).ready(function() {
                 }
             })
 
-            const recommendedClubsList = $("#recommendedClubs");
+            const recommendedClubsList = $("#recommendedClubs2");
             for (let index = 0; index < recommendedClubs.length; index++) {
                 let listItem = "";
                 if (index === 0) {
@@ -187,7 +187,7 @@ $(document).ready(function() {
                         listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
                             "  <img src=\"" + recommendedClubs[index + i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
                             "  <div class=\"card-body\">\n" +
-                            "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[index + i].id + ">" + recommendedClubs[index + i].name + "</a>\n" +
+                            "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[index + i].id + "\">" + recommendedClubs[index + i].name + "</a>\n" +
                             "  </div>\n" +
                             "</div>";
                     }
