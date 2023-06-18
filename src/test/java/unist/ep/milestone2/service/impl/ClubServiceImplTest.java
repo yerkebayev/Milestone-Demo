@@ -1,23 +1,30 @@
 package unist.ep.milestone2.service.impl;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Sort;
 import org.springframework.mock.web.MockMultipartFile;
-import unist.ep.milestone2.job.CSVHelper;
 import unist.ep.milestone2.model.Club;
 import unist.ep.milestone2.model.ClubType;
 import unist.ep.milestone2.repository.ClubRepository;
+import unist.ep.milestone2.service.impl.ClubServiceImpl;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
 public class ClubServiceImplTest {
 
     @Mock
@@ -26,81 +33,139 @@ public class ClubServiceImplTest {
     @InjectMocks
     private ClubServiceImpl clubService;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @Test
+    public void testGetAllClubs_ReturnsListOfClubs() {
+        // Arrange
+        List<Club> expectedClubs = new ArrayList<>();
+        expectedClubs.add(new Club(1L, "Club 1", "club1@example.com", 1L, "Description 1", "Mission 1", "Contact 1", 1L, "image1.jpg"));
+        expectedClubs.add(new Club(2L, "Club 2", "club2@example.com", 2L, "Description 2", "Mission 2", "Contact 2", 2L, "image2.jpg"));
+
+        when(clubRepository.findAll(any(Sort.class))).thenReturn(expectedClubs);
+
+        // Act
+        List<Club> actualClubs = clubService.getAllClubs();
+
+        // Assert
+        assertEquals(expectedClubs, actualClubs);
+        verify(clubRepository, times(1)).findAll(any(Sort.class));
     }
 
     @Test
-    public void testGetAllClubs() {
-        List<Club> expected = new ArrayList<>();
-        Mockito.when(clubRepository.findAll()).thenReturn(expected);
+    public void testGetClubById_WithExistingId_ReturnsClubOptional() {
+        // Arrange
+        Long clubId = 1L;
+        Club expectedClub = new Club(1L, "Club 1", "club1@example.com", 1L, "Description 1", "Mission 1", "Contact 1", 1L, "image1.jpg");
 
-        List<Club> actual = clubService.getAllClubs();
+        when(clubRepository.findById(clubId)).thenReturn(Optional.of(expectedClub));
 
-        Assertions.assertEquals(expected, actual);
-        Mockito.verify(clubRepository).findAll();
+        // Act
+        Optional<Club> actualClub = clubService.getClubById(clubId);
+
+        // Assert
+        assertEquals(Optional.of(expectedClub), actualClub);
+        verify(clubRepository, times(1)).findById(clubId);
     }
 
     @Test
-    public void testGetClubById() {
-        Long id = 1L;
-        Club expected = new Club(id, "Test Club", "testclub@example.com", 2L, "Test description", "Test mission", "Test contact", 3L);
-        Mockito.when(clubRepository.findById(id)).thenReturn(Optional.of(expected));
+    public void testGetClubById_WithNonExistingId_ReturnsEmptyOptional() {
+        // Arrange
+        Long clubId = 1L;
 
-        Optional<Club> actual = clubService.getClubById(id);
+        when(clubRepository.findById(clubId)).thenReturn(Optional.empty());
 
-        Assertions.assertEquals(expected, actual.get());
-        Mockito.verify(clubRepository).findById(id);
+        // Act
+        Optional<Club> actualClub = clubService.getClubById(clubId);
+
+        // Assert
+        assertEquals(Optional.empty(), actualClub);
+        verify(clubRepository, times(1)).findById(clubId);
     }
 
     @Test
-    public void testSaveClub() {
-        Long id = 1L;
-        Club club = new Club(id, "Test Club", "testclub@example.com", 2L, "Test description", "Test mission", "Test contact", 3L);
-        Mockito.when(clubRepository.save(club)).thenReturn(club);
+    public void testGetClubByEmail_WithExistingEmail_ReturnsClub() {
+        // Arrange
+        String email = "club1@example.com";
+        Club expectedClub = new Club(1L, "Club 1", "club1@example.com", 1L, "Description 1", "Mission 1", "Contact 1", 1L, "image1.jpg");
 
-        Club actual = clubService.saveClub(club);
+        when(clubRepository.getClubByEmail(email)).thenReturn(expectedClub);
 
-        Assertions.assertEquals(club, actual);
-        Mockito.verify(clubRepository).save(club);
+        // Act
+        Club actualClub = clubService.getClubByEmail(email);
+
+        // Assert
+        assertEquals(expectedClub, actualClub);
+        verify(clubRepository, times(1)).getClubByEmail(email);
     }
 
     @Test
-    public void testDeleteClubByIdIfExists() {
-        Long id = 1L;
-        Mockito.when(clubRepository.existsById(id)).thenReturn(true);
+    public void testSaveClub_ReturnsSavedClub() {
+        // Arrange
+        Club clubToSave = new Club("Club 1", "club1@example.com", 1L, "Description 1", "Mission 1", "Contact 1", 1L, "image1.jpg");
+        Club expectedClub = new Club(1L, "Club 1", "club1@example.com", 1L, "Description 1", "Mission 1", "Contact 1", 1L, "image1.jpg");
 
-        Long actual = clubService.deleteClubById(id);
+        when(clubRepository.save(clubToSave)).thenReturn(expectedClub);
 
-        Assertions.assertEquals(1L, actual);
-        Mockito.verify(clubRepository).existsById(id);
-        Mockito.verify(clubRepository).deleteById(id);
+        // Act
+        Club savedClub = clubService.saveClub(clubToSave);
+
+        // Assert
+        assertEquals(expectedClub, savedClub);
+        verify(clubRepository, times(1)).save(clubToSave);
     }
 
     @Test
-    public void testDeleteClubByIdIfNotExists() {
-        Long id = 1L;
-        Mockito.when(clubRepository.existsById(id)).thenReturn(false);
+    public void testDeleteClubById_WithExistingId_ReturnsSuccessIndicator() {
+        // Arrange
+        Long clubId = 1L;
 
-        Long actual = clubService.deleteClubById(id);
+        when(clubRepository.existsById(clubId)).thenReturn(true);
 
-        Assertions.assertEquals(-1L, actual);
-        Mockito.verify(clubRepository).existsById(id);
-        Mockito.verify(clubRepository, Mockito.never()).deleteById(id);
+        // Act
+        Long result = clubService.deleteClubById(clubId);
+
+        // Assert
+        assertEquals(1L, result);
+        verify(clubRepository, times(1)).existsById(clubId);
+        verify(clubRepository, times(1)).deleteById(clubId);
     }
 
     @Test
-    public void testGetClubsByClubTypes() {
+    public void testDeleteClubById_WithNonExistingId_ReturnsFailureIndicator() {
+        // Arrange
+        Long clubId = 1L;
+
+        when(clubRepository.existsById(clubId)).thenReturn(false);
+
+        // Act
+        Long result = clubService.deleteClubById(clubId);
+
+        // Assert
+        assertEquals(-1L, result);
+        verify(clubRepository, times(1)).existsById(clubId);
+        verify(clubRepository, never()).deleteById(clubId);
+    }
+
+    @Test
+    public void testGetClubsByClubTypes_ReturnsListOfClubs() {
+        // Arrange
         List<ClubType> clubTypes = new ArrayList<>();
-        clubTypes.add(new ClubType(2L, "Test Club Type"));
-        List<Club> expected = new ArrayList<>();
-        expected.add(new Club(1L, "Test Club", "testclub@example.com", 2L, "Test description", "Test mission", "Test contact", 3L));
-        Mockito.when(clubRepository.getClubsByClubTypes(2L)).thenReturn(expected);
+        clubTypes.add(new ClubType(1L, "Type 1"));
+        clubTypes.add(new ClubType(2L, "Type 2"));
 
-        List<Club> actual = clubService.getClubsByClubTypes(clubTypes);
-        Assertions.assertEquals(expected, actual);
-        Mockito.verify(clubRepository, Mockito.times(1)).getClubsByClubTypes(2L);
+        List<Club> expectedClubs = new ArrayList<>();
+        expectedClubs.add(new Club(1L, "Club 1", "club1@example.com", 1L, "Description 1", "Mission 1", "Contact 1", 1L, "image1.jpg"));
+        expectedClubs.add(new Club(2L, "Club 2", "club2@example.com", 2L, "Description 2", "Mission 2", "Contact 2", 2L, "image2.jpg"));
+
+        when(clubRepository.getClubsByClubTypes(1L)).thenReturn(expectedClubs.subList(0, 1));
+        when(clubRepository.getClubsByClubTypes(2L)).thenReturn(expectedClubs.subList(1, 2));
+
+        // Act
+        List<Club> actualClubs = clubService.getClubsByClubTypes(clubTypes);
+
+        // Assert
+        assertEquals(expectedClubs, actualClubs);
+        verify(clubRepository, times(1)).getClubsByClubTypes(1L);
+        verify(clubRepository, times(1)).getClubsByClubTypes(2L);
     }
 
 }

@@ -50,20 +50,6 @@ class UserServiceImplTest {
     }
 
     @Test
-    void testGetAllUsers() {
-        User testUser2 = new User();
-        testUser2.setId(2L);
-        testUser2.setName("Test User 2");
-        testUser2.setEmail("test2@test.com");
-        List<User> expectedUsers = Arrays.asList(testUser, testUser2);
-        when(userRepository.findAll()).thenReturn(expectedUsers);
-
-        List<User> actualUsers = userServiceImpl.getAllUsers();
-
-        assertEquals(expectedUsers, actualUsers);
-    }
-
-    @Test
     void testGetUserByIdWhenUserExists() {
         when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
 

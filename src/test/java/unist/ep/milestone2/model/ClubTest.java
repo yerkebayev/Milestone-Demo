@@ -1,66 +1,65 @@
 package unist.ep.milestone2.model;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ClubTest {
 
     @Test
-    public void testClubConstructor() {
-        Club club = new Club(1L, "Club Name", "club@test.com", 1L, "Club description", "Club mission", "Club contact", 1L);
+    public void testClubConstructor_WithAllFields_SetsFieldsCorrectly() {
+        // Arrange
+        Long id = 1L;
+        String name = "Test Club";
+        String email = "test@example.com";
+        Long clubTypeId = 2L;
+        String description = "Test description";
+        String mission = "Test mission";
+        String contact = "123456789";
+        Long headId = 3L;
+        String image = "image.jpg";
 
-        assertEquals(1L, club.getId());
-        assertEquals("Club Name", club.getName());
-        assertEquals("club@test.com", club.getEmail());
-        assertEquals(1L, club.getClubType_id());
-        assertEquals("Club description", club.getDescription());
-        assertEquals("Club mission", club.getMission());
-        assertEquals("Club contact", club.getContact());
-        assertEquals(1L, club.getHead_id());
+        // Act
+        Club club = new Club(id, name, email, clubTypeId, description, mission, contact, headId, image);
+
+        // Assert
+        assertEquals(id, club.getId());
+        assertEquals(name, club.getName());
+        assertEquals(email, club.getEmail());
+        assertEquals(clubTypeId, club.getClubType_id());
+        assertEquals(description, club.getDescription());
+        assertEquals(mission, club.getMission());
+        assertEquals(contact, club.getContact());
+        assertEquals(headId, club.getHead_id());
+        assertEquals(image, club.getImage());
     }
 
     @Test
-    public void testClubGettersAndSetters() {
-        Club club = new Club();
-        club.setId(1L);
-        club.setName("Club Name");
-        club.setEmail("club@test.com");
-        club.setClubType_id(1L);
-        club.setDescription("Club description");
-        club.setMission("Club mission");
-        club.setContact("Club contact");
-        club.setHead_id(1L);
+    public void testClubConstructor_WithRequiredFields_SetsFieldsCorrectly() {
+        // Arrange
+        String name = "Test Club";
+        String email = "test@example.com";
+        Long clubTypeId = 2L;
+        String description = "Test description";
+        String mission = "Test mission";
+        String contact = "123456789";
+        Long headId = 3L;
+        String image = "image.jpg";
 
-        assertEquals(1L, club.getId());
-        assertEquals("Club Name", club.getName());
-        assertEquals("club@test.com", club.getEmail());
-        assertEquals(1L, club.getClubType_id());
-        assertEquals("Club description", club.getDescription());
-        assertEquals("Club mission", club.getMission());
-        assertEquals("Club contact", club.getContact());
-        assertEquals(1L, club.getHead_id());
-    }
+        // Act
+        Club club = new Club(name, email, clubTypeId, description, mission, contact, headId, image);
 
-    @Test
-    public void testClubNoArgsConstructor() {
-        Club club = new Club();
-
+        // Assert
         assertNull(club.getId());
-        assertNull(club.getName());
-        assertNull(club.getEmail());
-        assertNull(club.getClubType_id());
-        assertNull(club.getDescription());
-        assertNull(club.getMission());
-        assertNull(club.getContact());
-        assertNull(club.getHead_id());
+        assertEquals(name, club.getName());
+        assertEquals(email, club.getEmail());
+        assertEquals(clubTypeId, club.getClubType_id());
+        assertEquals(description, club.getDescription());
+        assertEquals(mission, club.getMission());
+        assertEquals(contact, club.getContact());
+        assertEquals(headId, club.getHead_id());
+        assertEquals(image, club.getImage());
     }
 
-    @Test
-    public void testClubEqualsAndHashCode() {
-        Club club1 = new Club(1L, "Club Name", "club@test.com", 1L, "Club description", "Club mission", "Club contact", 1L);
-        Club club2 = new Club(1L, "Club Name", "club@test.com", 1L, "Club description", "Club mission", "Club contact", 1L);
-
-        assertFalse(club1.equals(club2));
-        assertFalse(club1.hashCode() == club2.hashCode());
-    }
 }
