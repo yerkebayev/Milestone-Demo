@@ -1,10 +1,7 @@
 name: Continuous Integration
 
 on:
-  pull_request:
-  push:
-    branches:
-      - master
+  [pull_request]
 
 jobs:
   build-and-test:
