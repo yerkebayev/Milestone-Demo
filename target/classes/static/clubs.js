@@ -60,7 +60,7 @@ $(document).ready(function() {
                             "</div>";
                     }
                     index += 2;
-                } else {
+                }else {
                     for (let i = index; i < recommendedClubs.length; i++) {
                         listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
                             "  <img src=\"" + recommendedClubs[i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +

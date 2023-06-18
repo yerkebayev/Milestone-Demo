@@ -60,6 +60,16 @@ $(document).ready(function() {
                             "</div>";
                     }
                     index += 2;
+                }else {
+                    for (let i = index; i < recommendedClubs.length; i++) {
+                        listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
+                            "  <img src=\"" + recommendedClubs[i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
+                            "  <div class=\"card-body\">\n" +
+                            "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[i].id + ">" + recommendedClubs[i].name + "</a>\n" +
+                            "  </div>\n" +
+                            "</div>";
+                    }
+                    index = recommendedClubs.length;
                 }
                 listItem += "</div>\n" +
                     "</div>";
