@@ -1,9 +1,6 @@
 package unist.ep.milestone2.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "clubs")
@@ -29,10 +26,13 @@ public class Club {
     @Column
     private Long head_id;
 
+    @Column
+    private String image;
+
     public Club() {
     }
 
-    public Club(Long id, String name, String email, Long clubType_id, String description, String mission, String contact, Long head_id) {
+    public Club(Long id, String name, String email, Long clubType_id, String description, String mission, String contact, Long head_id, String image) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -41,9 +41,10 @@ public class Club {
         this.mission = mission;
         this.contact = contact;
         this.head_id = head_id;
+        this.image = image;
     }
 
-    public Club(String name, String email, Long clubType_id, String description, String mission, String contact, Long head_id) {
+    public Club(String name, String email, Long clubType_id, String description, String mission, String contact, Long head_id, String image) {
         this.name = name;
         this.email = email;
         this.clubType_id = clubType_id;
@@ -51,6 +52,14 @@ public class Club {
         this.mission = mission;
         this.contact = contact;
         this.head_id = head_id;
+        this.image = image;
+    }
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Long getId() {

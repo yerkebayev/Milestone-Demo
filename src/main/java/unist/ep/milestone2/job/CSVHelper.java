@@ -39,7 +39,8 @@ public class CSVHelper {
                         csvRecord.get("Description"),
                         csvRecord.get("Mission"),
                         csvRecord.get("Contact"),
-                        Long.parseLong(csvRecord.get("HeadId"))
+                        Long.parseLong(csvRecord.get("HeadId")),
+                        csvRecord.get("Image")
                 );
 
                 clubs.add(club);

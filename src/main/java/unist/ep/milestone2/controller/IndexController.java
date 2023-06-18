@@ -198,7 +198,7 @@ public class IndexController {
         }
         Club club = optionalClub.get();
         User head = userService.getUserById(club.getHead_id()).get();
-        return new ResponseEntity<>(new ClubRequest(club.getId(), club.getName(), club.getClubType_id(), club.getEmail(), club.getMission(), club.getDescription(), head.getName() + " " + head.getSurname(), club.getContact()), HttpStatus.OK);
+        return new ResponseEntity<>(new ClubRequest(club.getId(), club.getName(), club.getClubType_id(), club.getEmail(), club.getMission(), club.getDescription(), head.getName() + " " + head.getSurname(), club.getContact(), club.getImage()), HttpStatus.OK);
     }
     @PostMapping(value = "/admin/clubs",consumes = "application/json", produces = "application/json")
     public ResponseEntity<Club> addClub(@RequestBody ClubRequest clubForm) {
@@ -206,7 +206,7 @@ public class IndexController {
         User head = userService.getUserByEmail(clubForm.getHeadEmail());
         Club cl = clubService.getClubByEmail(clubForm.getEmail());
         if (head != null && cl == null) {
-            Club newClub = clubService.saveClub(new Club(clubForm.getName(), clubForm.getEmail(), clubForm.getClubType(), clubForm.getDescription(), clubForm.getMission(), clubForm.getContact(), head.getId()));
+            Club newClub = clubService.saveClub(new Club(clubForm.getName(), clubForm.getEmail(), clubForm.getClubType(), clubForm.getDescription(), clubForm.getMission(), clubForm.getContact(), head.getId(), clubForm.getImage()));
             return new ResponseEntity<>(newClub, HttpStatus.CREATED);
         }
         String[] headNameAndSurname = (clubForm.getHeadEmail().split(" "));
@@ -223,6 +223,7 @@ public class IndexController {
                 c.setMission(clubForm.getMission());
                 c.setHead_id(newHead.getId());
                 c.setContact(clubForm.getContact());
+                c.setImage(clubForm.getImage());
                 clubService.saveClub(c);
                 return new ResponseEntity<>(c, HttpStatus.OK);
             }

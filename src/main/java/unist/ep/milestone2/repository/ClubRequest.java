@@ -9,6 +9,15 @@ public class ClubRequest {
     private String description;
     private String headEmail;
     private String contact;
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Long getId() {
         return id;
@@ -78,7 +87,7 @@ public class ClubRequest {
     }
 
 
-    public ClubRequest(Long id, String name, Long clubType, String email, String mission, String description, String headEmail, String contact) {
+    public ClubRequest(Long id, String name, Long clubType, String email, String mission, String description, String headEmail, String contact, String image) {
         this.id = id;
         this.name = name;
         this.clubType = clubType;
@@ -87,9 +96,10 @@ public class ClubRequest {
         this.description = description;
         this.headEmail = headEmail;
         this.contact = contact;
+        this.image = image;
     }
 
-    public ClubRequest(String name, Long clubType, String email, String mission, String description, String headEmail, String contact) {
+    public ClubRequest(String name, Long clubType, String email, String mission, String description, String headEmail, String contact, String image) {
         this.name = name;
         this.clubType = clubType;
         this.email = email;
@@ -97,5 +107,6 @@ public class ClubRequest {
         this.description = description;
         this.headEmail = headEmail;
         this.contact = contact;
+        this.image = image;
     }
 }

@@ -19,6 +19,7 @@ $(document).ready(function() {
               <td>${clubs[i].description}</td>
               <td>${head.name} ${head.surname}</td>
               <td>${clubs[i].contact}</td>
+              <td>${clubs[i].image}</td>
               <td>
   <button class="edit editButton" data-row-id="${clubs[i].id}" data-toggle="modal" data-target="#editEmployeeModal">
     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
@@ -106,6 +107,7 @@ $(document).ready(function() {
                 modal.find("textarea[name='description']").val(clubData.description);
                 modal.find("input[name='head']").val(clubData.headEmail);
                 modal.find("input[name='contact']").val(clubData.contact);
+                modal.find("input[name='image']").val(clubData.image);
 
                 // Show the modal
                 modal.modal("show");
@@ -159,6 +161,7 @@ $(document).ready(function() {
               <td>${club.description}</td>
               <td>${head.name} ${head.surname}</td>
               <td>${club.contact}</td>
+              <td>${club.image}</td>
               <td>
                 <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                 <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -178,6 +181,7 @@ $(document).ready(function() {
                                     $row.find('td:eq(3)').text(club.description);
                                     $row.find('td:eq(4)').text(head.name + ' ' + head.surname);
                                     $row.find('td:eq(5)').text(club.contact);
+                                    $row.find('td:eq(6)').text(club.image);
                                     console.log("UPDATED");
                                 }
 

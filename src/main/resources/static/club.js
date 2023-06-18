@@ -20,7 +20,7 @@ $(document).ready(function() {
             console.log(head);
             console.log(averageRating);
             const leftSideCLub = $("#left-side-club")
-            const textForLeftSideClub = `<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+            const textForLeftSideClub = `<img src="${club.image}" alt="avatar"
                              class="rounded-circle img-fluid" style="width: 150px;">
                         <h5 class="my-3">${club.name}</h5>
                         <p class="text-muted mb-1">${club.mission}</p>
@@ -185,7 +185,7 @@ $(document).ready(function() {
                 if (index + 2 < recommendedClubs.length) {
                     for (let i = 0; i < 3; i++) {
                         listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
-                            "  <img src=\"https://source.unsplash.com/collection/190727/1600x900\" class=\"card-img-top\" alt=\"...\">\n" +
+                            "  <img src=\"" + recommendedClubs[index + i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
                             "  <div class=\"card-body\">\n" +
                             "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[index + i].id + ">" + recommendedClubs[index + i].name + "</a>\n" +
                             "  </div>\n" +
@@ -195,7 +195,7 @@ $(document).ready(function() {
                 } else {
                     for (let i = index; i < recommendedClubs.length; i++) {
                         listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
-                            "  <img src=\"https://source.unsplash.com/collection/190727/1600x900\" class=\"card-img-top\" alt=\"...\">\n" +
+                            "  <img src=\"" + recommendedClubs[index + i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
                             "  <div class=\"card-body\">\n" +
                             "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[i].id + ">" + recommendedClubs[i].name + "</a>\n" +
                             "  </div>\n" +

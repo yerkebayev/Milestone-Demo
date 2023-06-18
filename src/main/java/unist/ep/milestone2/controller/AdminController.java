@@ -3,13 +3,12 @@ package unist.ep.milestone2.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import unist.ep.milestone2.model.Club;
 import unist.ep.milestone2.model.User;
 import unist.ep.milestone2.service.ClubService;
 import unist.ep.milestone2.service.UserService;
-import java.util.List;
+
 import java.util.Optional;
 
 @RestController
@@ -54,6 +53,7 @@ public class AdminController {
             c.setMission(club.getMission());
             c.setHead_id(club.getHead_id());
             c.setContact(club.getContact());
+            c.setImage(club.getImage());
             clubService.saveClub(club);
             return new ResponseEntity<>(c, HttpStatus.OK);
         } else {
