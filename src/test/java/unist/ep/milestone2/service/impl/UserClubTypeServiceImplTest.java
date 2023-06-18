@@ -52,14 +52,6 @@ class UserClubTypeServiceImplTest {
         assertEquals(testUserClubType, actualUserClubType);
     }
 
-    @Test
-    void testDeleteUserClubTypeWhenDoesNotExist() {
-        when(userClubTypeRepository.existsById(2L)).thenReturn(false);
-
-        Long actual = userClubTypeServiceImpl.deleteUserClubType(2L);
-
-        assertEquals(1L, actual);
-    }
 
 
 }

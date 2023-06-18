@@ -19,8 +19,11 @@ unist/ep/milestone2/model/User.class
 unist/ep/milestone2/job/CSVHelper.class
 unist/ep/milestone2/model/Club.class
 unist/ep/milestone2/model/Rating.class
+unist/ep/milestone2/repository/ClubTypeResponse.class
 unist/ep/milestone2/model/UserClubType.class
 unist/ep/milestone2/repository/RatingRepository.class
 unist/ep/milestone2/repository/UserClubTypeRepository.class
 unist/ep/milestone2/service/impl/RatingServiceImpl.class
 unist/ep/milestone2/service/impl/ClubServiceImpl.class
+unist/ep/milestone2/repository/ClubRequest.class
+unist/ep/milestone2/controller/IndexController$RatingData.class
