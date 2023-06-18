@@ -61,11 +61,11 @@ public class AdminController {
         }
     }
     @DeleteMapping(value = "/clubs/{id}", produces = "application/json")
-    public ResponseEntity<String> deleteClub(@PathVariable long id) {
+    public ResponseEntity<Long> deleteClub(@PathVariable long id) {
         if (clubService.deleteClubById(id) > 0) {
-            return new ResponseEntity<>("Deleted...", HttpStatus.OK);
+            return new ResponseEntity<>(1L, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Club not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(-1L, HttpStatus.NOT_FOUND);
         }
     }
 

@@ -20,9 +20,14 @@ $(document).ready(function() {
               <td>${head.name} ${head.surname}</td>
               <td>${clubs[i].contact}</td>
               <td>
-                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-              </td>
+  <button class="edit editButton" data-row-id="${clubs[i].id}" data-toggle="modal" data-target="#editEmployeeModal">
+    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+  </button>
+  <button class="delete deleteButton" data-row-id="${clubs[i].id}" data-toggle="modal" data-target="#deleteEmployeeModal">
+    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+  </button>
+</td>
+
             </tr>`
                         clubInTable.append(text)
                     }
@@ -49,6 +54,27 @@ $(document).ready(function() {
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log("Error:", errorThrown, textStatus, jqXHR);
                 }
+            });
+
+            $("#clubInTable").on("click", ".deleteButton", function() {
+                const rowId = $(this).data('row-id');
+                const $row = $(this).closest('tr'); // Get the parent row element
+                console.log(rowId);
+
+                $.ajax({
+                    url: '/admin/clubs/' + rowId,
+                    method: 'DELETE',
+                    success: function(response) {
+                        console.log("Deletion successful");
+
+                        // Remove the row from the HTML table
+                        $row.remove();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error occurred:", error);
+                        // Handle error if AJAX request fails
+                    }
+                });
             });
 
 
