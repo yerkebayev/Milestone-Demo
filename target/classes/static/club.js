@@ -64,7 +64,8 @@ $(document).ready(function() {
 
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex flex-row align-items-center">
-                                    <img src="https://storage.cloudconvert.com/tasks/33836809-7715-4d57-96ac-7ff81939aa2c/149071.webp?AWSAccessKeyId=cloudconvert-production&Expires=1687036338&Signature=6lBoLU0zuWbG%2B3ACOjpPoVUxA%2Bg%3D&response-content-disposition=inline%3B%20filename%3D%22149071.webp%22&response-content-type=image%2Fwebp" alt="avatar" width="25" height="25" />
+                                    <div class="row" width="25" height="25" />
+                                        <i class="bi bi-person"></i>
                                         <p class="small mb-0 ms-2">${user.name} ${user.surname}</p>
                                     </div>
                                     <div class="d-flex flex-row align-items-center">
