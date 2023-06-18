@@ -233,6 +233,9 @@ public class IndexController {
                                         @RequestParam(value = "contact", defaultValue = "") String contact,
                                         @RequestParam(value = "image", defaultValue = "") String image) {
         System.out.println(name + " " + clubType + " " + headEmail + " " + email);
+        if (clubType == null) {
+            clubType = 1L;
+        }
         User head = userService.getUserByEmail(headEmail);
         Club cl = clubService.getClubByEmail(email);
         if (head != null && cl == null) {
