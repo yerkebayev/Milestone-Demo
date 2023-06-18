@@ -87,13 +87,15 @@ public class IndexController {
         List<Club> clubs = clubService.getAllClubs();
         List<ClubType> clubTypes = userService.getPreferredClubTypes(user);
         List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypes);
-        HomeResponse hp = new HomeResponse(clubs, recommendedClubs);
-        return hp;
+        return new HomeResponse(clubs, recommendedClubs);
     }
     @GetMapping(value = "/clubs/{id}", produces = "application/json")
     public ResponseEntity<MainResponse> getClubPage(@PathVariable long id, HttpSession session) {
         Optional<Club> optionalClub = clubService.getClubById(id);
         Long user_id = (Long) session.getAttribute("userId");
+        if (user_id == null) {
+            return new ResponseEntity<>(new MainResponse(), HttpStatus.NOT_FOUND);
+        }
         Optional<User> userOptional = userService.getUserById(user_id);
         if (optionalClub.isEmpty() || userOptional.isEmpty()) {
             return new ResponseEntity<>(new MainResponse(), HttpStatus.NOT_FOUND);
@@ -134,6 +136,9 @@ public class IndexController {
     @GetMapping(value = "/clubTypes")
     public ClubTypeResponse getAllClubTypes(HttpSession session) {
         Long user_id = (Long) session.getAttribute("userId");
+        if (user_id == null) {
+            return new ClubTypeResponse(new ArrayList<>(), new ArrayList<>());
+        }
         Optional<User> optional = userService.getUserById(user_id);
         if (optional.isEmpty()) {
             return null;
@@ -149,6 +154,9 @@ public class IndexController {
     public Long addClubTypes(@RequestBody List<Integer> clubTypes, HttpSession session) {
         System.out.println("HERE");
         Long user_id = (Long) session.getAttribute("userId");
+        if (user_id == null) {
+            return -1L;
+        }
         Optional<User> optional = userService.getUserById(user_id);
         if (optional.isEmpty()) {
             return -1L;
@@ -164,6 +172,9 @@ public class IndexController {
     @PostMapping(value = "/clubs/{id}/ratings", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Rating> addRating(@PathVariable long id, @RequestBody MainController.RatingData ratingData, HttpSession session) {
         Long user_id = (Long) session.getAttribute("userId");
+        if (user_id == null) {
+            return new ResponseEntity<>(new Rating(), HttpStatus.NOT_FOUND);
+        }
         Optional<User> userOptional = userService.getUserById(user_id);
         Optional<Club> optionalClub = clubService.getClubById(id);
         if (userOptional.isEmpty() || optionalClub.isEmpty()) {
@@ -173,7 +184,7 @@ public class IndexController {
         Club club = optionalClub.get();
 
         Rating newRating = new Rating(user.getId(), club.getId(), ratingData.getRating(), ratingData.getComment());
-        Rating rattt = ratingService.saveRating(newRating);
+        ratingService.saveRating(newRating);
         return new ResponseEntity<>(newRating, HttpStatus.CREATED);
     }
     @GetMapping(value = "/clubs/{id}/ratings/avg", produces = "application/json")
@@ -214,18 +225,17 @@ public class IndexController {
             User newHead = userService.getUserByNameAndSurname(headNameAndSurname[0], headNameAndSurname[1]);
             if (newHead != null) {
                 System.out.println(newHead.getId() + " " + newHead.getName());
-                Club c = cl;
-                System.out.println("MY ID " + c.getId());
-                c.setName(clubForm.getName());
-                c.setClubType_id(clubForm.getClubType());
-                c.setEmail(clubForm.getEmail());
-                c.setDescription(clubForm.getDescription());
-                c.setMission(clubForm.getMission());
-                c.setHead_id(newHead.getId());
-                c.setContact(clubForm.getContact());
-                c.setImage(clubForm.getImage());
-                clubService.saveClub(c);
-                return new ResponseEntity<>(c, HttpStatus.OK);
+                System.out.println("MY ID " + cl.getId());
+                cl.setName(clubForm.getName());
+                cl.setClubType_id(clubForm.getClubType());
+                cl.setEmail(clubForm.getEmail());
+                cl.setDescription(clubForm.getDescription());
+                cl.setMission(clubForm.getMission());
+                cl.setHead_id(newHead.getId());
+                cl.setContact(clubForm.getContact());
+                cl.setImage(clubForm.getImage());
+                clubService.saveClub(cl);
+                return new ResponseEntity<>(cl, HttpStatus.OK);
             }
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
