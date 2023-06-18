@@ -33,10 +33,7 @@ public class IndexController {
         this.userClubTypeService = userClubTypeService;
     }
 
-//    @GetMapping({"/", "/login"})
-//    public String home(){
-//        return "club.html";
-//    }
+
     @PostMapping("/login")
     public ResponseEntity<Long> login(@RequestParam(value = "email", defaultValue = "") String email, @RequestParam(value = "password", defaultValue = "") String password, HttpSession session) {
         User user = userService.getUserByEmail(email);
@@ -50,12 +47,6 @@ public class IndexController {
             return new ResponseEntity<>(-1L, HttpStatus.BAD_REQUEST);
         }
     }
-
-//    @GetMapping("/register")
-//    public String getRegisterPage() {
-//        return "register.html";
-//    }
-
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> addUser(@RequestBody User user, HttpSession session) {
         if (user.getEmail().endsWith("@unist.ac.kr")){
@@ -170,7 +161,7 @@ public class IndexController {
     }
 
     @PostMapping(value = "/clubs/{id}/ratings", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Rating> addRating(@PathVariable long id, @RequestBody MainController.RatingData ratingData, HttpSession session) {
+    public ResponseEntity<Rating> addRating(@PathVariable long id, @RequestBody RatingData ratingData, HttpSession session) {
         Long user_id = (Long) session.getAttribute("userId");
         if (user_id == null) {
             return new ResponseEntity<>(new Rating(), HttpStatus.NOT_FOUND);
@@ -241,4 +232,41 @@ public class IndexController {
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
+    @DeleteMapping(value = "/admin/clubs/{id}", produces = "application/json")
+    public ResponseEntity<Long> deleteClub(@PathVariable long id) {
+        if (clubService.deleteClubById(id) > 0) {
+            return new ResponseEntity<>(1L, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(-1L, HttpStatus.NOT_FOUND);
+        }
+    }
+    public static class RatingData{
+        private Integer rating;
+        private String comment;
+
+        public Integer getRating() {
+            return rating;
+        }
+
+        public void setRating(Integer rating) {
+            this.rating = rating;
+        }
+
+        public String getComment() {
+            return comment;
+        }
+
+        public void setComment(String comment) {
+            this.comment = comment;
+        }
+
+        public RatingData() {
+        }
+
+        public RatingData(Integer rating, String comment) {
+            this.rating = rating;
+            this.comment = comment;
+        }
+    }
 }
+
