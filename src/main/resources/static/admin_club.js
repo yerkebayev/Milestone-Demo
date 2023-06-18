@@ -130,7 +130,7 @@ $(document).ready(function() {
             $("#saveButton").click(function(event) {
                 event.preventDefault();
 
-                var clubForm = {
+                const clubForm = {
                     name: $('input[name="name"]').val(),
                     email: $('input[name="email"]').val(),
                     mission: $('textarea[name="mission"]').val(),
@@ -139,10 +139,9 @@ $(document).ready(function() {
                     contact: $('input[name="contact"]').val(),
                     clubType: $('#select-club-type').val()
                 };
-                console.log(clubForm);
-
+                console.log("/admin/clubs" + $.param(clubForm));
                 $.ajax({
-                    url: "/admin/clubs",
+                    url: "/admin/clubs" + $.param(clubForm),
                     method: "POST",
                     success: function(club) {
                         console.log(club);

@@ -170,30 +170,35 @@ $(document).ready(function() {
             })
 
             const recommendedClubsList = $("#recommendedClubs2");
-            for (let index = 0; index < recommendedClubs.length; index++) {
-                let listItem = "";
-                if (index === 0) {
-                    listItem += "<div class=\"carousel-item active\">\n";
-                } else {
-                    listItem += "<div class=\"carousel-item\">\n";
-                }
-                listItem += "<div class=\"row card-wrapper container-sm d-flex justify-content-around\">\n";
-
-                if (index + 2 < recommendedClubs.length) {
-                    for (let i = 0; i < 3; i++) {
-                        listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
-                            "  <img src=\"" + recommendedClubs[index + i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
-                            "  <div class=\"card-body\">\n" +
-                            "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[index + i].id + "\">" + recommendedClubs[index + i].name + "</a>\n" +
-                            "  </div>\n" +
-                            "</div>";
+            if(recommendedClubs.length === 0) {
+                const textItem = `<div>Choose Club Types</div>`;
+                recommendedClubsList.append(textItem);
+            } else {
+                for (let index = 0; index < recommendedClubs.length; index++) {
+                    let listItem = "";
+                    if (index === 0) {
+                        listItem += "<div class=\"carousel-item active\">\n";
+                    } else {
+                        listItem += "<div class=\"carousel-item\">\n";
                     }
-                    index += 2;
+                    listItem += "<div class=\"row card-wrapper container-sm d-flex justify-content-around\">\n";
+
+                    if (index + 2 < recommendedClubs.length) {
+                        for (let i = 0; i < 3; i++) {
+                            listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
+                                "  <img src=\"" + recommendedClubs[index + i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
+                                "  <div class=\"card-body\">\n" +
+                                "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[index + i].id + "\">" + recommendedClubs[index + i].name + "</a>\n" +
+                                "  </div>\n" +
+                                "</div>";
+                        }
+                        index += 2;
+                    }
+                    listItem += "</div>\n" +
+                        "</div>";
+                    console.log(listItem);
+                    recommendedClubsList.append(listItem);
                 }
-                listItem += "</div>\n" +
-                    "</div>";
-                console.log(listItem);
-                recommendedClubsList.append(listItem);
             }
 
 

@@ -47,6 +47,19 @@ public class IndexController {
             return new ResponseEntity<>(-1L, HttpStatus.BAD_REQUEST);
         }
     }
+    @PostMapping("/admin/login")
+    public ResponseEntity<Long> loginAdmin(@RequestParam(value = "email", defaultValue = "") String email, @RequestParam(value = "password", defaultValue = "") String password, HttpSession session) {
+        User user = userService.getUserByEmail(email);
+        if (user == null) {
+            return new ResponseEntity<>(-1L, HttpStatus.UNAUTHORIZED);
+        }
+        if (user.getPassword().equals(password) && user.getRole() == 1) {
+            session.setAttribute("userId", user.getId());
+            return new ResponseEntity<>(user.getId(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(-1L, HttpStatus.BAD_REQUEST);
+        }
+    }
     @PostMapping(value = "/register", produces = "application/json")
     public ResponseEntity<?> addUser(@RequestParam(value = "name", defaultValue = "") String name, @RequestParam(value = "surname", defaultValue = "") String surname, @RequestParam(value = "email", defaultValue = "") String email,@RequestParam(value = "password", defaultValue = "") String password, HttpSession session) {
         System.out.println(name + " " + surname + " " + email + " " + password);
