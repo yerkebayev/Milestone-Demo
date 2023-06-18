@@ -51,6 +51,9 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public Double getAverageRatingByClubId(Long clubId) {
         Double avg = ratingRepository.getAverageRatingByClubId(clubId);
+        if(avg == null) {
+            avg = 0.0;
+        }
         return Math.round(avg * 10.0) / 10.0;
     }
 
