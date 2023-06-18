@@ -64,10 +64,7 @@ $(document).ready(function() {
 
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex flex-row align-items-center">
-                                    <div class="row" width="25" height="25" />
-                                        <i class="bi bi-person"></i>
-                                        <p class="small mb-0 ms-2">${user.name} ${user.surname}</p>
-                                    </div>
+                                    <p class="small mb-0 ms-2"><span class="glyphicon glyphicon-user"></span> ${user.name} ${user.surname}</p>
                                     <div class="d-flex flex-row align-items-center">
                                         <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
                                         <p class="small text-muted mb-0">${ratings[i].value}</p>
