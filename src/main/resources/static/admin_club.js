@@ -38,7 +38,6 @@ $(document).ready(function() {
             $.ajax({
                 url: "http://localhost:8080/clubTypesForAdmin",
                 method: "GET",
-                dataType: "json",
                 success: function(response) {
                     const clubTypes = response.clubTypes;
                     for (let i = 0; i < clubTypes.length; i++) {
@@ -143,10 +142,8 @@ $(document).ready(function() {
                 console.log(clubForm);
 
                 $.ajax({
-                    contentType: 'application/json;charset=UTF-8',
                     url: "/admin/clubs",
                     method: "POST",
-                    data: JSON.stringify(clubForm),
                     success: function(club) {
                         console.log(club);
                         $.ajax({

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#register-form').submit(function(event) {
+    $('#registerButton').click(function(event) {
         event.preventDefault();
 
         const user = {
@@ -12,8 +12,6 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/register?' + $.param(user),
-            data: JSON.stringify(user),
-            contentType: 'application/json',
             success: function(response) {
                 // if (response >= 0) {
                     // Redirect to another page

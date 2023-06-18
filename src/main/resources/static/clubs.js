@@ -1,8 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-        // dataType: "JSON",
         url: "http://localhost:8080/clubs",
-        // contentType: "application/json; charset=utf-8",
         method: "GET",
         success: function(data) {
             console.log(data);

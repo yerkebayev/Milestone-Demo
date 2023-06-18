@@ -47,14 +47,15 @@ public class IndexController {
             return new ResponseEntity<>(-1L, HttpStatus.BAD_REQUEST);
         }
     }
-    @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> addUser(@RequestBody User user, HttpSession session) {
-        if (user.getEmail().endsWith("@unist.ac.kr")){
-            User u = userService.getUserByEmail(user.getEmail());
+    @PostMapping(value = "/register", produces = "application/json")
+    public ResponseEntity<?> addUser(@RequestParam(value = "name", defaultValue = "") String name, @RequestParam(value = "surname", defaultValue = "") String surname, @RequestParam(value = "email", defaultValue = "") String email,@RequestParam(value = "password", defaultValue = "") String password, HttpSession session) {
+        System.out.println(name + " " + surname + " " + email + " " + password);
+        if (email.endsWith("@unist.ac.kr")){
+            User u = userService.getUserByEmail(email);
             if (u == null) {
-                User newUser = userService.saveUser(user);
+                User newUser = userService.saveUser(new User(name, surname, email, password, 0));
                 newUser.setRole(0);
-                session.setAttribute("userId", user.getId());
+                session.setAttribute("userId", newUser.getId());
                 return new ResponseEntity<>(newUser, HttpStatus.CREATED);
             } else {
                 return ResponseEntity.badRequest().body("There is already a user with this email");
@@ -141,8 +142,10 @@ public class IndexController {
     public ClubTypeResponse getAllClubTypes() {
         return new ClubTypeResponse(typeService.getAllClubTypes(), null);
     }
-    @PostMapping(value = "/clubTypes/add", consumes = "application/json", produces = "application/json")
-    public Long addClubTypes(@RequestBody List<Integer> clubTypes, HttpSession session) {
+
+    @PostMapping(value = "/clubTypes/add", consumes = "application/x-www-form-urlencoded")
+    public Long addClubTypes(@RequestParam(value = "clubTypes", defaultValue = "") String clubTypes, HttpSession session) {
+        String[] clubTypesArray = clubTypes.split("_");
         System.out.println("HERE");
         Long user_id = (Long) session.getAttribute("userId");
         if (user_id == null) {
@@ -154,15 +157,19 @@ public class IndexController {
         }
         User user = optional.get();
         userClubTypeService.deleteUserClubType(user.getId());
-        for (long clubType_id : clubTypes) {
-            userClubTypeService.saveUserClubType(new UserClubType(user_id, clubType_id));
+        for (String clubType_id : clubTypesArray) {
+            if (!clubType_id.equals(" ")) {
+                userClubTypeService.saveUserClubType(new UserClubType(user_id, Long.valueOf(clubType_id)));
+            }
         }
         return 1L;
     }
 
-    @PostMapping(value = "/clubs/{id}/ratings", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Rating> addRating(@PathVariable long id, @RequestBody RatingData ratingData, HttpSession session) {
+    @PostMapping(value = "/clubs/{id}/ratings", consumes = "application/x-www-form-urlencoded", produces = "application/json")
+    public ResponseEntity<Rating> addRating(@PathVariable long id, @RequestParam(value = "comment", defaultValue = "") String comment, @RequestParam(value = "rating", defaultValue = "") Integer rating, HttpSession session) {
         Long user_id = (Long) session.getAttribute("userId");
+        System.out.println("Added");
+
         if (user_id == null) {
             return new ResponseEntity<>(new Rating(), HttpStatus.NOT_FOUND);
         }
@@ -173,8 +180,9 @@ public class IndexController {
         }
         User user = userOptional.get();
         Club club = optionalClub.get();
+        System.out.println("Added");
 
-        Rating newRating = new Rating(user.getId(), club.getId(), ratingData.getRating(), ratingData.getComment());
+        Rating newRating = new Rating(user.getId(), club.getId(), rating, comment);
         ratingService.saveRating(newRating);
         return new ResponseEntity<>(newRating, HttpStatus.CREATED);
     }
@@ -202,29 +210,36 @@ public class IndexController {
         User head = userService.getUserById(club.getHead_id()).get();
         return new ResponseEntity<>(new ClubRequest(club.getId(), club.getName(), club.getClubType_id(), club.getEmail(), club.getMission(), club.getDescription(), head.getName() + " " + head.getSurname(), club.getContact(), club.getImage()), HttpStatus.OK);
     }
-    @PostMapping(value = "/admin/clubs",consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Club> addClub(@RequestBody ClubRequest clubForm) {
-        System.out.println(clubForm.getName() + " " + clubForm.getClubType() + " " + clubForm.getHeadEmail() + " " +clubForm.getEmail());
-        User head = userService.getUserByEmail(clubForm.getHeadEmail());
-        Club cl = clubService.getClubByEmail(clubForm.getEmail());
+    @PostMapping(value = "/admin/clubs", produces = "application/json")
+    public ResponseEntity<Club> addClub(@RequestParam("name") String name,
+                                        @RequestParam("clubType") Long clubType,
+                                        @RequestParam("headEmail") String headEmail,
+                                        @RequestParam("email") String email,
+                                        @RequestParam("description") String description,
+                                        @RequestParam("mission") String mission,
+                                        @RequestParam("contact") String contact,
+                                        @RequestParam("image") String image) {
+        System.out.println(name + " " + clubType + " " + headEmail + " " + email);
+        User head = userService.getUserByEmail(headEmail);
+        Club cl = clubService.getClubByEmail(email);
         if (head != null && cl == null) {
-            Club newClub = clubService.saveClub(new Club(clubForm.getName(), clubForm.getEmail(), clubForm.getClubType(), clubForm.getDescription(), clubForm.getMission(), clubForm.getContact(), head.getId(), clubForm.getImage()));
+            Club newClub = clubService.saveClub(new Club(name, email, clubType, description, mission, contact, head.getId(), image));
             return new ResponseEntity<>(newClub, HttpStatus.CREATED);
         }
-        String[] headNameAndSurname = (clubForm.getHeadEmail().split(" "));
+        String[] headNameAndSurname = (headEmail.split(" "));
         if (headNameAndSurname.length > 1) {
             User newHead = userService.getUserByNameAndSurname(headNameAndSurname[0], headNameAndSurname[1]);
             if (newHead != null) {
                 System.out.println(newHead.getId() + " " + newHead.getName());
                 System.out.println("MY ID " + cl.getId());
-                cl.setName(clubForm.getName());
-                cl.setClubType_id(clubForm.getClubType());
-                cl.setEmail(clubForm.getEmail());
-                cl.setDescription(clubForm.getDescription());
-                cl.setMission(clubForm.getMission());
+                cl.setName(name);
+                cl.setClubType_id(clubType);
+                cl.setEmail(email);
+                cl.setDescription(description);
+                cl.setMission(mission);
                 cl.setHead_id(newHead.getId());
-                cl.setContact(clubForm.getContact());
-                cl.setImage(clubForm.getImage());
+                cl.setContact(contact);
+                cl.setImage(image);
                 clubService.saveClub(cl);
                 return new ResponseEntity<>(cl, HttpStatus.OK);
             }
@@ -232,6 +247,7 @@ public class IndexController {
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
+
     @DeleteMapping(value = "/admin/clubs/{id}", produces = "application/json")
     public ResponseEntity<Long> deleteClub(@PathVariable long id) {
         if (clubService.deleteClubById(id) > 0) {
