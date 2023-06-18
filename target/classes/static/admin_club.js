@@ -140,9 +140,8 @@ $(document).ready(function() {
                     clubType: $('#select-club-type').val()
                 };
                 clearModal();
-                console.log("/admin/clubs" + $.param(clubForm));
                 $.ajax({
-                    url: "/admin/clubs" + $.param(clubForm),
+                    url: "/admin/clubs?" + $.param(clubForm),
                     method: "POST",
                     success: function(club) {
                         console.log(club);

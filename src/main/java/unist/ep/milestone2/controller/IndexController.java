@@ -224,14 +224,14 @@ public class IndexController {
         return new ResponseEntity<>(new ClubRequest(club.getId(), club.getName(), club.getClubType_id(), club.getEmail(), club.getMission(), club.getDescription(), head.getName() + " " + head.getSurname(), club.getContact(), club.getImage()), HttpStatus.OK);
     }
     @PostMapping(value = "/admin/clubs", produces = "application/json")
-    public ResponseEntity<Club> addClub(@RequestParam("name") String name,
-                                        @RequestParam("clubType") Long clubType,
-                                        @RequestParam("headEmail") String headEmail,
-                                        @RequestParam("email") String email,
-                                        @RequestParam("description") String description,
-                                        @RequestParam("mission") String mission,
-                                        @RequestParam("contact") String contact,
-                                        @RequestParam("image") String image) {
+    public ResponseEntity<Club> addClub(@RequestParam(value = "name", defaultValue = "") String name,
+                                        @RequestParam(value = "clubType", defaultValue = "") Long clubType,
+                                        @RequestParam(value = "headEmail", defaultValue = "") String headEmail,
+                                        @RequestParam(value = "email", defaultValue = "") String email,
+                                        @RequestParam(value = "description", defaultValue = "") String description,
+                                        @RequestParam(value = "mission", defaultValue = "") String mission,
+                                        @RequestParam(value = "contact", defaultValue = "") String contact,
+                                        @RequestParam(value = "image", defaultValue = "") String image) {
         System.out.println(name + " " + clubType + " " + headEmail + " " + email);
         User head = userService.getUserByEmail(headEmail);
         Club cl = clubService.getClubByEmail(email);

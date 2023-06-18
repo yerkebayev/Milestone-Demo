@@ -137,7 +137,8 @@ $(document).ready(function() {
                     description: $('textarea[name="description"]').val(),
                     headEmail: $('input[name="head"]').val(),
                     contact: $('input[name="contact"]').val(),
-                    clubType: $('#select-club-type').val()
+                    clubType: $('#select-club-type').val(),
+                    image: $('input[name="image"]').val(),
                 };
                 clearModal();
                 $.ajax({
