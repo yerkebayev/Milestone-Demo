@@ -12,7 +12,7 @@ $(document).ready(function() {
                     url: 'http://localhost:8080/user/' + clubs[i].head_id,
                     method: 'GET',
                     success: function(head) {
-                        const text = `<tr>
+                        const text = `<tr data-row-id="${clubs[i].id}">
               <td>${clubs[i].name}</td>
               <td>${clubs[i].email}</td>
               <td>${clubs[i].mission}</td>
@@ -146,13 +146,13 @@ $(document).ready(function() {
                     method: "POST",
                     data: JSON.stringify(clubForm),
                     success: function(club) {
-
+                        console.log(club);
                         $.ajax({
-                            url: 'http://localhost:8080/user/' + clubs[i].head_id,
+                            url: 'http://localhost:8080/user/' + club.head_id,
                             method: 'GET',
                             success: function(head) {
-
-                                const text = `<tr>
+                                if (clubForm.headEmail.includes("@")) {
+                                    const text = `<tr>
               <td>${club.name}</td>
               <td>${club.email}</td>
               <td>${club.mission}</td>
@@ -164,7 +164,23 @@ $(document).ready(function() {
                 <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
               </td>
             </tr>`
-                                clubInTable.append(text)
+                                    clubInTable.append(text)
+                                }
+                                else {
+                                    console.log("UPDATED CLUB")
+                                    console.log(club);
+                                    const rowId = club.id;
+                                    const $row = $('tr[data-row-id="' + rowId + '"]');
+                                    console.log($row);
+                                    $row.find('td:eq(0)').text(club.name)
+                                    $row.find('td:eq(1)').text(club.email);
+                                    $row.find('td:eq(2)').text(club.mission);
+                                    $row.find('td:eq(3)').text(club.description);
+                                    $row.find('td:eq(4)').text(head.name + ' ' + head.surname);
+                                    $row.find('td:eq(5)').text(club.contact);
+                                    console.log("UPDATED");
+                                }
+
                             }
                         });
                         $('#club-form-modal').modal('hide');

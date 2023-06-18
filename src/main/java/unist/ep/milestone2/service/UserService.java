@@ -10,6 +10,7 @@ public interface UserService {
     List<User> getAllUsers();
     Optional<User> getUserById(Long id);
     User getUserByEmail(String email);
+    User getUserByNameAndSurname(String name, String surname);
 
     User saveUser(User user);
     Long deleteUserById(Long id);

@@ -207,20 +207,26 @@ public class IndexController {
         Club cl = clubService.getClubByEmail(clubForm.getEmail());
         if (head != null && cl == null) {
             Club newClub = clubService.saveClub(new Club(clubForm.getName(), clubForm.getEmail(), clubForm.getClubType(), clubForm.getDescription(), clubForm.getMission(), clubForm.getContact(), head.getId()));
-            System.out.println(newClub.getId());
             return new ResponseEntity<>(newClub, HttpStatus.CREATED);
         }
-        if (clubForm.getHeadEmail().equals("")) {
-            Club c = cl;
-            c.setName(clubForm.getName());
-            c.setClubType_id(clubForm.getClubType());
-            c.setEmail(clubForm.getEmail());
-            c.setDescription(clubForm.getDescription());
-            c.setMission(clubForm.getMission());
-            c.setHead_id(head.getId());
-            c.setContact(clubForm.getContact());
-            clubService.saveClub(c);
-            return new ResponseEntity<>(c, HttpStatus.OK);
+        String[] headNameAndSurname = (clubForm.getHeadEmail().split(" "));
+        if (headNameAndSurname.length > 1) {
+            User newHead = userService.getUserByNameAndSurname(headNameAndSurname[0], headNameAndSurname[1]);
+            if (newHead != null) {
+                System.out.println(newHead.getId() + " " + newHead.getName());
+                Club c = cl;
+                System.out.println("MY ID " + c.getId());
+                c.setName(clubForm.getName());
+                c.setClubType_id(clubForm.getClubType());
+                c.setEmail(clubForm.getEmail());
+                c.setDescription(clubForm.getDescription());
+                c.setMission(clubForm.getMission());
+                c.setHead_id(newHead.getId());
+                c.setContact(clubForm.getContact());
+                clubService.saveClub(c);
+                return new ResponseEntity<>(c, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }

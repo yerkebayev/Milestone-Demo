@@ -16,6 +16,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
            WHERE u.email = :email
            """)
     User getUserByEmail(@Param("email") String email);
+    @Query("""
+           SELECT DISTINCT u FROM User u
+           WHERE u.name = :name and u.surname = :surname
+           """)
+    User getUserByNameAndSurname(@Param("name") String name, @Param("surname") String surname);
 
     @Query("""
            SELECT ct FROM UserClubType uc
