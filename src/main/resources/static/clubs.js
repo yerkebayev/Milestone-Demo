@@ -40,7 +40,7 @@ $(document).ready(function() {
 
             const recommendedClubsList = $("#recommendedClubs");
             if(recommendedClubs.length === 0) {
-                const textItem = `<div>Choose Club Types</div>`;
+                const textItem = `<h2 style="text-align: center; color: red"> Choose Club Types</h2>`;
                 recommendedClubsList.append(textItem);
             } else {
                 for (let index = 0; index < recommendedClubs.length; index++) {

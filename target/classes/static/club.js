@@ -171,7 +171,7 @@ $(document).ready(function() {
 
             const recommendedClubsList = $("#recommendedClubs2");
             if(recommendedClubs.length === 0) {
-                const textItem = `<div>Choose Club Types</div>`;
+                const textItem = `<div style="justify-self: center">Choose Club Types</div>`;
                 recommendedClubsList.append(textItem);
             } else {
                 for (let index = 0; index < recommendedClubs.length; index++) {
@@ -193,6 +193,9 @@ $(document).ready(function() {
                                 "</div>";
                         }
                         index += 2;
+                    }
+                    if (listItem.length === 0) {
+                        continue;
                     }
                     listItem += "</div>\n" +
                         "</div>";
