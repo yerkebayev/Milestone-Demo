@@ -8,10 +8,10 @@ $(document).ready(function() {
             email: $('#email').val(),
             password: $('#password').val()
         };
-
+        console.log($.param(user))
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:8080/register',
+            url: 'http://localhost:8080/register?' + $.param(user),
             data: JSON.stringify(user),
             contentType: 'application/json',
             success: function(response) {
