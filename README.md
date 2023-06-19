@@ -1,270 +1,95 @@
-UniStep
 
-Features
+UniStep User Documentation
 
-1. Club Information
-
-- List all clubs: Get all the clubs and users’ preferred clubs.  
-- Get club page: Get the specific club with its ratings and comments and some recommended clubs for user with the same club type.
-- The Clubs can be modified by a special user Admin (role = 1): Add club, Edit club, Delete club.
-
-Usages:
-### Get list of all clubs
-curl -X GET http://localhost:8080/api/10/clubs
-
-Expected Output:
-"allClubs": [
-    {
-      "id": 1,
-      "name": "Chess Club",
-      "email": "chessclub@unist.ac.kr",
-      "clubType_id": 9,
-      "description": "A club for chess enthusiasts",
-      "mission": "To promote chess as a fun and intellectually stimulating activity",
-      "contact": "John Smith",
-      "head_id": 101
-    },
-...
-],
-
-"preferredClubs": [
-    {
-      "id": 14,
-      "name": "Theater Club",
-      "email": "theaterclub@unist.ac.kr",
-      "clubType_id": 4,
-      "description": "A club for students interested in acting and theater production",
-      "mission": "To develop performance skills and stagecraft through various productions and events",
-      "contact": "Ethan Brown",
-      "head_id": 114
-    },
-…
-]
+Welcome to UniStep, your go-to platform for exploring and engaging with various clubs and activities at UNIST (Ulsan National Institute of Science and Technology). UniStep empowers users to discover and participate in a wide range of club activities while providing a seamless and personalized experience.
 
 
-### Get club page
-curl -X GET http://localhost:8080/api/18/clubs/15
+Introduction
 
-Expected Output:
-
-{
-"club": {
-    "id": 15,
-    "name": "Fashion Club",
-    "email": "fashionclub@unist.ac.kr",
-    "clubType_id": 2,
-    "description": "A club for students interested in fashion design and styling",
-    "mission": "To promote creativity and exploration in the fashion industry and develop skills in design and sewing",
-    "contact": "Maggie Chen",
-    "head_id": 115
-  },
-"user": {
-    "id": 18,
-    "name": "Gerda",
-    "surname": "Artois",
-    "email": "qfpkdr@unist.ac.kr",
-    "password": "1Tqgvd",
-    "role": 0
-  },
-  "ratings": [
-    {
-      "id": 14,
-      "user_id": 16,
-      "club_id": 15,
-      "value": 5,
-      "comment": "Spohn"
-    },
-…},
-"ratingAverage": 3.1,
-"recommendedClubs": [
-    {
-      "id": 2,
-      "name": "Photography Club",
-      "email": "photoclub@unist.ac.kr",
-      "clubType_id": 2,
-      "description": "A club for photography enthusiasts",
-      "mission": "To provide a space for students to explore and develop their photographic skills",
-      "contact": "Jane Doe",
-      "head_id": 102
-    },
-…}
-}
-
-### Add club
-curl -X POST -H "Content-Type: application/json" -d '{"name": "Marat", "email": "marat@gmail.com", "clubType_id": 2, "description": "Marat Yerkebayev is the best!", "mission": "Bar", "contact": "87009809778", "head_id": 2}' http://localhost:8080/admin/clubs
-
-Excepted output:
-{
-  "id": 46,
-  "name": "Marat",
-  "email": "marat@gmail.com",
-  "clubType_id": 2,
-  "description": "Marat Yerkebayev is the best!",
-  "mission": "Bar",
-  "contact": "87009809778",
-  "head_id": 2
-}
-
-### Edit club
-curl -X PUT http://localhost:8080/admin/clubs/5 -H "Content-Type: application/json" -d '{"name": "Marat Demo", "email": "marat@gmail.com", "clubType_id": 3, "description": "Marat Yerkebayev is the best!", "mission": "Bar", "contact": "87009809778", "head_id": 2}'
-
-Excepted output:
-{
-  "id": 5,
-  "name": "Marat Demo",
-  "email": "marat@gmail.com",
-  "clubType_id": 3,
-  "description": "Marat Yerkebayev is the best!",
-  "mission": "Bar",
-  "contact": "87009809778",
-  "head_id": 2
-}
-
-### Delete club
-curl -X DELETE http://localhost:8080/admin/clubs/3
-
-Excepted output:
-Deleted...
+UniStep is designed to provide a convenient and flexible way for users to interact with their club-related data on the Solid platform. Solid empowers individuals and organizations to separate their data from the applications that use it, allowing for greater control, privacy, and interoperability. UniStep leverages the Solid platform to enable users to manage their club information, ratings, comments, and preferences in a secure and collaborative manner.
 
 
-2. Ratings and Comments
+UniStep Features
 
-- Get average rating of Club: It takes two arguments: user_id, club_id. Checks whether they exist and returns average rating of the club
+UniStep offers a range of features to enhance your club experience and streamline your interactions within the UNIST community.
+    1. Club Information
+    2. Ratings and Comments
+    3. Recommendations
+    4. Registration and Login
 
-- Get all comments and ratings of the club: It takes two arguments: user_id, club_id.  Checks whether they exist and returns all the comments and ratings of each user for the specific club.
+    
+Club Information
 
-Usages:
-
- ### Get average rating of club
-curl -X GET http://localhost:8080/api/5/clubs/14/ratings/avg
-
-Expected Output: 
-3.1
-
-### Get all ratings and comments of club
-curl -X GET http://localhost:8080/api/5/clubs/14/ratings
-Expected Output:
-[
-  {
-    "id": 13,
-    "user_id": 15,
-    "club_id": 14,
-    "value": 4,
-    "comment": "Di Loreto"
-  },
-  {
-    "id": 46,
-    "user_id": 48,
-    "club_id": 14,
-    "value": 2,
-    "comment": "Lerdahl"
-  }, ... ]
-
-### Add rating in club
-curl -X POST http://localhost:8080/api/1/clubs/1/ratings -H 'Content-Type: application/json' -d '{"rating": 5, "comment": "This club is great!"}'
-
-Excepted output:
-{
-  "id": 458,
-  "user_id": 1,
-  "club_id": 1,
-  "value": 5,
-  "comment": "This club is great!"
-}
-
-### Edit rating
-curl -X PUT http://localhost:8080/api/1/clubs/1/ratings/539 \
--H 'Content-Type: application/json' \
--d '{
-    "rating": 7,
-    "comment": "This club is amazing!"
-}'
-
-Excepted output:
-{
-  "id": 6,
-  "user_id": 8,
-  "club_id": 7,
-  "value": 7,
-  "comment": "This club is amazing!"
-}
-
-### Delete rating
-curl -X DELETE http://localhost:8080/api/1/clubs/1/ratings/539
-
-Excepted output:
-Deleted...
+With UniStep, you can easily access comprehensive club information, including details about each club, such as its name, email, description, mission, contact person, and club type. UniStep allows you to retrieve a list of all clubs available at UNIST, as well as detailed information about a specific club. You can explore ratings and comments from other users and discover recommended clubs based on your preferences.
+![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2013-33-38.png)
 
 
-3. Recommendations
-- Choose types: Authenticated User manages preferred club types 
-- Get recommended clubs by user preferences: We recommend clubs to the user based on their preferred club types.
-- Get recommended clubs by club type: If a user is on the page of one club, they can see other clubs of the same type.
- 
-Usages
-### Add preferred club types
-curl -X POST http://localhost:8080/api/10/choose_types -H "Content-Type: application/json" -d '[1, 5, 7]'
+Ratings and Comments
 
-Excepted output:
-Club types added successfully
-
-### Get clubs by user prefer
-curl -X GET http://localhost:8080/api/15/clubs/prefer
-
-Expected Output:
-[
-  {
-    "id": 14,
-    "name": "Theater Club",
-    "email": "theaterclub@unist.ac.kr",
-    "clubType_id": 4,
-    "description": "A club for students interested in acting and theater production",
-    "mission": "To develop performance skills and stagecraft through various productions and events",
-    "contact": "Ethan Brown",
-    "head_id": 114
-  }, ... ]
+UniStep enables users to provide ratings and comments for clubs they have experienced. By accessing the ratings and comments feature, you can view the average rating of a club based on user feedback. Additionally, you can retrieve all the comments and ratings given by users for a specific club, helping you make informed decisions and engage with clubs that align with your interests.
+![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2013-34-19.png)
 
 
-### Get clubs by type of that club
-curl -X GET http://localhost:8080/api/1/clubs/1/prefer
+Recommendations
 
-Expected Output:
-[
-  {
-    "id": 1,
-    "name": "Chess Club",
-    "email": "chessclub@unist.ac.kr",
-    "clubType_id": 9,
-    "description": "A club for chess enthusiasts",
-    "mission": "To promote chess as a fun and intellectually stimulating activity",
-    "contact": "John Smith",
-    "head_id": 101
-  }, ... ]
+UniStep's recommendation feature enhances your club exploration journey by providing personalized recommendations. You can choose preferred club types, and UniStep will recommend clubs based on your preferences. Furthermore, while viewing a particular club, you can discover other clubs of the same type, enabling you to explore similar clubs that might interest you.
+![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2013-34-32.png)
 
-4. Registration
 
-- Sign up: User fills all the necessary information. System will make sure that the User filled UNIST Email. Also, checks whether the user is already registered or not.
-- Sign in: Checks the email and password. If it is valid, returns user id. In another case returns -1.
+Registration and Login
 
-Usages
+To fully utilize UniStep's features, registration is required. UniStep offers a straightforward sign-up process where users fill in their necessary information. During registration, the system ensures the use of UNIST email addresses and checks for existing user accounts. Once registered, users can log in to UniStep securely using their email and password credentials.
+![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2013-32-32.png)
+![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2013-47-16.png)
 
-### Login
-curl -X GET http://localhost:8080/login?email=yerkebayev@unist.ac.kr&password=123hey
 
-Excepted output: 
-374
+Other pages
 
-### Register
-curl -X POST http://localhost:8080/register \
--H "Content-Type: application/json" \
--d '{"name": "Irina", "surname": "Kairatovna", "email": "weareik@unist.ac.kr", "password": "123ik"}'
+All clubs
 
-Excepted output:
-{
-  "id": 376,
-  "name": "Irina",
-  "surname": "Kairatovna",
-  "email": "weareik@unist.ac.kr",
-  "password": "123ik",
-  "role": null
-}
+All student clubs in Unist.
+![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2014-03-49.png)
+
+
+Choose club types
+
+On this page, you have the opportunity to select your favorite types of clubs. Based on your preferences, we will provide personalized club recommendations tailored to your interests.
+  ![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2013-47-02.png)
+
+Admin Mode: Managing Clubs
+
+UniStep provides an exclusive Admin Mode that allows administrators to efficiently manage clubs within the system. As an admin user, you have the authority to perform various actions such as adding new clubs, editing existing club information, and even deleting clubs when necessary. This section will guide you through the steps required to utilize the admin features effectively.
+
+![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2013-47-27.png)
+![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2013-47-32.png)
+![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2013-47-35.png)
+![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2013-47-41.png)
+![p](https://github.com/yerkebayev/Milestone-Demo/blob/milestone3/readmeImages/Screenshot%20from%202023-06-19%2013-47-44.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
