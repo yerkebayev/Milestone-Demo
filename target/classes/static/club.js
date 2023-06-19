@@ -3,7 +3,7 @@ $(document).ready(function() {
     console.log(urlParams);
     const id = urlParams.get('id');
     console.log(id);
-    const url = "http://localhost:8080/clubs/" + id;
+    const url = "/clubs/" + id;
 
     $.ajax({
         url: url,

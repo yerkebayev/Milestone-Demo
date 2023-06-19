@@ -9,7 +9,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:8080/admin/login',
+            url: '/admin/login',
             data: {
                 email: email,
                 password: password
