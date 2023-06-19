@@ -8,6 +8,7 @@
         <version>3.0.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <packaging>war</packaging>
     <groupId>unist.ep</groupId>
     <artifactId>Milestone2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -81,11 +82,16 @@
             <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
     <build>
-        <finalName>cse364-project-1.0-SNAPSHOT-jar</finalName>
+        <finalName>cse364-project-17-group</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

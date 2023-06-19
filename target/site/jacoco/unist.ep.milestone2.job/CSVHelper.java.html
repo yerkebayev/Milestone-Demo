@@ -15,64 +15,64 @@ import org.springframework.web.multipart.MultipartFile;
 import unist.ep.milestone2.model.*;
 
 <span class="nc" id="L17">public class CSVHelper {</span>
-<span class="fc" id="L18">    public static String TYPE = &quot;text/csv&quot;;</span>
+<span class="nc" id="L18">    public static String TYPE = &quot;text/csv&quot;;</span>
 
     public static boolean hasCSVFormat(MultipartFile file) {
 
-<span class="fc" id="L22">        return TYPE.equals(file.getContentType());</span>
+<span class="nc" id="L22">        return TYPE.equals(file.getContentType());</span>
     }
 
     public static List&lt;Club&gt; csvToClubs(InputStream is) {
-<span class="fc" id="L26">        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));</span>
-<span class="fc" id="L27">             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {</span>
+<span class="nc" id="L26">        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));</span>
+<span class="nc" id="L27">             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {</span>
 
-<span class="fc" id="L29">            List&lt;Club&gt; clubs = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L29">            List&lt;Club&gt; clubs = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L31">            Iterable&lt;CSVRecord&gt; csvRecords = csvParser.getRecords();</span>
+<span class="nc" id="L31">            Iterable&lt;CSVRecord&gt; csvRecords = csvParser.getRecords();</span>
 
-<span class="fc bfc" id="L33" title="All 2 branches covered.">            for (CSVRecord csvRecord : csvRecords) {</span>
-<span class="fc" id="L34">                Club club = new Club(</span>
-<span class="fc" id="L35">                        Long.parseLong(csvRecord.get(&quot;ClubId&quot;)),</span>
-<span class="fc" id="L36">                        csvRecord.get(&quot;Name&quot;),</span>
-<span class="fc" id="L37">                        csvRecord.get(&quot;Email&quot;),</span>
-<span class="fc" id="L38">                        Long.parseLong(csvRecord.get(&quot;ClubTypeId&quot;)),</span>
-<span class="fc" id="L39">                        csvRecord.get(&quot;Description&quot;),</span>
-<span class="fc" id="L40">                        csvRecord.get(&quot;Mission&quot;),</span>
-<span class="fc" id="L41">                        csvRecord.get(&quot;Contact&quot;),</span>
-<span class="fc" id="L42">                        Long.parseLong(csvRecord.get(&quot;HeadId&quot;)),</span>
-<span class="fc" id="L43">                        csvRecord.get(&quot;Image&quot;)</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            for (CSVRecord csvRecord : csvRecords) {</span>
+<span class="nc" id="L34">                Club club = new Club(</span>
+<span class="nc" id="L35">                        Long.parseLong(csvRecord.get(&quot;ClubId&quot;)),</span>
+<span class="nc" id="L36">                        csvRecord.get(&quot;Name&quot;),</span>
+<span class="nc" id="L37">                        csvRecord.get(&quot;Email&quot;),</span>
+<span class="nc" id="L38">                        Long.parseLong(csvRecord.get(&quot;ClubTypeId&quot;)),</span>
+<span class="nc" id="L39">                        csvRecord.get(&quot;Description&quot;),</span>
+<span class="nc" id="L40">                        csvRecord.get(&quot;Mission&quot;),</span>
+<span class="nc" id="L41">                        csvRecord.get(&quot;Contact&quot;),</span>
+<span class="nc" id="L42">                        Long.parseLong(csvRecord.get(&quot;HeadId&quot;)),</span>
+<span class="nc" id="L43">                        csvRecord.get(&quot;Image&quot;)</span>
                 );
 
-<span class="fc" id="L46">                clubs.add(club);</span>
-<span class="fc" id="L47">            }</span>
+<span class="nc" id="L46">                clubs.add(club);</span>
+<span class="nc" id="L47">            }</span>
 
-<span class="fc" id="L49">            return clubs;</span>
+<span class="nc" id="L49">            return clubs;</span>
 <span class="nc" id="L50">        } catch (IOException e) {</span>
 <span class="nc" id="L51">            throw new RuntimeException(&quot;fail to parse CSV file: &quot; + e.getMessage());</span>
         }
     }
     public static List&lt;User&gt; csvToUsers(InputStream is) {
-<span class="fc" id="L55">        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));</span>
-<span class="fc" id="L56">             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {</span>
+<span class="nc" id="L55">        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));</span>
+<span class="nc" id="L56">             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {</span>
 
-<span class="fc" id="L58">            List&lt;User&gt; users = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L58">            List&lt;User&gt; users = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L60">            Iterable&lt;CSVRecord&gt; csvRecords = csvParser.getRecords();</span>
+<span class="nc" id="L60">            Iterable&lt;CSVRecord&gt; csvRecords = csvParser.getRecords();</span>
 
-<span class="fc bfc" id="L62" title="All 2 branches covered.">            for (CSVRecord csvRecord : csvRecords) {</span>
-<span class="fc" id="L63">                User user = new User(</span>
-<span class="fc" id="L64">                        Long.parseLong(csvRecord.get(&quot;UserId&quot;)),</span>
-<span class="fc" id="L65">                        csvRecord.get(&quot;Name&quot;),</span>
-<span class="fc" id="L66">                        csvRecord.get(&quot;Surname&quot;),</span>
-<span class="fc" id="L67">                        csvRecord.get(&quot;Email&quot;),</span>
-<span class="fc" id="L68">                        csvRecord.get(&quot;Password&quot;),</span>
-<span class="fc" id="L69">                        Integer.parseInt(csvRecord.get(&quot;Role&quot;))</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">            for (CSVRecord csvRecord : csvRecords) {</span>
+<span class="nc" id="L63">                User user = new User(</span>
+<span class="nc" id="L64">                        Long.parseLong(csvRecord.get(&quot;UserId&quot;)),</span>
+<span class="nc" id="L65">                        csvRecord.get(&quot;Name&quot;),</span>
+<span class="nc" id="L66">                        csvRecord.get(&quot;Surname&quot;),</span>
+<span class="nc" id="L67">                        csvRecord.get(&quot;Email&quot;),</span>
+<span class="nc" id="L68">                        csvRecord.get(&quot;Password&quot;),</span>
+<span class="nc" id="L69">                        Integer.parseInt(csvRecord.get(&quot;Role&quot;))</span>
                 );
 
-<span class="fc" id="L72">                users.add(user);</span>
-<span class="fc" id="L73">            }</span>
+<span class="nc" id="L72">                users.add(user);</span>
+<span class="nc" id="L73">            }</span>
 
-<span class="fc" id="L75">            return users;</span>
+<span class="nc" id="L75">            return users;</span>
 <span class="nc" id="L76">        } catch (IOException e) {</span>
 <span class="nc" id="L77">            throw new RuntimeException(&quot;fail to parse CSV file: &quot; + e.getMessage());</span>
         }
@@ -80,71 +80,71 @@ import unist.ep.milestone2.model.*;
 
 
     public static List&lt;Rating&gt; csvToRatings(InputStream is) {
-<span class="fc" id="L83">        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));</span>
-<span class="fc" id="L84">             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {</span>
-<span class="fc" id="L85">            List&lt;Rating&gt; ratings = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L83">        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));</span>
+<span class="nc" id="L84">             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {</span>
+<span class="nc" id="L85">            List&lt;Rating&gt; ratings = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L87">            Iterable&lt;CSVRecord&gt; csvRecords = csvParser.getRecords();</span>
+<span class="nc" id="L87">            Iterable&lt;CSVRecord&gt; csvRecords = csvParser.getRecords();</span>
 
-<span class="fc bfc" id="L89" title="All 2 branches covered.">            for (CSVRecord csvRecord : csvRecords) {</span>
-<span class="fc" id="L90">                Rating rating = new Rating(</span>
-<span class="fc" id="L91">                        Long.parseLong(csvRecord.get(&quot;RatingId&quot;)),</span>
-<span class="fc" id="L92">                        Long.parseLong(csvRecord.get(&quot;UserID&quot;)),</span>
-<span class="fc" id="L93">                        Long.parseLong(csvRecord.get(&quot;ClubID&quot;)),</span>
-<span class="fc" id="L94">                        Integer.parseInt(csvRecord.get(&quot;Value&quot;)),</span>
-<span class="fc" id="L95">                        csvRecord.get(&quot;Comment&quot;)</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">            for (CSVRecord csvRecord : csvRecords) {</span>
+<span class="nc" id="L90">                Rating rating = new Rating(</span>
+<span class="nc" id="L91">                        Long.parseLong(csvRecord.get(&quot;RatingId&quot;)),</span>
+<span class="nc" id="L92">                        Long.parseLong(csvRecord.get(&quot;UserID&quot;)),</span>
+<span class="nc" id="L93">                        Long.parseLong(csvRecord.get(&quot;ClubID&quot;)),</span>
+<span class="nc" id="L94">                        Integer.parseInt(csvRecord.get(&quot;Value&quot;)),</span>
+<span class="nc" id="L95">                        csvRecord.get(&quot;Comment&quot;)</span>
                 );
 
-<span class="fc" id="L98">                ratings.add(rating);</span>
-<span class="fc" id="L99">            }</span>
+<span class="nc" id="L98">                ratings.add(rating);</span>
+<span class="nc" id="L99">            }</span>
 
-<span class="fc" id="L101">            return ratings;</span>
+<span class="nc" id="L101">            return ratings;</span>
 <span class="nc" id="L102">        } catch (IOException e) {</span>
 <span class="nc" id="L103">            throw new RuntimeException(&quot;fail to parse CSV file: &quot; + e.getMessage());</span>
         }
     }
 
     public static List&lt;UserClubType&gt; csvToUserClubTypes(InputStream is) {
-<span class="fc" id="L108">        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));</span>
-<span class="fc" id="L109">             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {</span>
+<span class="nc" id="L108">        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));</span>
+<span class="nc" id="L109">             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {</span>
 
-<span class="fc" id="L111">            List&lt;UserClubType&gt; userClubTypes = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L111">            List&lt;UserClubType&gt; userClubTypes = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L113">            Iterable&lt;CSVRecord&gt; csvRecords = csvParser.getRecords();</span>
+<span class="nc" id="L113">            Iterable&lt;CSVRecord&gt; csvRecords = csvParser.getRecords();</span>
 
-<span class="fc bfc" id="L115" title="All 2 branches covered.">            for (CSVRecord csvRecord : csvRecords) {</span>
-<span class="fc" id="L116">                UserClubType userClubType = new UserClubType(</span>
-<span class="fc" id="L117">                        Long.parseLong(csvRecord.get(&quot;id&quot;)),</span>
-<span class="fc" id="L118">                        Long.parseLong(csvRecord.get(&quot;user_id&quot;)),</span>
-<span class="fc" id="L119">                        Long.parseLong(csvRecord.get(&quot;clubType_id&quot;))</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">            for (CSVRecord csvRecord : csvRecords) {</span>
+<span class="nc" id="L116">                UserClubType userClubType = new UserClubType(</span>
+<span class="nc" id="L117">                        Long.parseLong(csvRecord.get(&quot;id&quot;)),</span>
+<span class="nc" id="L118">                        Long.parseLong(csvRecord.get(&quot;user_id&quot;)),</span>
+<span class="nc" id="L119">                        Long.parseLong(csvRecord.get(&quot;clubType_id&quot;))</span>
                 );
 
-<span class="fc" id="L122">                userClubTypes.add(userClubType);</span>
-<span class="fc" id="L123">            }</span>
+<span class="nc" id="L122">                userClubTypes.add(userClubType);</span>
+<span class="nc" id="L123">            }</span>
 
-<span class="fc" id="L125">            return userClubTypes;</span>
+<span class="nc" id="L125">            return userClubTypes;</span>
 <span class="nc" id="L126">        } catch (IOException e) {</span>
 <span class="nc" id="L127">            throw new RuntimeException(&quot;fail to parse CSV file: &quot; + e.getMessage());</span>
         }
     }
     public static List&lt;ClubType&gt; csvToClubTypes(InputStream is) {
-<span class="fc" id="L131">        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));</span>
-<span class="fc" id="L132">             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {</span>
+<span class="nc" id="L131">        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));</span>
+<span class="nc" id="L132">             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {</span>
 
-<span class="fc" id="L134">            List&lt;ClubType&gt; clubTypes = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L134">            List&lt;ClubType&gt; clubTypes = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L136">            Iterable&lt;CSVRecord&gt; csvRecords = csvParser.getRecords();</span>
+<span class="nc" id="L136">            Iterable&lt;CSVRecord&gt; csvRecords = csvParser.getRecords();</span>
 
-<span class="fc bfc" id="L138" title="All 2 branches covered.">            for (CSVRecord csvRecord : csvRecords) {</span>
-<span class="fc" id="L139">                ClubType clubType = new ClubType(</span>
-<span class="fc" id="L140">                        Long.parseLong(csvRecord.get(&quot;id&quot;)),</span>
-<span class="fc" id="L141">                        csvRecord.get(&quot;name&quot;)</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            for (CSVRecord csvRecord : csvRecords) {</span>
+<span class="nc" id="L139">                ClubType clubType = new ClubType(</span>
+<span class="nc" id="L140">                        Long.parseLong(csvRecord.get(&quot;id&quot;)),</span>
+<span class="nc" id="L141">                        csvRecord.get(&quot;name&quot;)</span>
                 );
 
-<span class="fc" id="L144">                clubTypes.add(clubType);</span>
-<span class="fc" id="L145">            }</span>
+<span class="nc" id="L144">                clubTypes.add(clubType);</span>
+<span class="nc" id="L145">            }</span>
 
-<span class="fc" id="L147">            return clubTypes;</span>
+<span class="nc" id="L147">            return clubTypes;</span>
 <span class="nc" id="L148">        } catch (IOException e) {</span>
 <span class="nc" id="L149">            throw new RuntimeException(&quot;fail to parse CSV file: &quot; + e.getMessage());</span>
         }

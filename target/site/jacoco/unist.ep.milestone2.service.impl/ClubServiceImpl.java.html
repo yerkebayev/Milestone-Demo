@@ -64,12 +64,12 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public void importClubCsv(MultipartFile file) {
         try {
-<span class="fc" id="L67">            List&lt;Club&gt; clubs = CSVHelper.csvToClubs(file.getInputStream());</span>
-<span class="fc" id="L68">            clubRepository.saveAll(clubs);</span>
+<span class="nc" id="L67">            List&lt;Club&gt; clubs = CSVHelper.csvToClubs(file.getInputStream());</span>
+<span class="nc" id="L68">            clubRepository.saveAll(clubs);</span>
 <span class="nc" id="L69">        } catch (IOException e) {</span>
 <span class="nc" id="L70">            throw new RuntimeException(e);</span>
-<span class="fc" id="L71">        }</span>
-<span class="fc" id="L72">    }</span>
+<span class="nc" id="L71">        }</span>
+<span class="nc" id="L72">    }</span>
 
 
 }

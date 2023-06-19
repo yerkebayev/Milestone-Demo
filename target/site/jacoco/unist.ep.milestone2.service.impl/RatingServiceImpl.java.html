@@ -60,11 +60,11 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public void importRatingCsv(MultipartFile file) {
         try {
-<span class="fc" id="L63">            List&lt;Rating&gt; ratings = CSVHelper.csvToRatings(file.getInputStream());</span>
-<span class="fc" id="L64">            ratingRepository.saveAll(ratings);</span>
+<span class="nc" id="L63">            List&lt;Rating&gt; ratings = CSVHelper.csvToRatings(file.getInputStream());</span>
+<span class="nc" id="L64">            ratingRepository.saveAll(ratings);</span>
 <span class="nc" id="L65">        } catch (IOException e) {</span>
 <span class="nc" id="L66">            throw new RuntimeException(e);</span>
-<span class="fc" id="L67">        }</span>
-<span class="fc" id="L68">    }</span>
+<span class="nc" id="L67">        }</span>
+<span class="nc" id="L68">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

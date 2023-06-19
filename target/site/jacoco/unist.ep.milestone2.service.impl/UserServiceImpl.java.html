@@ -58,12 +58,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void importUserCsv(MultipartFile file) {
         try {
-<span class="fc" id="L61">            List&lt;User&gt; users = CSVHelper.csvToUsers(file.getInputStream());</span>
-<span class="fc" id="L62">            userRepository.saveAll(users);</span>
+<span class="nc" id="L61">            List&lt;User&gt; users = CSVHelper.csvToUsers(file.getInputStream());</span>
+<span class="nc" id="L62">            userRepository.saveAll(users);</span>
 <span class="nc" id="L63">        } catch (IOException e) {</span>
 <span class="nc" id="L64">            throw new RuntimeException(e);</span>
-<span class="fc" id="L65">        }</span>
-<span class="fc" id="L66">    }</span>
+<span class="nc" id="L65">        }</span>
+<span class="nc" id="L66">    }</span>
 
     @Override
     public User getUserByEmail(String email) {
