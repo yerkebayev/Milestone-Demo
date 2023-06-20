@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-        url: 'http://localhost:8080/admin/clubs',
+        url: '/admin/clubs',
         method: 'GET',
         success: function(clubs) {
             const clubInTable = $("#clubInTable")
@@ -9,7 +9,7 @@ $(document).ready(function() {
                 console.log(clubs[i].head_id);
                 console.log(clubs[i]);
                 $.ajax({
-                    url: 'http://localhost:8080/user/' + clubs[i].head_id,
+                    url: '/user/' + clubs[i].head_id,
                     method: 'GET',
                     success: function(head) {
                         const text = `<tr data-row-id="${clubs[i].id}">
@@ -36,7 +36,7 @@ $(document).ready(function() {
             }
             const selectClubType = $("#select-club-type");
             $.ajax({
-                url: "http://localhost:8080/clubTypesForAdmin",
+                url: "/clubTypesForAdmin",
                 method: "GET",
                 success: function(response) {
                     const clubTypes = response.clubTypes;
@@ -80,7 +80,7 @@ $(document).ready(function() {
                 const rowId = $(this).data("row-id");
                 // Fetch the data for the corresponding row using AJAX
                 $.ajax({
-                    url: 'http://localhost:8080/admin/clubs/' + rowId,
+                    url: '/admin/clubs/' + rowId,
                     method: 'GET',
                     success: function(clubData) {
                         // Populate the modal with the data
@@ -147,7 +147,7 @@ $(document).ready(function() {
                     success: function(club) {
                         console.log(club);
                         $.ajax({
-                            url: 'http://localhost:8080/user/' + club.head_id,
+                            url: '/user/' + club.head_id,
                             method: 'GET',
                             success: function(head) {
                                 if (clubForm.headEmail.includes("@")) {
