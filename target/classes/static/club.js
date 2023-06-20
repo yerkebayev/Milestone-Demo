@@ -55,7 +55,7 @@ $(document).ready(function() {
                 (function (index) {
                     console.log(ratings[index]);
                     $.ajax({
-                        url: '/user/' + ratings[index].user_id,
+                        url: '/cse364-project-17-group/user/' + ratings[index].user_id,
                         method: 'GET',
                         success: function (user) {
                             const commentItem = `<div class="card mb-4">
@@ -83,11 +83,11 @@ $(document).ready(function() {
 
             function fetchCommentAndAppend(ratingId) {
                 $.ajax({
-                    url: '/ratings/' + ratingId,
+                    url: '/cse364-project-17-group/ratings/' + ratingId,
                     method: 'GET',
                     success: function (rating) {
                         $.ajax({
-                            url: '/user/' + rating.user_id,
+                            url: '/cse364-project-17-group/user/' + rating.user_id,
                             method: 'GET',
                             success: function (user) {
                                 const commentItem = `<div class="card mb-4">
@@ -103,7 +103,7 @@ $(document).ready(function() {
             </div>
           </div>`;
                                 $.ajax({
-                                        url: '/clubs/' + id + '/ratings/avg',
+                                        url: '/cse364-project-17-group/clubs/' + id + '/ratings/avg',
                                         method: 'GET',
                                         success: function (avg) {
                                             const clubInfoTextNew = `<div class="card-body">
@@ -152,7 +152,7 @@ $(document).ready(function() {
                         rating: rate,
                     };
                     $.ajax({
-                        url: "/clubs/" + club.id + "/ratings?" + $.param(RatingData),
+                        url: "/cse364-project-17-group/clubs/" + club.id + "/ratings?" + $.param(RatingData),
                         method: "POST",
                         data: { RatingData: RatingData },
                         success: function (response) {

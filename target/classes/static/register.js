@@ -21,6 +21,7 @@ $(document).ready(function() {
                 // }
             },
             error: function(xhr, textStatus, errorThrown) {
+                alert("There is user with this email: " + email)
                 $('.result').text('Error: ' + xhr.responseText);
             },
         });
