@@ -22,12 +22,12 @@ $(document).ready(function() {
                 } else {
                     error = true;
                     console.log("ERROR" + response);
-                    alert("Oi error");
+                    alert("Please enter correct email or password, or you are not admin");
                     // $('.result').text('Invalid email or password');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                alert("Oi error 2");
+                alert("Warning with server side");
             }
         });
     });
