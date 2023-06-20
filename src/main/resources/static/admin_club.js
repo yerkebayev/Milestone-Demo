@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-        url: '/admin/clubs',
+        url: '/cse364-project-17-group/admin/clubs',
         method: 'GET',
         success: function(clubs) {
             const clubInTable = $("#clubInTable")
@@ -9,7 +9,7 @@ $(document).ready(function() {
                 console.log(clubs[i].head_id);
                 console.log(clubs[i]);
                 $.ajax({
-                    url: '/user/' + clubs[i].head_id,
+                    url: '/cse364-project-17-group/user/' + clubs[i].head_id,
                     method: 'GET',
                     success: function(head) {
                         const text = `<tr data-row-id="${clubs[i].id}">
@@ -36,7 +36,7 @@ $(document).ready(function() {
             }
             const selectClubType = $("#select-club-type");
             $.ajax({
-                url: "/clubTypesForAdmin",
+                url: "/cse364-project-17-group/clubTypesForAdmin",
                 method: "GET",
                 success: function(response) {
                     const clubTypes = response.clubTypes;
@@ -62,7 +62,7 @@ $(document).ready(function() {
                 console.log(rowId);
 
                 $.ajax({
-                    url: '/admin/clubs/' + rowId,
+                    url: '/cse364-project-17-group/admin/clubs/' + rowId,
                     method: 'DELETE',
                     success: function(response) {
                         console.log("Deletion successful");
@@ -80,7 +80,7 @@ $(document).ready(function() {
                 const rowId = $(this).data("row-id");
                 // Fetch the data for the corresponding row using AJAX
                 $.ajax({
-                    url: '/admin/clubs/' + rowId,
+                    url: '/cse364-project-17-group/admin/clubs/' + rowId,
                     method: 'GET',
                     success: function(clubData) {
                         // Populate the modal with the data
@@ -142,12 +142,12 @@ $(document).ready(function() {
                 };
                 clearModal();
                 $.ajax({
-                    url: "/admin/clubs?" + $.param(clubForm),
+                    url: "/cse364-project-17-group/admin/clubs?" + $.param(clubForm),
                     method: "POST",
                     success: function(club) {
                         console.log(club);
                         $.ajax({
-                            url: '/user/' + club.head_id,
+                            url: '/cse364-project-17-group/user/' + club.head_id,
                             method: 'GET',
                             success: function(head) {
                                 if (clubForm.headEmail.includes("@")) {

@@ -3,7 +3,7 @@ $(document).ready(function() {
     console.log(urlParams);
     const id = urlParams.get('id');
     console.log(id);
-    const url = "/clubs/" + id;
+    const url = "/cse364-project-17-group/clubs/" + id;
 
     $.ajax({
         url: url,
