@@ -9,7 +9,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/cse364-project-17-group/login',
+            url: '/login',
             data: {
                 email: email,
                 password: password

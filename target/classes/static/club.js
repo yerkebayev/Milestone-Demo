@@ -3,7 +3,7 @@ $(document).ready(function() {
     console.log(urlParams);
     const id = urlParams.get('id');
     console.log(id);
-    const url = "/cse364-project-17-group/clubs/" + id;
+    const url = "/clubs/" + id;
 
     $.ajax({
         url: url,
@@ -55,7 +55,7 @@ $(document).ready(function() {
                 (function (index) {
                     console.log(ratings[index]);
                     $.ajax({
-                        url: '/cse364-project-17-group/user/' + ratings[index].user_id,
+                        url: '/user/' + ratings[index].user_id,
                         method: 'GET',
                         success: function (user) {
                             const commentItem = `<div class="card mb-4">
@@ -83,11 +83,11 @@ $(document).ready(function() {
 
             function fetchCommentAndAppend(ratingId) {
                 $.ajax({
-                    url: '/cse364-project-17-group/ratings/' + ratingId,
+                    url: '/ratings/' + ratingId,
                     method: 'GET',
                     success: function (rating) {
                         $.ajax({
-                            url: '/cse364-project-17-group/user/' + rating.user_id,
+                            url: '/user/' + rating.user_id,
                             method: 'GET',
                             success: function (user) {
                                 const commentItem = `<div class="card mb-4">
@@ -103,7 +103,7 @@ $(document).ready(function() {
             </div>
           </div>`;
                                 $.ajax({
-                                        url: '/cse364-project-17-group/clubs/' + id + '/ratings/avg',
+                                        url: '/clubs/' + id + '/ratings/avg',
                                         method: 'GET',
                                         success: function (avg) {
                                             const clubInfoTextNew = `<div class="card-body">
@@ -152,7 +152,7 @@ $(document).ready(function() {
                         rating: rate,
                     };
                     $.ajax({
-                        url: "/cse364-project-17-group/clubs/" + club.id + "/ratings?" + $.param(RatingData),
+                        url: "/clubs/" + club.id + "/ratings?" + $.param(RatingData),
                         method: "POST",
                         data: { RatingData: RatingData },
                         success: function (response) {
@@ -170,38 +170,33 @@ $(document).ready(function() {
             })
 
             const recommendedClubsList = $("#recommendedClubs2");
-            if(recommendedClubs.length === 0) {
-                const textItem = `<a style="text-align: center; color: red"> Choose Club Types</a>`;
-                recommendedClubsList.append(textItem);
-            } else {
-                for (let index = 0; index < recommendedClubs.length; index++) {
-                    let listItem = "";
-                    if (index === 0) {
-                        listItem += "<div class=\"carousel-item active\">\n";
-                    } else {
-                        listItem += "<div class=\"carousel-item\">\n";
-                    }
-                    listItem += "<div class=\"row card-wrapper container-sm d-flex justify-content-around\">\n";
-
-                    if (index + 2 < recommendedClubs.length) {
-                        for (let i = 0; i < 3; i++) {
-                            listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
-                                "  <img src=\"" + recommendedClubs[index + i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
-                                "  <div class=\"card-body\">\n" +
-                                "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[index + i].id + "\">" + recommendedClubs[index + i].name + "</a>\n" +
-                                "  </div>\n" +
-                                "</div>";
-                        }
-                        index += 2;
-                    }
-                    if (listItem.length === 0) {
-                        continue;
-                    }
-                    listItem += "</div>\n" +
-                        "</div>";
-                    console.log(listItem);
-                    recommendedClubsList.append(listItem);
+            for (let index = 0; index < recommendedClubs.length; index++) {
+                let listItem = "";
+                if (index === 0) {
+                    listItem += "<div class=\"carousel-item active\">\n";
+                } else {
+                    listItem += "<div class=\"carousel-item\">\n";
                 }
+                listItem += "<div class=\"row card-wrapper container-sm d-flex justify-content-around\">\n";
+
+                if (index + 2 < recommendedClubs.length) {
+                    for (let i = 0; i < 3; i++) {
+                        listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
+                            "  <img src=\"" + recommendedClubs[index + i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
+                            "  <div class=\"card-body\">\n" +
+                            "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[index + i].id + "\">" + recommendedClubs[index + i].name + "</a>\n" +
+                            "  </div>\n" +
+                            "</div>";
+                    }
+                    index += 2;
+                }
+                if (listItem.length === 0) {
+                    continue;
+                }
+                listItem += "</div>\n" +
+                    "</div>";
+                console.log(listItem);
+                recommendedClubsList.append(listItem);
             }
 
 
