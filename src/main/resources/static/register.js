@@ -11,7 +11,7 @@ $(document).ready(function() {
         console.log($.param(user))
         $.ajax({
             type: 'POST',
-            url: '/cse364-project-17-group/register?' + $.param(user),
+            url: '/register?' + $.param(user),
             success: function(response) {
                 // if (response >= 0) {
                     // Redirect to another page

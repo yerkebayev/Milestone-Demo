@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-        url: "/cse364-project-17-group/clubs",
+        url: "/clubs",
         method: "GET",
         success: function(data) {
             console.log(data);

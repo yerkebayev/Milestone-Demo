@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    const url = "/cse364-project-17-group/clubTypes";
+    const url = "/clubTypes";
     $.ajax({
         url: url,
         method: "GET",
@@ -41,7 +41,7 @@ $(document).ready(function() {
                 // Use the selectedCheckboxes array as needed
                 $.ajax({
                     type: 'POST',
-                    url: '/cse364-project-17-group/clubTypes/add?clubTypes=' + clubTypesSelected,
+                    url: '/clubTypes/add?clubTypes=' + clubTypesSelected,
                     contentType: 'application/x-www-form-urlencoded',
                     success: function(response) {
                         if (response >= 0) {
