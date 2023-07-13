@@ -179,7 +179,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>unist.ep.milestone2.Milestone2Application</mainClass>
+                            <mainClass>first.ep.project.Milestone2Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -191,7 +191,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>unist.ep.milestone2.Milestone2Application</mainClass>
+                            <mainClass>first.ep.project.Milestone2Application</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
