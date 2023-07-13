@@ -54,19 +54,19 @@ $(document).ready(function() {
                 }
                 listItem += "<div class=\"row card-wrapper container-sm d-flex justify-content-around\">\n";
 
-                if (index + 3 < recommendedClubs.length) {
-                    for (let i = 0; i < 4; i++) {
-                        listItem += "<div class=\"card\" style=\"width: 10rem;\">\n" +
+                if (index + 2 < recommendedClubs.length) {
+                    for (let i = 0; i < 3; i++) {
+                        listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
                             "  <img src=\"" + recommendedClubs[index + i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
                             "  <div class=\"card-body\">\n" +
                             "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[index + i].id + "\">" + recommendedClubs[index + i].name + "</a>\n" +
                             "  </div>\n" +
                             "</div>";
                     }
-                    index += 3;
+                    index += 2;
                 }else {
                     for (let i = index; i < recommendedClubs.length; i++) {
-                        listItem += "<div class=\"card\" style=\"width: 10rem;\">\n" +
+                        listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
                             "  <img src=\"" + recommendedClubs[i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
                             "  <div class=\"card-body\">\n" +
                             "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[i].id + ">" + recommendedClubs[i].name + "</a>\n" +
