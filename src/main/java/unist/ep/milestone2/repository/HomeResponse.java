@@ -1,19 +1,21 @@
 package unist.ep.milestone2.repository;
 
 import unist.ep.milestone2.model.Club;
-
+import unist.ep.milestone2.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeResponse {
     private List<Club> allClubs = new ArrayList<>();
     private List<Club> preferredClubs = new ArrayList<>();
+    private User user;
 
     public HomeResponse() {}
 
-    public HomeResponse(List<Club> allClubs, List<Club> preferredClubs) {
+    public HomeResponse(List<Club> allClubs, List<Club> preferredClubs, User user) {
         this.allClubs = allClubs;
         this.preferredClubs = preferredClubs;
+        this.user = user;
     }
 
     public List<Club> getAllClubs() {
@@ -30,5 +32,12 @@ public class HomeResponse {
 
     public void setPreferredClubs(List<Club> preferredClubs) {
         this.preferredClubs = preferredClubs;
+    }
+
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 }

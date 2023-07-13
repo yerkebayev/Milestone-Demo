@@ -1,6 +1,14 @@
 package unist.ep.milestone2.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import unist.ep.milestone2.job.CSVHelper;
@@ -14,12 +22,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
 
-    UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public List<User> getAllUsers() {
         Sort sortById = Sort.by(Sort.Direction.ASC, "id");
@@ -34,6 +44,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);
+    }
+    public User addUser(User user) {
+        User checkUser = userRepository.getUserByEmail(user.getEmail());
+        if (checkUser == null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return userRepository.save(user);
+        }
+        return null;
     }
 
     @Override
@@ -73,5 +91,38 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByNameAndSurname(String name, String surname) {
         return userRepository.getUserByNameAndSurname(name, surname);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.getUserByEmail(username);
+        if (user != null) {
+            return user;
+        } else {
+            throw new UsernameNotFoundException("User Not found");
+        }
+    }
+    public User updatePassword(String newPassword, String oldPassword) {
+
+        User currentUser = getCurrentSessionUser();
+        if(passwordEncoder.matches(oldPassword, currentUser.getPassword())){
+            currentUser.setPassword(passwordEncoder.encode(newPassword));
+            return userRepository.save(currentUser);
+        }
+        return null;
+    }
+    public User getCurrentSessionUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            User user = (User) authentication.getPrincipal();
+            if (user != null) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public boolean verifyPassword(String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 }

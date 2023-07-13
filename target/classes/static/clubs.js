@@ -6,6 +6,12 @@ $(document).ready(function() {
             console.log(data);
             const allClubs = data.allClubs;
             const recommendedClubs = data.preferredClubs;
+            const user = data.user;
+            if (user.role !== 0) {
+                // Add the "Admin mode" link to the navigation menu
+                const adminLink = $('<li class="nav-item"><a class="nav-link" aria-current="page" href="admin_club.html" style="color:white;">Admin mode</a></li>');
+                $("ul.navbar-nav").prepend(adminLink);
+            }
             console.log(allClubs);
             console.log(recommendedClubs);
 
@@ -39,8 +45,6 @@ $(document).ready(function() {
 
 
             const recommendedClubsList = $("#recommendedClubs");
-            const textItem = `<a style="text-align: center; color: red"> Choose Club Types</a>`;
-            recommendedClubsList.append(textItem);
             for (let index = 0; index < recommendedClubs.length; index++) {
                 let listItem = "";
                 if (index === 0) {
@@ -50,19 +54,19 @@ $(document).ready(function() {
                 }
                 listItem += "<div class=\"row card-wrapper container-sm d-flex justify-content-around\">\n";
 
-                if (index + 2 < recommendedClubs.length) {
-                    for (let i = 0; i < 3; i++) {
-                        listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
+                if (index + 3 < recommendedClubs.length) {
+                    for (let i = 0; i < 4; i++) {
+                        listItem += "<div class=\"card\" style=\"width: 10rem;\">\n" +
                             "  <img src=\"" + recommendedClubs[index + i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
                             "  <div class=\"card-body\">\n" +
                             "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[index + i].id + "\">" + recommendedClubs[index + i].name + "</a>\n" +
                             "  </div>\n" +
                             "</div>";
                     }
-                    index += 2;
+                    index += 3;
                 }else {
                     for (let i = index; i < recommendedClubs.length; i++) {
-                        listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
+                        listItem += "<div class=\"card\" style=\"width: 10rem;\">\n" +
                             "  <img src=\"" + recommendedClubs[i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
                             "  <div class=\"card-body\">\n" +
                             "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[i].id + ">" + recommendedClubs[i].name + "</a>\n" +

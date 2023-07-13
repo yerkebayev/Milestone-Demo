@@ -6,6 +6,12 @@ $(document).ready(function() {
             console.log(data);
             const allClubs = data.allClubs;
             const recommendedClubs = data.preferredClubs;
+            const user = data.user;
+            if (user.role !== 0) {
+                // Add the "Admin mode" link to the navigation menu
+                const adminLink = $('<li class="nav-item"><a class="nav-link" aria-current="page" href="admin_club.html" style="color:white;">Admin mode</a></li>');
+                $("ul.navbar-nav").prepend(adminLink);
+            }
             console.log(allClubs);
             console.log(recommendedClubs);
 
@@ -39,8 +45,6 @@ $(document).ready(function() {
 
 
             const recommendedClubsList = $("#recommendedClubs");
-            const textItem = `<a style="text-align: center; color: red"> Choose Club Types</a>`;
-            recommendedClubsList.append(textItem);
             for (let index = 0; index < recommendedClubs.length; index++) {
                 let listItem = "";
                 if (index === 0) {

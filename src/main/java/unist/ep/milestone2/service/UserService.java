@@ -13,9 +13,12 @@ public interface UserService {
     User getUserByNameAndSurname(String name, String surname);
 
     User saveUser(User user);
+    User addUser(User user);
     Long deleteUserById(Long id);
     List<ClubType> getPreferredClubTypes(User user);
     List<Integer> getPreferredClubTypesInInteger(User user);
     void importUserCsv(MultipartFile file);
+    User updatePassword(String newPassword, String oldPassword);
+    boolean verifyPassword(String rawPassword, String encodedPassword);
 
 }

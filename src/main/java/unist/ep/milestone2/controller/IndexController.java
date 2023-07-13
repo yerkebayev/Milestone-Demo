@@ -40,20 +40,9 @@ public class IndexController {
         if (user == null) {
             return new ResponseEntity<>(-1L, HttpStatus.UNAUTHORIZED);
         }
-        if (user.getPassword().equals(password)) {
-            session.setAttribute("userId", user.getId());
-            return new ResponseEntity<>(user.getId(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(-1L, HttpStatus.BAD_REQUEST);
-        }
-    }
-    @PostMapping("/admin/login")
-    public ResponseEntity<Long> loginAdmin(@RequestParam(value = "email", defaultValue = "") String email, @RequestParam(value = "password", defaultValue = "") String password, HttpSession session) {
-        User user = userService.getUserByEmail(email);
-        if (user == null) {
-            return new ResponseEntity<>(-1L, HttpStatus.UNAUTHORIZED);
-        }
-        if (user.getPassword().equals(password) && user.getRole() == 1) {
+        System.out.println("I AM HERE " + email + " " + password);
+
+        if (userService.verifyPassword(password, user.getPassword())) {
             session.setAttribute("userId", user.getId());
             return new ResponseEntity<>(user.getId(), HttpStatus.OK);
         } else {
@@ -63,18 +52,14 @@ public class IndexController {
     @PostMapping(value = "/register", produces = "application/json")
     public ResponseEntity<?> addUser(@RequestParam(value = "name", defaultValue = "") String name, @RequestParam(value = "surname", defaultValue = "") String surname, @RequestParam(value = "email", defaultValue = "") String email,@RequestParam(value = "password", defaultValue = "") String password, HttpSession session) {
         System.out.println(name + " " + surname + " " + email + " " + password);
-        if (email.endsWith("@unist.ac.kr")){
-            User u = userService.getUserByEmail(email);
-            if (u == null) {
-                User newUser = userService.saveUser(new User(name, surname, email, password, 0));
-                newUser.setRole(0);
-                session.setAttribute("userId", newUser.getId());
-                return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-            } else {
-                return ResponseEntity.badRequest().body("There is already a user with this email");
-            }
-        } else{
-            return ResponseEntity.badRequest().body("You can only register using your Unist account");
+        User u = userService.getUserByEmail(email);
+        if (u == null) {
+            User newUser = userService.addUser(new User(name, surname, email, password, 0));
+            newUser.setRole(0);
+            session.setAttribute("userId", newUser.getId());
+            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+        } else {
+            return ResponseEntity.badRequest().body("There is already a user with this email");
         }
     }
 
@@ -92,7 +77,7 @@ public class IndexController {
         List<Club> clubs = clubService.getAllClubs();
         List<ClubType> clubTypes = userService.getPreferredClubTypes(user);
         List<Club> recommendedClubs = clubService.getClubsByClubTypes(clubTypes);
-        return new HomeResponse(clubs, recommendedClubs);
+        return new HomeResponse(clubs, recommendedClubs, user);
     }
     @GetMapping(value = "/clubs/{id}", produces = "application/json")
     public ResponseEntity<MainResponse> getClubPage(@PathVariable long id, HttpSession session) {
