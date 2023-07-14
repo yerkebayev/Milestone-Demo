@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClubRequest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Milestone2</a> &gt; <a href="index.source.html" class="el_package">unist.ep.milestone2.repository</a> &gt; <span class="el_source">ClubRequest.java</span></div><h1>ClubRequest.java</h1><pre class="source lang-java linenums">package unist.ep.milestone2.repository;
+
+public class ClubRequest {
+    private Long id;
+    private String name;
+    private Long clubType;
+    private String email;
+    private String mission;
+    private String description;
+    private String headEmail;
+    private String contact;
+    private String image;
+
+    public String getImage() {
+<span class="nc" id="L15">        return image;</span>
+    }
+
+    public void setImage(String image) {
+<span class="nc" id="L19">        this.image = image;</span>
+<span class="nc" id="L20">    }</span>
+
+    public Long getId() {
+<span class="nc" id="L23">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L27">        this.id = id;</span>
+<span class="nc" id="L28">    }</span>
+
+    public String getName() {
+<span class="nc" id="L31">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L35">        this.name = name;</span>
+<span class="nc" id="L36">    }</span>
+
+    public Long getClubType() {
+<span class="nc" id="L39">        return clubType;</span>
+    }
+
+    public void setClubType(Long clubType) {
+<span class="nc" id="L43">        this.clubType = clubType;</span>
+<span class="nc" id="L44">    }</span>
+
+    public String getEmail() {
+<span class="nc" id="L47">        return email;</span>
+    }
+
+    public void setEmail(String email) {
+<span class="nc" id="L51">        this.email = email;</span>
+<span class="nc" id="L52">    }</span>
+
+    public String getMission() {
+<span class="nc" id="L55">        return mission;</span>
+    }
+
+    public void setMission(String mission) {
+<span class="nc" id="L59">        this.mission = mission;</span>
+<span class="nc" id="L60">    }</span>
+
+    public String getDescription() {
+<span class="nc" id="L63">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="nc" id="L67">        this.description = description;</span>
+<span class="nc" id="L68">    }</span>
+
+    public String getHeadEmail() {
+<span class="nc" id="L71">        return headEmail;</span>
+    }
+
+    public void setHeadEmail(String headEmail) {
+<span class="nc" id="L75">        this.headEmail = headEmail;</span>
+<span class="nc" id="L76">    }</span>
+
+    public String getContact() {
+<span class="nc" id="L79">        return contact;</span>
+    }
+
+    public void setContact(String contact) {
+<span class="nc" id="L83">        this.contact = contact;</span>
+<span class="nc" id="L84">    }</span>
+
+<span class="nc" id="L86">    public ClubRequest() {</span>
+<span class="nc" id="L87">    }</span>
+
+
+<span class="fc" id="L90">    public ClubRequest(Long id, String name, Long clubType, String email, String mission, String description, String headEmail, String contact, String image) {</span>
+<span class="fc" id="L91">        this.id = id;</span>
+<span class="fc" id="L92">        this.name = name;</span>
+<span class="fc" id="L93">        this.clubType = clubType;</span>
+<span class="fc" id="L94">        this.email = email;</span>
+<span class="fc" id="L95">        this.mission = mission;</span>
+<span class="fc" id="L96">        this.description = description;</span>
+<span class="fc" id="L97">        this.headEmail = headEmail;</span>
+<span class="fc" id="L98">        this.contact = contact;</span>
+<span class="fc" id="L99">        this.image = image;</span>
+<span class="fc" id="L100">    }</span>
+
+<span class="nc" id="L102">    public ClubRequest(String name, Long clubType, String email, String mission, String description, String headEmail, String contact, String image) {</span>
+<span class="nc" id="L103">        this.name = name;</span>
+<span class="nc" id="L104">        this.clubType = clubType;</span>
+<span class="nc" id="L105">        this.email = email;</span>
+<span class="nc" id="L106">        this.mission = mission;</span>
+<span class="nc" id="L107">        this.description = description;</span>
+<span class="nc" id="L108">        this.headEmail = headEmail;</span>
+<span class="nc" id="L109">        this.contact = contact;</span>
+<span class="nc" id="L110">        this.image = image;</span>
+<span class="nc" id="L111">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

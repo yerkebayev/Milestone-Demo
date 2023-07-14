@@ -1,13 +1,17 @@
 $(document).ready(function() {
     $.ajax({
-        // dataType: "JSON",
-        url: "http://localhost:8080/clubs",
-        // contentType: "application/json; charset=utf-8",
+        url: "/clubs",
         method: "GET",
         success: function(data) {
             console.log(data);
             const allClubs = data.allClubs;
             const recommendedClubs = data.preferredClubs;
+            const user = data.user;
+            if (user.role !== 0) {
+                // Add the "Admin mode" link to the navigation menu
+                const adminLink = $('<li class="nav-item"><a class="nav-link" aria-current="page" href="admin_club.html" style="color:white;">Admin mode</a></li>');
+                $("ul.navbar-nav").prepend(adminLink);
+            }
             console.log(allClubs);
             console.log(recommendedClubs);
 
@@ -60,10 +64,10 @@ $(document).ready(function() {
                             "</div>";
                     }
                     index += 2;
-                } else {
+                }else {
                     for (let i = index; i < recommendedClubs.length; i++) {
                         listItem += "<div class=\"card\" style=\"width: 18rem;\">\n" +
-                            "  <img src=\"" + recommendedClubs[index + i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
+                            "  <img src=\"" + recommendedClubs[i].image + "\"  class=\"card-img-top\" alt=\"...\">\n" +
                             "  <div class=\"card-body\">\n" +
                             "    <a class=\"card-title\" href=\"club.html?id=" + recommendedClubs[i].id + ">" + recommendedClubs[i].name + "</a>\n" +
                             "  </div>\n" +
@@ -71,11 +75,15 @@ $(document).ready(function() {
                     }
                     index = recommendedClubs.length;
                 }
+                if (listItem.length === 0) {
+                    continue;
+                }
                 listItem += "</div>\n" +
                     "</div>";
                 console.log(listItem);
                 recommendedClubsList.append(listItem);
             }
+
 
 
         },

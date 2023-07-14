@@ -9,7 +9,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:8080/login',
+            url: '/login',
             data: {
                 email: email,
                 password: password
@@ -22,12 +22,12 @@ $(document).ready(function() {
                 } else {
                     error = true;
                     console.log("ERROR" + response);
-                    alert("Oi error");
+                    alert("Please enter correct email or password");
                     // $('.result').text('Invalid email or password');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                alert("Oi error 2");
+                alert("Warning with server side");
             }
         });
     });

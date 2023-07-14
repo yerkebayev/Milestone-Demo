@@ -2,39 +2,33 @@
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = &quot;types&quot;)
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class ClubType {
-<span class="fc" id="L15">    public ClubType(Long id, String name) {</span>
-<span class="fc" id="L16">        this.id = id;</span>
-<span class="fc" id="L17">        this.name = name;</span>
-<span class="fc" id="L18">    }</span>
+<span class="fc" id="L9">    public ClubType(Long id, String name) {</span>
+<span class="fc" id="L10">        this.id = id;</span>
+<span class="fc" id="L11">        this.name = name;</span>
+<span class="fc" id="L12">    }</span>
 
     public Long getId() {
-<span class="fc" id="L21">        return id;</span>
+<span class="fc" id="L15">        return id;</span>
     }
 
     public void setId(Long id) {
-<span class="fc" id="L25">        this.id = id;</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L19">        this.id = id;</span>
+<span class="fc" id="L20">    }</span>
 
     public String getName() {
-<span class="fc" id="L29">        return name;</span>
+<span class="fc" id="L23">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="fc" id="L33">        this.name = name;</span>
-<span class="fc" id="L34">    }</span>
+<span class="fc" id="L27">        this.name = name;</span>
+<span class="fc" id="L28">    }</span>
 
-<span class="fc" id="L36">    public ClubType() {</span>
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L30">    public ClubType() {</span>
+<span class="fc" id="L31">    }</span>
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

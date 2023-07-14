@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#register-form').submit(function(event) {
+    $('#registerButton').click(function(event) {
         event.preventDefault();
 
         const user = {
@@ -8,12 +8,10 @@ $(document).ready(function() {
             email: $('#email').val(),
             password: $('#password').val()
         };
-
+        console.log($.param(user))
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:8080/register',
-            data: JSON.stringify(user),
-            contentType: 'application/json',
+            url: '/register?' + $.param(user),
             success: function(response) {
                 // if (response >= 0) {
                     // Redirect to another page
@@ -23,6 +21,7 @@ $(document).ready(function() {
                 // }
             },
             error: function(xhr, textStatus, errorThrown) {
+                alert("There is user with this email: " + email)
                 $('.result').text('Error: ' + xhr.responseText);
             },
         });

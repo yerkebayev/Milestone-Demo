@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-        url: 'http://localhost:8080/admin/clubs',
+        url: '/admin/clubs',
         method: 'GET',
         success: function(clubs) {
             const clubInTable = $("#clubInTable")
@@ -9,7 +9,7 @@ $(document).ready(function() {
                 console.log(clubs[i].head_id);
                 console.log(clubs[i]);
                 $.ajax({
-                    url: 'http://localhost:8080/user/' + clubs[i].head_id,
+                    url: '/user/' + clubs[i].head_id,
                     method: 'GET',
                     success: function(head) {
                         const text = `<tr data-row-id="${clubs[i].id}">
@@ -36,9 +36,8 @@ $(document).ready(function() {
             }
             const selectClubType = $("#select-club-type");
             $.ajax({
-                url: "http://localhost:8080/clubTypesForAdmin",
+                url: "/clubTypesForAdmin",
                 method: "GET",
-                dataType: "json",
                 success: function(response) {
                     const clubTypes = response.clubTypes;
                     for (let i = 0; i < clubTypes.length; i++) {
@@ -81,7 +80,7 @@ $(document).ready(function() {
                 const rowId = $(this).data("row-id");
                 // Fetch the data for the corresponding row using AJAX
                 $.ajax({
-                    url: 'http://localhost:8080/admin/clubs/' + rowId,
+                    url: '/admin/clubs/' + rowId,
                     method: 'GET',
                     success: function(clubData) {
                         // Populate the modal with the data
@@ -131,26 +130,24 @@ $(document).ready(function() {
             $("#saveButton").click(function(event) {
                 event.preventDefault();
 
-                var clubForm = {
+                const clubForm = {
                     name: $('input[name="name"]').val(),
                     email: $('input[name="email"]').val(),
                     mission: $('textarea[name="mission"]').val(),
                     description: $('textarea[name="description"]').val(),
                     headEmail: $('input[name="head"]').val(),
                     contact: $('input[name="contact"]').val(),
-                    clubType: $('#select-club-type').val()
+                    clubType: $('#select-club-type').val(),
+                    image: $('input[name="image"]').val(),
                 };
-                console.log(clubForm);
-
+                clearModal();
                 $.ajax({
-                    contentType: 'application/json;charset=UTF-8',
-                    url: "/admin/clubs",
+                    url: "/admin/clubs?" + $.param(clubForm),
                     method: "POST",
-                    data: JSON.stringify(clubForm),
                     success: function(club) {
                         console.log(club);
                         $.ajax({
-                            url: 'http://localhost:8080/user/' + club.head_id,
+                            url: '/user/' + club.head_id,
                             method: 'GET',
                             success: function(head) {
                                 if (clubForm.headEmail.includes("@")) {

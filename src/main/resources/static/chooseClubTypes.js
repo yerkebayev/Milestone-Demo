@@ -1,9 +1,8 @@
 $(document).ready(function() {
-    const url = "http://localhost:8080/clubTypes";
+    const url = "/clubTypes";
     $.ajax({
         url: url,
         method: "GET",
-        dataType: "json",
         success: function(response) {
             const clubTypes = response.clubTypes;
             const preferredClubTypes = response.preferredClubTypes;
@@ -31,18 +30,19 @@ $(document).ready(function() {
 
             $("#chooseButton").click(function () {
                 console.log("BUTTONED")
-                const selectedCheckboxes = [];
+                let clubTypesSelected = "";
                 $("input[type='checkbox']:checked").each(function () {
                     const checkboxId = $(this).attr("id");
-                    selectedCheckboxes.push(checkboxId);
+                    clubTypesSelected += (checkboxId) + "_";
                 });
+                console.log(clubTypesSelected)
+
 
                 // Use the selectedCheckboxes array as needed
                 $.ajax({
-                    contentType: 'application/json;charset=UTF-8',
                     type: 'POST',
-                    url: 'http://localhost:8080/clubTypes/add',
-                    data: JSON.stringify(selectedCheckboxes),
+                    url: '/clubTypes/add?clubTypes=' + clubTypesSelected,
+                    contentType: 'application/x-www-form-urlencoded',
                     success: function(response) {
                         if (response >= 0) {
                             window.location.reload();
@@ -55,7 +55,6 @@ $(document).ready(function() {
                         console.log("ERROR" + errorThrown);
                     }
                 });
-                console.log(selectedCheckboxes);
             });
 
             console.log(selectClubTypes);

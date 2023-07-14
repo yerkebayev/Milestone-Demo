@@ -1,0 +1,458 @@
+RatingId,UserId,ClubId,Value,Comment
+1,3,2,2,Meadow Ridge
+2,4,3,3,Vidon
+3,5,4,4,Merrick
+4,6,5,5,Meadow Ridge
+5,7,6,1,Brentwood
+6,8,7,2,Northland
+7,9,8,3,Bayside
+8,10,9,4,Division
+9,11,10,5,Anderson
+10,12,11,1,Vahlen
+11,13,12,2,Oak
+12,14,13,3,Manufacturers
+13,15,14,4,Di Loreto
+14,16,15,5,Spohn
+15,17,16,1,Mcbride
+16,18,17,2,Glacier Hill
+17,19,18,3,Moland
+18,20,19,4,Ilene
+19,21,20,5,Anthes
+20,22,21,1,Badeau
+21,23,22,2,Comanche
+22,24,23,3,Maple Wood
+23,25,24,4,8th
+24,26,25,5,Myrtle
+25,27,26,1,Gerald
+26,28,27,2,Stuart
+27,29,28,3,Mosinee
+28,30,29,4,Carey
+29,31,30,5,Leroy
+30,32,31,1,Springview
+31,33,32,2,Butterfield
+32,34,33,3,Burning Wood
+33,35,1,4,Atwood
+34,36,2,5,Huxley
+35,37,3,1,Ohio
+36,38,4,2,Talmadge
+37,39,5,3,Eastwood
+38,40,6,4,Old Shore
+39,41,7,5,Truax
+40,42,8,1,Del Sol
+41,43,9,2,Reindahl
+42,44,10,3,Crest Line
+43,45,11,4,Banding
+44,46,12,5,Weeping Birch
+45,47,13,1,Northland
+46,48,14,2,Lerdahl
+47,49,15,3,Utah
+48,50,16,4,Sage
+49,51,17,5,Calypso
+50,52,18,1,Green
+51,53,19,2,Del Mar
+52,54,20,3,Redwing
+53,55,21,4,Acker
+54,56,22,5,Bonner
+55,57,23,1,Atwood
+56,58,24,2,Blackbird
+57,59,25,3,High Crossing
+58,60,26,4,Pawling
+59,61,27,5,Nevada
+60,62,28,1,Morning
+61,63,29,2,Heath
+62,64,30,3,Golf View
+63,65,31,4,Montana
+64,66,32,5,Bowman
+65,67,33,1,Spenser
+66,68,1,2,Tony
+67,69,2,3,Jenna
+68,70,3,4,Sachtjen
+69,71,4,5,Canary
+70,72,5,1,Graceland
+71,73,6,2,Mallory
+72,74,7,3,Algoma
+73,75,8,4,Blaine
+74,76,9,5,Commercial
+75,77,10,1,Pepper Wood
+76,78,11,2,Oxford
+77,79,12,3,Melrose
+78,80,13,4,Superior
+79,81,14,5,Westend
+80,82,15,1,Erie
+81,83,16,2,Nancy
+82,84,17,3,Hansons
+83,85,18,4,Thompson
+84,86,19,5,Kingsford
+85,87,20,1,Lunder
+86,88,21,2,Dryden
+87,89,22,3,Miller
+88,90,23,4,Hallows
+89,91,24,5,Morrow
+90,92,25,1,Artisan
+91,93,26,2,8th
+92,94,27,3,Fairview
+93,95,28,4,Bay
+94,96,29,5,Northport
+95,97,30,1,Talmadge
+96,98,31,2,Anderson
+97,99,32,3,Spaight
+98,100,33,4,Kensington
+99,101,1,5,Mesta
+100,102,2,1,Saint Paul
+101,2,3,2,Monterey
+102,3,4,3,La Follette
+103,4,5,4,Valley Edge
+104,5,6,5,Eliot
+105,6,7,1,Buena Vista
+106,7,8,2,Derek
+107,8,9,3,Kedzie
+108,9,10,4,Ridge Oak
+109,10,11,5,Vera
+110,11,12,1,Valley Edge
+111,12,13,2,Thierer
+112,13,14,3,Merry
+113,14,15,4,Barnett
+114,15,16,5,Schiller
+115,16,17,1,Pawling
+116,17,18,2,Amoth
+117,18,19,3,Kim
+118,19,20,4,Valley Edge
+119,20,21,5,Knutson
+120,21,22,1,Karstens
+121,22,23,2,Cordelia
+122,23,24,3,Ryan
+123,24,25,4,Sunbrook
+124,25,26,5,Porter
+125,26,27,1,Mitchell
+126,27,28,2,Kenwood
+127,28,29,3,Talmadge
+128,29,30,4,Burrows
+129,30,31,5,Cascade
+130,31,32,1,Thierer
+131,32,33,2,Blackbird
+132,33,1,3,Merrick
+133,34,2,4,Lyons
+134,35,3,5,Roxbury
+135,36,4,1,Mariners Cove
+136,37,5,2,Everett
+137,38,6,3,Graedel
+138,39,7,4,Pleasure
+139,40,8,5,Stang
+140,41,9,1,Anderson
+141,42,10,2,Glacier Hill
+142,43,11,3,Waxwing
+143,44,12,4,Saint Paul
+144,45,13,5,Brown
+145,46,14,1,Holmberg
+146,47,15,2,Mallory
+147,48,16,3,Fuller
+148,49,17,4,Sauthoff
+149,50,18,5,3rd
+150,51,19,1,Holmberg
+151,52,20,2,Hovde
+152,53,21,3,Toban
+153,54,22,4,Commercial
+154,55,23,5,Knutson
+155,56,24,1,Lake View
+156,57,25,2,Artisan
+157,58,26,3,Jenifer
+158,59,27,4,Tennessee
+159,60,28,5,Sutteridge
+160,61,29,1,Green
+161,62,30,2,Pennsylvania
+162,63,31,3,Pennsylvania
+163,64,32,4,Corscot
+164,65,33,5,Fallview
+165,66,1,1,Merrick
+166,67,2,2,Little Fleur
+167,68,3,3,David
+168,69,4,4,Roxbury
+169,70,5,5,Lakeland
+170,71,6,1,Tennyson
+171,72,7,2,Thompson
+172,73,8,3,Sauthoff
+173,74,9,4,Sunbrook
+174,75,10,5,Mitchell
+175,76,11,1,Dixon
+176,77,12,2,Debra
+177,78,13,3,Grayhawk
+178,79,14,4,Claremont
+179,80,15,5,Hallows
+180,81,16,1,Melody
+181,82,17,2,Haas
+182,83,18,3,Milwaukee
+183,84,19,4,Delladonna
+184,85,20,5,Lighthouse Bay
+185,86,21,1,Columbus
+186,87,22,2,Elgar
+187,88,23,3,Boyd
+188,89,24,4,Tomscot
+189,90,25,5,Brickson Park
+190,91,26,1,Merchant
+191,92,27,2,Talisman
+192,93,28,3,Farragut
+193,94,29,4,Claremont
+194,95,30,5,Packers
+195,96,31,1,Jay
+196,97,32,2,Fisk
+197,98,33,3,Erie
+198,99,1,4,Browning
+199,100,2,5,Old Shore
+200,101,3,1,Coleman
+201,102,4,2,Old Gate
+202,2,5,3,Toban
+203,3,6,4,3rd
+204,4,7,5,Northwestern
+205,5,8,1,Burning Wood
+206,6,9,2,Forest
+207,7,10,3,Acker
+208,8,11,4,Memorial
+209,9,12,5,Forest
+210,10,13,1,Fulton
+211,11,14,2,Lindbergh
+212,12,15,3,Fieldstone
+213,13,16,4,Summerview
+214,14,17,5,4th
+215,15,18,1,Longview
+216,16,19,2,Claremont
+217,17,20,3,Steensland
+218,18,21,4,Porter
+219,19,22,5,Alpine
+220,20,23,1,Sullivan
+221,21,24,2,Kim
+222,22,25,3,Norway Maple
+223,23,26,4,Knutson
+224,24,27,5,Carey
+225,25,28,1,Gateway
+226,26,29,2,Walton
+227,27,30,3,Dryden
+228,28,31,4,Forster
+229,29,32,5,Magdeline
+230,30,33,1,Knutson
+231,31,1,2,Lakewood Gardens
+232,32,2,3,Northview
+233,33,3,4,Ronald Regan
+234,34,4,5,Oriole
+235,35,5,1,Sloan
+236,36,6,2,South
+237,37,7,3,Calypso
+238,38,8,4,Golden Leaf
+239,39,9,5,Mayfield
+240,40,10,1,Monument
+241,41,11,2,Warrior
+242,42,12,3,Susan
+243,43,13,4,Algoma
+244,44,14,5,Toban
+245,45,15,1,Hauk
+246,46,16,2,Annamark
+247,47,17,3,Merry
+248,48,18,4,Portage
+249,49,19,5,Del Sol
+250,50,20,1,Raven
+251,51,21,2,Claremont
+252,52,22,3,Tennyson
+253,53,23,4,6th
+254,54,24,5,Judy
+255,55,25,1,Reinke
+256,56,26,2,Corscot
+257,57,27,3,Meadow Valley
+258,58,28,4,Russell
+259,59,29,5,Burning Wood
+260,60,30,1,Independence
+261,61,31,2,Dottie
+262,62,32,3,Schurz
+263,63,33,4,Fair Oaks
+264,64,1,5,Summit
+265,65,2,1,Sugar
+266,66,3,2,Mccormick
+267,67,4,3,Arapahoe
+268,68,5,4,Menomonie
+269,69,6,5,Ohio
+270,70,7,1,Spenser
+271,71,8,2,Mifflin
+272,72,9,3,Prairie Rose
+273,73,10,4,Vidon
+274,74,11,5,Ridge Oak
+275,75,12,1,Lawn
+276,76,13,2,Montana
+277,77,14,3,Jenna
+278,78,15,4,Westport
+279,79,16,5,Southridge
+280,80,17,1,Longview
+281,81,18,2,Jay
+282,82,19,3,Park Meadow
+283,83,20,4,Thompson
+284,84,21,5,Macpherson
+285,85,22,1,Brown
+286,86,23,2,Pennsylvania
+287,87,24,3,Grayhawk
+288,88,25,4,Grim
+289,89,26,5,Goodland
+290,90,27,1,Fair Oaks
+291,91,28,2,Heath
+292,92,29,3,7th
+293,93,30,4,Moose
+294,94,31,5,Village Green
+295,95,32,1,Mariners Cove
+296,96,33,2,Hintze
+297,97,1,3,Tennyson
+298,98,2,4,Ilene
+299,99,3,5,Ohio
+300,100,4,1,Prairie Rose
+301,101,5,2,Mcguire
+302,102,6,3,Columbus
+303,2,7,4,Moose
+304,3,8,5,Buhler
+305,4,9,1,Burning Wood
+306,5,10,2,Gale
+307,6,11,3,Anderson
+308,7,12,4,Banding
+309,8,13,5,Surrey
+310,9,14,1,School
+311,10,15,2,Lakewood Gardens
+312,11,16,3,Ryan
+313,12,17,4,Goodland
+314,13,18,5,Brentwood
+315,14,19,1,Pearson
+316,15,20,2,Colorado
+317,16,21,3,Bay
+318,17,22,4,Kropf
+319,18,23,5,Gale
+320,19,24,1,Washington
+321,20,25,2,Esch
+322,21,26,3,Del Mar
+323,22,27,4,Spaight
+324,23,28,5,Victoria
+325,24,29,1,Lerdahl
+326,25,30,2,Warner
+327,26,31,3,Becker
+328,27,32,4,Erie
+329,28,33,5,Chinook
+330,29,1,1,Judy
+331,30,2,2,Washington
+332,31,3,3,Laurel
+333,32,4,4,Dahle
+334,33,5,5,6th
+335,34,6,1,Lunder
+336,35,7,2,Hovde
+337,36,8,3,Del Sol
+338,37,9,4,Linden
+339,38,10,5,Westend
+340,39,11,1,Lyons
+341,40,12,2,Aberg
+342,41,13,3,Corben
+343,42,14,4,Bartelt
+344,43,15,5,Morningstar
+345,44,16,1,Division
+346,45,17,2,Victoria
+347,46,18,3,Lotheville
+348,47,19,4,Goodland
+349,48,20,5,Bultman
+350,49,21,1,Aberg
+351,50,22,2,Holmberg
+352,51,23,3,Brentwood
+353,52,24,4,Kenwood
+354,53,25,5,North
+355,54,26,1,Talisman
+356,55,27,2,Shasta
+357,56,28,3,Truax
+358,57,29,4,Luster
+359,58,30,5,Fordem
+360,59,31,1,Northport
+361,60,32,2,Kingsford
+362,61,33,3,Westend
+363,62,1,4,Shopko
+364,63,2,5,Eastlawn
+365,64,3,1,Crest Line
+366,65,4,2,Prairie Rose
+367,66,5,3,Clemons
+368,67,6,4,Gale
+369,68,7,5,Schiller
+370,69,8,1,Artisan
+371,70,9,2,Myrtle
+372,71,10,3,Karstens
+373,72,11,4,Oakridge
+374,73,12,5,Springs
+375,74,13,1,Milwaukee
+376,75,14,2,Sunbrook
+377,76,15,3,Anthes
+378,77,16,4,New Castle
+379,78,17,5,Manitowish
+380,79,18,1,Kenwood
+381,80,19,2,Badeau
+382,81,20,3,Dryden
+383,82,21,4,Petterle
+384,83,22,5,Glendale
+385,84,23,1,Michigan
+386,85,24,2,Katie
+387,86,25,3,Redwing
+388,87,26,4,Redwing
+389,88,27,5,Monterey
+390,89,28,1,Dawn
+391,90,29,2,Victoria
+392,91,30,3,Erie
+393,92,31,4,Pearson
+394,93,32,5,Burning Wood
+395,94,33,1,Corry
+396,95,1,2,Mallory
+397,96,2,3,Esker
+398,97,3,4,Katie
+399,98,4,5,Troy
+400,99,5,1,5th
+401,100,6,2,Muir
+402,101,7,3,Buena Vista
+403,102,8,4,Sutherland
+404,2,9,5,Pearson
+405,3,10,1,Burrows
+406,4,11,2,New Castle
+407,5,12,3,Warbler
+408,6,13,4,Troy
+409,7,14,5,Larry
+410,8,15,1,Colorado
+411,9,16,2,Dryden
+412,10,17,3,Hermina
+413,11,18,4,Thackeray
+414,12,19,5,Mayfield
+415,13,20,1,Transport
+416,14,21,2,Texas
+417,15,22,3,Northwestern
+418,16,23,4,Moulton
+419,17,24,5,Delaware
+420,18,25,1,Lake View
+421,19,26,2,Moland
+422,20,27,3,Bayside
+423,21,28,4,Victoria
+424,22,29,5,Northfield
+425,23,30,1,Hoffman
+426,24,31,2,Wayridge
+427,25,32,3,Dakota
+428,26,33,4,Haas
+429,27,1,5,Nevada
+430,28,2,1,Cherokee
+431,29,3,2,Independence
+432,30,4,3,Drewry
+433,31,5,4,Elka
+434,32,6,5,Truax
+435,33,7,1,Forest
+436,34,8,2,Del Sol
+437,35,9,3,Colorado
+438,36,10,4,Iowa
+439,37,11,5,Sutherland
+440,38,12,1,Meadow Vale
+441,39,13,2,Shelley
+442,40,14,3,Melody
+443,41,15,4,Pine View
+444,42,16,5,Redwing
+445,43,17,1,Oneill
+446,44,18,2,High Crossing
+447,45,19,3,Chinook
+448,46,20,4,Colorado
+449,47,21,5,8th
+450,48,22,1,Sauthoff
+451,49,23,2,Hallows
+452,50,24,3,Barby
+453,51,25,4,Chinook
+454,52,26,5,Crowley
+455,53,27,1,Helena
+456,54,28,2,Memorial
+457,55,29,3,Derek

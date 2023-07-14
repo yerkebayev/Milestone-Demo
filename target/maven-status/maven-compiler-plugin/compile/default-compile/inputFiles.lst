@@ -4,7 +4,6 @@
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/service/TypeService.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/service/RatingService.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/service/impl/UserServiceImpl.java
-/home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/controller/AdminController.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/service/impl/ClubServiceImpl.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/model/Club.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/Milestone2Application.java
@@ -16,7 +15,7 @@
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/repository/UserClubTypeRepository.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/job/CSVHelper.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/repository/UserRepository.java
-/home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/controller/MainController.java
+/home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/repository/ClubRequest.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/model/User.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/model/ClubType.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/service/UserService.java
@@ -25,4 +24,5 @@
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/repository/TypeRepository.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/model/UserClubType.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/MyStartupRunner.java
+/home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/repository/ClubTypeResponse.java
 /home/marat9/IdeaProjects/TheNext/src/main/java/unist/ep/milestone2/service/impl/TypeServiceImpl.java
