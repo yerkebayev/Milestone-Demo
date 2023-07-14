@@ -5,14 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import first.ep.project.model.*;
-import first.ep.project.repository.ClubRequest;
-import first.ep.project.repository.ClubTypeResponse;
-import first.ep.project.repository.HomeResponse;
-import first.ep.project.repository.MainResponse;
 import first.ep.project.service.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
