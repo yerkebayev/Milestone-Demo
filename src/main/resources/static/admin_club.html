@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Clubs</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,900;1,900&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="admin_club.js"></script>
+  <style>
+    body {
+      min-height: 100vh;
+      color: darkblue;
+      min-width: 1000px;
+    }
+    img {
+      height: 150px; /*170 140*/
+      width: 120px;
+    }
+
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" style="background-color: darkblue">
+  <div class="container-fluid logo-text">
+    <a class="navbar-brand h1" href="clubs.html" style="color:white;">STEP</a>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="admin_club.html" style="color:white;">Admin mode</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="index.html" style="color:white;">Log out</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="clubs.html" style="color:white;">Clubs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="chooseClubTypes.html" style="color:white;">Choose club types</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-lg mt-5">
+  <div class="flex-lg-nowrap">
+    <div class="col">
+      <div class="text-center px-xl-3">
+        <button class="btn btn-success btn-block mb-3 ml-2" type="button" data-toggle="modal" data-target="#club-form-modal" style="width: 100px;">New Club</button>
+      </div>
+      <div class="col mb-3">
+        <div class="e-panel card">
+          <div class="card-body">
+            <div class="card-title">
+              <h6 class="mr-2">Clubs</h6>
+            </div>
+            <div class="e-table">
+              <div class="table-responsive table-lg mt-3">
+                <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mission</th>
+                    <th>Description</th>
+                    <th>Head</th>
+                    <th>Contact</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody id="clubInTable">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" role="dialog" tabindex="-1" id="club-form-modal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Club</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">-</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="py-1">
+          <form class="form" novalidate>
+            <div class="row">
+              <div class="col">
+                <div class="col">
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" type="text" name="name" placeholder="Club name" required>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input class="form-control" type="email" name="email" placeholder="club@example.com" required>
+                  </div>
+                </div>
+                <div class="col mb-3">
+                  <div class="form-group">
+                    <label>Select type of club</label>
+                    <select class="form-select" id="select-club-type">
+                    </select>
+                  </div>
+                </div>
+                <div class="col mb-3">
+                  <div class="form-group">
+                    <label>Mission</label>
+                    <textarea class="form-control" rows="2" name="mission" placeholder="Mission" required></textarea>
+                  </div>
+                </div>
+                <div class="col mb-3">
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="4" name="description" placeholder="Description" required></textarea>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label>Head of club</label>
+                    <input class="form-control" type="text" name="head" placeholder="User's email" required>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label>Contact</label>
+                    <input class="form-control" type="text" name="contact" placeholder="Contact" required>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label>Image</label>
+                    <input class="form-control" type="text" name="image" placeholder="Image link" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col mt-2">
+              <button class="btn btn-primary" id = "saveButton" data-dismiss="modal" type="submit" style="color: white; background-color: green; font-family: Arial, sans-serif; border-radius: 5px; padding: 10px 20px; font-size: 16px;">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

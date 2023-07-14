@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Rating.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Milestone2</a> &gt; <a href="index.source.html" class="el_package">unist.ep.milestone2.model</a> &gt; <span class="el_source">Rating.java</span></div><h1>Rating.java</h1><pre class="source lang-java linenums">package unist.ep.milestone2.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = &quot;ratings&quot;)
+public class Rating {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private Long user_id;
+
+    @Column
+    private Long club_id;
+
+    @Column
+    private Integer value;
+
+    @Column
+    private String comment;
+
+<span class="fc" id="L24">    public Rating(Long user_id, Long club_id, Integer value, String comment) {</span>
+<span class="fc" id="L25">        this.user_id = user_id;</span>
+<span class="fc" id="L26">        this.club_id = club_id;</span>
+<span class="fc" id="L27">        this.value = value;</span>
+<span class="fc" id="L28">        this.comment = comment;</span>
+<span class="fc" id="L29">    }</span>
+
+<span class="nc" id="L31">    public Rating(Long id, Long user_id, Long club_id, Integer value, String comment) {</span>
+<span class="nc" id="L32">        this.id = id;</span>
+<span class="nc" id="L33">        this.user_id = user_id;</span>
+<span class="nc" id="L34">        this.club_id = club_id;</span>
+<span class="nc" id="L35">        this.value = value;</span>
+<span class="nc" id="L36">        this.comment = comment;</span>
+<span class="nc" id="L37">    }</span>
+
+<span class="fc" id="L39">    public Rating() {</span>
+<span class="fc" id="L40">    }</span>
+
+    public Long getId() {
+<span class="fc" id="L43">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="fc" id="L47">        this.id = id;</span>
+<span class="fc" id="L48">    }</span>
+
+    public Long getUser_id() {
+<span class="fc" id="L51">        return user_id;</span>
+    }
+
+    public void setUser_id(Long user_id) {
+<span class="fc" id="L55">        this.user_id = user_id;</span>
+<span class="fc" id="L56">    }</span>
+
+    public Long getClub_id() {
+<span class="fc" id="L59">        return club_id;</span>
+    }
+
+    public void setClub_id(Long club_id) {
+<span class="fc" id="L63">        this.club_id = club_id;</span>
+<span class="fc" id="L64">    }</span>
+
+    public Integer getValue() {
+<span class="fc" id="L67">        return value;</span>
+    }
+
+    public void setValue(Integer value) {
+<span class="fc" id="L71">        this.value = value;</span>
+<span class="fc" id="L72">    }</span>
+
+    public String getComment() {
+<span class="fc" id="L75">        return comment;</span>
+    }
+
+    public void setComment(String comment) {
+<span class="fc" id="L79">        this.comment = comment;</span>
+<span class="fc" id="L80">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
